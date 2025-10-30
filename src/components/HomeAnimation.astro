@@ -1,0 +1,305 @@
+---
+
+---
+
+<script type="module">
+    import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
+    import { EffectComposer } from "https://cdn.skypack.dev/three@0.136.0/examples/jsm/postprocessing/EffectComposer.js";
+    import { RenderPass } from "https://cdn.skypack.dev/three@0.136.0/examples/jsm/postprocessing/RenderPass.js";
+    import { UnrealBloomPass } from "https://cdn.skypack.dev/three@0.136.0/examples/jsm/postprocessing/UnrealBloomPass.js";
+    import { ShaderPass } from "https://cdn.skypack.dev/three@0.136.0/examples/jsm/postprocessing/ShaderPass.js";
+    import { OrbitControls } from "https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js";
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+        60,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        100,
+    );
+    camera.position.z = 6;
+    const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    document.body.appendChild(renderer.domElement);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.dispose();
+    const geometry = new THREE.IcosahedronGeometry(1, 30);
+    // ShaderMaterial for the icosahedron
+    const material = new THREE.ShaderMaterial({
+        uniforms: {
+            uTime: { value: 0 },
+            uScale: { value: 6.0 },
+            uDepth: { value: 1 },
+            uSharpness: { value: 3.0 },
+            uSpeed: { value: 0 },
+            uColor: { value: new THREE.Color("#ff00f1") },
+            uNoiseScale: { value: 1.5 },
+            uNoiseStrength: { value: 0.5 },
+            uOutlineWidth: { value: 0.5 },
+            uOutlineColor: { value: new THREE.Color("#0a0060") },
+            uSecondaryColor: { value: new THREE.Color("#ff005f") },
+            uDisplacementStrength: { value: 1 },
+        },
+        vertexShader: `
+uniform float uTime;
+uniform float uScale;
+uniform float uSharpness;
+uniform float uSpeed;
+uniform float uNoiseScale;
+uniform float uNoiseStrength;
+uniform float uDisplacementStrength;
+varying vec3 vNormal;
+varying vec3 v3Position;
+varying float vShellPattern;
+float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+float noise(vec2 uv, float timeOffset) {
+    vec2 i = floor(uv);
+    vec2 f = fract(uv);
+    float a = hash(i + vec2(timeOffset));
+    float b = hash(i + vec2(1.0, 0.0) + vec2(timeOffset));
+    float c = hash(i + vec2(0.0, 1.0) + vec2(timeOffset));
+    float d = hash(i + vec2(1.0, 1.0) + vec2(timeOffset));
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+}
+float voronoi(vec2 uv, float t) {
+    vec2 g = floor(uv);
+    vec2 f = fract(uv);
+    float minDist1 = 1.0;
+    float secondMinDist1 = 1.0;
+    float minDist2 = 1.0;
+    float secondMinDist2 = 1.0;
+    float t0 = t;
+    float t1 = t + 1.0;
+    float a = smoothstep(0.0, 1.0, fract(t));
+    for (int y = -1; y <= 1; y++) {
+        for (int x = -1; x <= 1; x++) {
+            vec2 lattice = vec2(x, y);
+            vec2 perturbed_lattice = lattice + uNoiseStrength * (noise((g + lattice) * uNoiseScale, t0) * 2.0 - 1.0);
+            vec2 point = hash(g + perturbed_lattice) + perturbed_lattice - f;
+            float dist = length(point);
+            if (dist < minDist1) {
+                secondMinDist1 = minDist1;
+                minDist1 = dist;
+            } else if (dist < secondMinDist1) {
+                secondMinDist1 = dist;
+            }
+        }
+    }
+    for (int y = -1; y <= 1; y++) {
+        for (int x = -1; x <= 1; x++) {
+            vec2 lattice = vec2(x, y);
+            vec2 perturbed_lattice = lattice + uNoiseStrength * (noise((g + lattice) * uNoiseScale, t1) * 2.0 - 1.0);
+    vec2 point = hash(g + perturbed_lattice) + perturbed_lattice - f;
+    float dist = length(point);
+    if (dist < minDist2) {
+        secondMinDist2 = minDist2;
+        minDist2 = dist;
+    } else if (dist < secondMinDist2) {
+        secondMinDist2 = dist;
+    }
+}
+}
+float pattern1 = secondMinDist1 - minDist1;
+float pattern2 = secondMinDist2 - minDist2;
+return mix(pattern1, pattern2, a);
+}
+float triplanar(vec3 p, vec3 normal, float t) {
+vec3 blending = abs(normal);
+blending = normalize(max(blending, 0.00001));
+blending /= (blending.x + blending.y + blending.z);
+float x = voronoi(p.yz * uScale, t);
+float y = voronoi(p.xz * uScale, t);
+float z = voronoi(p.xy * uScale, t);
+return (x * blending.x + y * blending.y + z * blending.z);
+}
+void main() {
+vec3 transformedNormal = normalize(normalMatrix * normal);
+vec3 displacedPosition = position;
+float time = uTime * uSpeed;
+float patternValue = triplanar(position, normal, time);
+vShellPattern = patternValue;
+float softPattern = smoothstep(0.2, 0.8, patternValue);
+float displacementFactor = softPattern * uDisplacementStrength;
+displacedPosition += normal * displacementFactor;
+vNormal = transformedNormal;
+v3Position = position;
+gl_Position = projectionMatrix * modelViewMatrix * vec4(displacedPosition, 1.0);
+}
+`,
+        fragmentShader: `
+uniform float uTime;
+uniform float uDepth;
+uniform vec3 uColor;
+uniform float uOutlineWidth;
+uniform vec3 uOutlineColor;
+uniform vec3 uSecondaryColor;
+varying vec3 vNormal;
+varying vec3 v3Position;
+varying float vShellPattern;
+void main() {
+  float steppedPattern = smoothstep(uOutlineWidth, uOutlineWidth + 0.2, vShellPattern);
+  vec3 lightDirection = normalize(vec3(0.5, 0.5, 1.0));
+  float lighting = dot(vNormal, lightDirection) * 0.5 + 0.5;
+  vec3 baseColor = mix(uOutlineColor, uSecondaryColor, steppedPattern);
+  float highlightIntensity = smoothstep(0.0, 0.5, vShellPattern);
+  vec3 finalColor = baseColor + uColor * highlightIntensity * uDepth * lighting;
+  gl_FragColor = vec4(finalColor * lighting, 1.0);
+}
+`,
+        wireframe: true,
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(5, 5, 5);
+    scene.add(light);
+    const composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+    const bloomPass = new UnrealBloomPass(
+        new THREE.Vector2(window.innerWidth, window.innerHeight),
+        0.8,
+        0.4,
+        1.0,
+    );
+
+    const flyShader = {
+        uniforms: {
+            tDiffuse: { value: null },
+            resolution: {
+                value: new THREE.Vector2(
+                    window.innerWidth * window.devicePixelRatio,
+                    window.innerHeight * window.devicePixelRatio,
+                ),
+            },
+            time: { value: 0 },
+            ommatidiaSize: { value: 8.0 },
+        },
+        vertexShader: `
+varying vec2 vUv;
+void main() {
+vUv = uv;
+gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}
+`,
+        fragmentShader: `
+precision highp float;
+
+varying vec2 vUv;
+uniform sampler2D tDiffuse;
+uniform vec2 resolution;
+uniform float ommatidiaSize;
+
+// Grille hexagonale orientée verticalement (pointes en haut/bas)
+vec2 hexCoord(vec2 uv, float size) {
+vec2 r = resolution / size;
+uv *= r;
+
+// Décalage horizontal sur une ligne sur deux
+float row = floor(uv.y);
+float col = floor(uv.x - mod(row, 2.0) * 0.5);
+
+vec2 hexUV = vec2(col + 0.5 * mod(row, 2.0), row);
+hexUV /= r;
+
+return hexUV;
+}
+
+
+// Masque hexagonal orienté verticalement
+float hexMask(vec2 uv, float size) {
+  vec2 p = uv * resolution / size;
+  p = fract(p) - 0.5;
+
+  // Transformation pour hexagone vertical
+  p.y *= 1.0;
+  p.x *= 0.57735; // sqrt(3)/3
+
+  p = abs(p);
+  float a = max(p.y * 0.866025 + p.x, p.x * 2.0); // 0.866 = cos(30°)
+  return step(a, 0.5);
+}
+
+void main() {
+  vec2 hexUV = hexCoord(vUv, ommatidiaSize);
+  vec4 color = texture2D(tDiffuse, hexUV);
+
+  float mask = hexMask(vUv, ommatidiaSize);
+  gl_FragColor = color * mask;
+}
+
+`,
+    };
+    const flyPass = new ShaderPass(flyShader);
+    flyPass.renderToScreen = true;
+    composer.addPass(bloomPass);
+    composer.addPass(flyPass);
+    function getRandomHSL() {
+        const h = Math.random();
+        const s = 0.6 + Math.random() * 0.4;
+        const l = 0.4 + Math.random() * 0.3;
+        return { h, s, l };
+    }
+    const randomizer = {
+        randomize: () => {
+            material.uniforms.uScale.value = 1 + Math.random() * 19;
+            material.uniforms.uDepth.value = Math.random() * 2;
+            material.uniforms.uSharpness.value = 1 + Math.random() * 9;
+            const color = getRandomHSL();
+            material.uniforms.uColor.value.setHSL(color.h, color.s, color.l);
+            material.uniforms.uNoiseScale.value = 0.1 + Math.random() * 4.9;
+            material.uniforms.uNoiseStrength.value = Math.random() * 1;
+            material.uniforms.uOutlineWidth.value = 0.01 + Math.random() * 0.99;
+            const color2 = getRandomHSL();
+            material.uniforms.uOutlineColor.value.setHSL(
+                color2.h,
+                color2.s,
+                color2.l,
+            );
+            const color3 = getRandomHSL();
+            material.uniforms.uSecondaryColor.value.setHSL(
+                color3.h,
+                color3.s,
+                color3.l,
+            );
+            material.uniforms.uDisplacementStrength.value =
+                -0.5 + Math.random() * 5.5;
+        },
+    };
+    window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        composer.setSize(window.innerWidth, window.innerHeight);
+        flyPass.material.uniforms.resolution.value.set(
+            window.innerWidth * window.devicePixelRatio,
+            window.innerHeight * window.devicePixelRatio,
+        );
+    });
+    function animate(time) {
+        material.uniforms.uTime.value = time * 0.001;
+        flyPass.material.uniforms.time.value = time * 0.001;
+        mesh.rotation.y += 0.005;
+        controls.update();
+        composer.render();
+        requestAnimationFrame(animate);
+    }
+    animate();
+    randomizer.randomize();
+</script>
+
+<style is:global>
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+</style>

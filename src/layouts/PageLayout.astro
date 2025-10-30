@@ -1,0 +1,19 @@
+---
+import "../assets/styles/tailwind.css";
+const { title } = Astro.props;
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body
+        class="m-0 overflow-hidden select-none bg-[radial-gradient(#000,_#111)]"
+    >
+        <slot />
+    </body>
+</html>

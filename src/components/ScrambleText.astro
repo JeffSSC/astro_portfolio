@@ -1,0 +1,69 @@
+---
+import "../assets/styles/tailwind.css";
+const { class: externalClasses } = Astro.props;
+---
+
+<script>
+    function scrambleText(element, options = {}) {
+        const {
+            speed = 20,
+            duration = 1200,
+            characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}<>?",
+            delayBetween = 20,
+        } = options;
+
+        if (!element) return;
+
+        const originalText = element.textContent;
+        const output = Array(originalText.length).fill("");
+        const resolveFrames = Array.from(
+            { length: originalText.length },
+            (_, i) =>
+                Math.floor(Math.random() * (duration / speed)) +
+                i * (delayBetween / speed),
+        );
+
+        const originalWidth = element.scrollWidth;
+
+        element.style.minWidth = `${originalWidth}px`;
+
+        let frame = 0;
+        let interval;
+        const runFrame = () => {
+            for (let i = 0; i < originalText.length; i++) {
+                if (originalText[i] === " ") {
+                    output[i] = " ";
+                    continue;
+                }
+                if (frame >= resolveFrames[i]) {
+                    output[i] = originalText[i];
+                } else {
+                    output[i] = characters.charAt(
+                        Math.floor(Math.random() * characters.length),
+                    );
+                }
+            }
+
+            element.textContent = output.join("");
+            frame++;
+
+            if (frame > Math.max(...resolveFrames)) {
+                clearInterval(interval);
+                element.textContent = originalText;
+            }
+        };
+        runFrame();
+        interval = setInterval(runFrame, speed);
+    }
+    document.querySelectorAll(".note").forEach((container) => {
+        scrambleText(container, {
+            speed: 30,
+            duration: 1500,
+            delayBetween: 30,
+        });
+    });
+</script>
+
+<div class:list={["note", externalClasses]}>
+    <slot />
+</div>
