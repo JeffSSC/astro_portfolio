@@ -4,7 +4,20 @@ const { class: externalClasses } = Astro.props;
 ---
 
 <script>
-    function scrambleText(element, options = {}) {
+/**
+   * 2. Definimos o tipo das opções usando JSDoc
+   * @typedef {object} ScrambleOptions
+   * @property {number} [speed]
+   * @property {number} [duration]
+   * @property {string} [characters]
+   * @property {number} [delayBetween]
+   */
+
+    /**
+     * @param {HTMLElement} element - The element to scramble
+     * @param {ScrambleTextOptions} [options] - The options for the scramble
+     */
+    function scrambleText(element: HTMLElement, options: ScrambleTextOptions = {}) {
         const {
             speed = 20,
             duration = 1200,
