@@ -235,10 +235,10 @@ void main() {
 
 `,
     };
-    const flyPass = new ShaderPass(flyShader);
-    flyPass.renderToScreen = true;
+    // const flyPass = new ShaderPass(flyShader);
+    // flyPass.renderToScreen = true;
     composer.addPass(bloomPass);
-    composer.addPass(flyPass);
+    // composer.addPass(flyPass);
     function getRandomHSL() {
         const h = Math.random();
         const s = 0.6 + Math.random() * 0.4;
@@ -268,7 +268,7 @@ void main() {
                 color3.l,
             );
             material.uniforms.uDisplacementStrength.value =
-                -0.5 + Math.random() * 5.5;
+                -0.5 + Math.random() * 2.0;
         },
     };
     window.addEventListener("resize", () => {
@@ -276,14 +276,14 @@ void main() {
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
         composer.setSize(window.innerWidth, window.innerHeight);
-        flyPass.material.uniforms.resolution.value.set(
-            window.innerWidth * window.devicePixelRatio,
-            window.innerHeight * window.devicePixelRatio,
-        );
+        // flyPass.material.uniforms.resolution.value.set(
+        //     window.innerWidth * window.devicePixelRatio,
+        //     window.innerHeight * window.devicePixelRatio,
+        // );
     });
     function animate(time) {
         material.uniforms.uTime.value = time * 0.001;
-        flyPass.material.uniforms.time.value = time * 0.001;
+        // flyPass.material.uniforms.time.value = time * 0.001;
         mesh.rotation.y += 0.005;
         controls.update();
         composer.render();
