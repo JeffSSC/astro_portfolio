@@ -4,9 +4,10 @@ import Header from "../components/Header.astro";
 const { title } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="pt-BR">
     <head>
         <meta charset="utf-8" />
+        <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
@@ -17,7 +18,7 @@ const { title } = Astro.props;
         <title>{title}</title>
     </head>
     <body
-        class="m-0 overflow-hidden select-none bg-[radial-gradient(#000,_#111)]"
+        class="bg-black overflow-x-hidden overflow-y-auto"
     >
         <Header />
         <slot />

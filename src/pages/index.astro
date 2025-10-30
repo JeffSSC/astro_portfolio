@@ -2,6 +2,9 @@
 import PageLayout from "../layouts/PageLayout.astro";
 import HomeAnimation from "../components/HomeAnimation.astro";
 import ScrambleText from "../components/ScrambleText.astro";
+import ScrollArrow from "../components/ScrollArrow.astro";
+import myselfImage from "../assets/images/myself.jpg";
+import LogoWall from "../components/LogoWall.astro";
 
 const title = "Home";
 ---
@@ -15,5 +18,15 @@ const title = "Home";
         <ScrambleText class="font-semibold text-white font-mono md:text-xl"
             >Desenvolvedor Full-Stack</ScrambleText
         >
+        <ScrollArrow />
+    </div>
+    <div class="flex justify-center items-center gap-4 p-10 sm:ml-20 sm:mr-20 flex-wrap md:flex-nowrap">
+        <img src={myselfImage.src} alt="Jefferson Silva Caires" class="object-cover rounded-full size-48">
+        <p class="text-white font-mono text-xs md:text-sm px-2">
+            Sou um profissional Full-Stack com experiência em tecnologias Front-end (Vue e Astro), Back-end (NodeJS e Python), Bancos de Dados (PostgreSQL e MySQL) e Cloud AWS com dois certificados (AWS AI Practitioner e AWS Cloud Practitioner).
+        </p>
+    </div>
+    <div class="pb-10">
+        <LogoWall />
     </div>
 </PageLayout>

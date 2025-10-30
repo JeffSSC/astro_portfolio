@@ -1,0 +1,144 @@
+--- 
+const { techs = [
+  "astro",
+  "vuejs",
+  "python",
+  "html5",
+  "css3",
+  "git",
+  "github",
+  "amazonwebservices",
+  "docker",
+  "nodejs",
+  "tailwindcss",
+  "postgresql",
+  "mysql",
+]} = Astro.props;
+
+const typedTechs = techs;
+const techsReversed = [...typedTechs].reverse();
+
+function capitalize(str) {
+  if (!str) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+---
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+
+<article class="wrapper">
+  <div class="marquee">
+    <div class="marquee__group">
+      {typedTechs.map((tech) => (
+        <i class={`devicon-${tech}-plain`} aria-label={`${capitalize(tech)} logo`} title={`${capitalize(tech)} logo`}></i>
+      ))}
+    </div>
+    <div aria-hidden="true" class="marquee__group">
+      {typedTechs.map((tech) => (
+        <i class={`devicon-${tech}-plain`} aria-hidden="true" title={`${capitalize(tech)} logo`}></i>
+      ))}
+    </div>
+  </div>
+
+  <div class="marquee marquee--reverse">
+    <div class="marquee__group">
+      {techsReversed.map((tech) => (
+        <i class={`devicon-${tech}-plain`} aria-label={`${capitalize(tech)} logo`} title={`${capitalize(tech)} logo`}></i>
+      ))}
+    </div>
+    <div aria-hidden="true" class="marquee__group">
+      {techsReversed.map((tech) => (
+        <i class={`devicon-${tech}-plain`} aria-hidden="true" title={`${capitalize(tech)} logo`}></i>
+      ))}
+    </div>
+  </div>
+</article>
+
+<style is:global>
+  :root {
+    --color-text: navy;
+    --color-bg: papayawhip;
+    --color-bg-accent: #ecdcc0;
+    --size: clamp(4.5rem, 6rem, 8.5rem);
+    --gap: calc(var(--size) / 12);
+    --duration: 40s;
+    --scroll-start: 0;
+    --scroll-end: calc(-100% - var(--gap));
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-text: papayawhip;
+      --color-bg: rgb(14, 14, 14);
+      --color-bg-accent: #151515;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .marquee {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: var(--gap);
+    mask-image: linear-gradient(
+      var(--mask-direction, to right),
+      hsl(0 0% 0% / 0),
+      hsl(0 0% 0% / 1) 10%,
+      hsl(0 0% 0% / 1) 90%,
+      hsl(0 0% 0% / 0)
+    );
+  }
+
+  .marquee__group {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--gap);
+    min-width: 100%;
+    animation: scroll-x var(--duration) linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__group {
+      animation-play-state: paused;
+    }
+  }
+
+  .marquee--reverse .marquee__group {
+    animation-direction: reverse;
+    animation-delay: -3s;
+  }
+
+  @keyframes scroll-x {
+    from {
+      transform: translateX(var(--scroll-start));
+    }
+    to {
+      transform: translateX(var(--scroll-end));
+    }
+  }
+
+  .marquee i {
+    display: grid;
+    place-items: center;
+    font-size: var(--size);
+    color: var(--color-text);
+    background: var(--color-bg-accent);
+    aspect-ratio: 1/1;
+    padding: calc(var(--size) / 10);
+    border-radius: 0.75rem;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    margin: auto;
+    max-width: 100vw;
+  }
+</style>
