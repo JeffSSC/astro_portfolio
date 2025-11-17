@@ -5,6 +5,10 @@ import ScrambleText from "../components/ScrambleText.astro";
 import ScrollArrow from "../components/ScrollArrow.astro";
 import myselfImage from "../assets/images/myself.jpg";
 import LogoWall from "../components/LogoWall.astro";
+import SectionTitle from "../components/ui/SectionTitle.astro";
+import SectionSubtitle from "../components/ui/SectionSubtitle.astro";
+import Text from "../components/ui/Text.astro";
+import TechStack from "../components/TechStack.astro";
 
 const title = "Home";
 ---
@@ -38,7 +42,7 @@ const title = "Home";
     </section>
     <section class="about" data-usal="fade-u">
         <div class="flex flex-col items-center">
-            <p class="text-white text-3xl font-bold">Sobre mim</p>
+            <SectionTitle>Sobre mim</SectionTitle>
             <div
                 data-usal="fade-u"
                 class="flex justify-center items-center gap-4 p-10 pt-5 sm:ml-20 sm:mr-20 flex-wrap md:flex-nowrap"
@@ -48,21 +52,52 @@ const title = "Home";
                     alt="Jefferson Silva Caires"
                     class="object-cover rounded-full size-48"
                 />
-                <p class="text-white font-mono text-xs md:text-sm px-2">
+                <Text>
                     Sou um profissional Full-Stack com experiência em
                     tecnologias Front-end (Vue e Astro), Back-end (NodeJS e
                     Python), Bancos de Dados (PostgreSQL e MySQL) e Cloud AWS
                     com dois certificados (AWS AI Practitioner e AWS Cloud
                     Practitioner).
-                </p>
+                    <Text />
+                </Text>
+            </div>
+            <div class="pb-10">
+                <LogoWall />
             </div>
         </div>
-        <div class="pb-10">
-            <LogoWall />
-        </div>
+        <section class="technologies" data-usal="fade-u">
+            <div class="flex flex-col items-center">
+                <SectionTitle>Tecnologias</SectionTitle>
+                <div class="pt-8 flex flex-col items-center">
+                    <SectionSubtitle>Stack Principal</SectionSubtitle>
+                    <TechStack
+                        techs={[
+                            "vuejs",
+                            { name: "Tailwind", icon: "tailwindcss" },
+                            "python",
+                            "django",
+                            "postgresql",
+                            { icon: "amazonwebservices", name: "AWS" },
+                            "docker",
+                        ]}
+                    />
+                    <SectionSubtitle>Experiência</SectionSubtitle>
+                    <TechStack
+                        techs={[
+                            "nodejs",
+                            "mysql",
+                            "nginx",
+                            "jupyter",
+                            "astro",
+                            "linux",
+                            "react",
+                        ]}
+                    />
+                    <SectionSubtitle>Estudando</SectionSubtitle>
+                    <TechStack techs={["jenkins", "gitlab"]} />
+                </div>
+            </div>
+        </section>
+        <section class="projects" data-usal="fade-u"></section>
     </section>
-    <section class="technologies" data-usal="fade-u">
-        <div></div>
-    </section>
-    <section class="projects" data-usal="fade-u"></section>
 </PageLayout>
