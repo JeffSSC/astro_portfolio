@@ -1,0 +1,89 @@
+---
+interface Props {
+    title?: string;
+    description?: string;
+    imageSrc?: string;
+    btn?: string;
+    btnLink?: string;
+    tags?: string[];
+}
+
+const {
+    title = "Projeto Incrível",
+    description = "Descrição do projeto...",
+    tags = ["Vue", "Astro"],
+    imageSrc = "/placeholder.jpg",
+    btn,
+    btnLink = "#",
+} = Astro.props;
+---
+
+<article
+    class="group relative flex flex-col md:flex-row w-full bg-[#151515] border border-gray-800 my-6 shadow-lg rounded-xl overflow-hidden transition-transform hover:-translate-y-1"
+>
+    <div
+        class="relative w-full md:w-2/5 h-56 md:h-auto shrink-0 overflow-hidden"
+    >
+        <img
+            src={imageSrc}
+            alt={`Imagem de capa do projeto ${title}`}
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+        />
+        <div
+            class="absolute inset-0 bg-linear-to-t from-[#151515] via-transparent to-transparent opacity-60 md:opacity-0"
+        >
+        </div>
+    </div>
+
+    <div class="p-6 flex flex-col justify-between w-full">
+        <div>
+            <div class="flex flex-wrap gap-2 mb-4">
+                {
+                    tags.map((tag) => (
+                        <span class="rounded-full bg-teal-900/50 text-teal-300 border border-teal-700/50 py-1 px-3 text-xs font-medium shadow-sm">
+                            {tag}
+                        </span>
+                    ))
+                }
+            </div>
+
+            <h3 class="mb-3 text-white text-2xl font-bold tracking-tight">
+                {title}
+            </h3>
+
+            <p class="mb-6 text-gray-400 leading-relaxed font-light">
+                {description}
+            </p>
+        </div>
+
+        {
+            btn && (
+                <div class="mt-auto">
+                    <a
+                        href={btnLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center text-teal-400 hover:text-teal-300 font-semibold text-sm transition-colors group/link"
+                    >
+                        {btn}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="ml-2 h-4 w-4 transition-transform group-hover/link:translate-x-1"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"
+                            />
+                        </svg>
+                    </a>
+                </div>
+            )
+        }
+    </div>
+</article>
