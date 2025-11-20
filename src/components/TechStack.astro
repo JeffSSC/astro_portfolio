@@ -1,4 +1,6 @@
 ---
+import "devicon/devicon.min.css";
+
 interface TechItem {
     icon: string;
     name: string;
@@ -35,11 +37,6 @@ function getName(item: string | TechItem) {
     return item.charAt(0).toUpperCase() + item.slice(1);
 }
 ---
-
-<link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
-/>
 
 <section class="wrapper">
     <div class="grid-container">
