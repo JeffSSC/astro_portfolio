@@ -1,0 +1,35 @@
+---
+interface Props {
+    ano: string;
+    tempo: string;
+    cargo: string;
+    empresa: string;
+    modalidade: string;
+}
+
+const { ano, tempo, cargo, empresa, modalidade } = Astro.props;
+---
+
+<div
+    class="flex flex-col md:flex-row w-full py-8 gap-6 border-b border-gray-800 last:border-0"
+>
+    <div
+        class="flex flex-col items-start text-white md:w-1/3 lg:w-1/4 shrink-0"
+    >
+        <span class="text-sm font-mono text-emerald-400 mb-1">
+            {ano} • {tempo}
+        </span>
+        <h3 class="text-xl font-bold text-gray-100">
+            {empresa}
+        </h3>
+        <p class="text-gray-400 text-sm mt-1">
+            {cargo}
+            <span class="text-gray-600 mx-1">|</span>
+            {modalidade}
+        </p>
+    </div>
+
+    <div class="text-gray-300 text-base leading-relaxed md:w-2/3 lg:w-3/4">
+        <slot />
+    </div>
+</div>

@@ -15,6 +15,7 @@ import SectionSubtitle from "../components/ui/SectionSubtitle.astro";
 import Text from "../components/ui/Text.astro";
 import TechStack from "../components/TechStack.astro";
 import CardProject from "../components/CardProject.astro";
+import ExpComponent from "../components/ExpComponent.astro";
 
 const title = "Home | Portfolio";
 ---
@@ -31,12 +32,12 @@ const title = "Home | Portfolio";
                 class="font-semibold text-white font-mono text-sm md:text-lg"
                 >Desenvolvedor Full-Stack</ScrambleText
             >
-            <div class="absolute bottom-30 md:bottom-50" data-aos="fade-up">
+            <div class="absolute bottom-45 md:bottom-50" data-aos="fade-up">
                 <button
-                    class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-2 rounded-full"
+                    class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-1 rounded-full"
                     ><a
-                        href="mailto:jeff.silva.caires@gmail.com"
-                        class="text-white font-bold py-2 px-2 rounded-full inline-block text-center"
+                        href="https://wa.me/5547991158071?text=Ol%C3%A1%20Jefferson!%20Tudo%20bem%3F"
+                        class="text-white text-sm md:text-lg font-bold py-2 px-2 rounded-full inline-block text-center"
                     >
                         Entre em Contato
                     </a>
@@ -72,9 +73,66 @@ const title = "Home | Portfolio";
         <div class="flex flex-col items-center" data-aos="fade-up">
             <SectionTitle>Experiência</SectionTitle>
             <div
-                class="flex max-w-7xl justify-center items-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
+                class="flex flex-col max-w-7xl justify-center items-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
                 data-aos="fade-up"
             >
+                <ExpComponent
+                    ano="2025"
+                    tempo="6 meses"
+                    cargo="Estagiário em IA"
+                    empresa="Compass UOL"
+                    modalidade="Remoto"
+                >
+                    <ul class="list-disc pl-4 space-y-1">
+                        <li>
+                            Vivência em <strong
+                                >metodologias ágeis (Scrum/Kanban)</strong
+                            > utilizando Jira para gestão de entregas.
+                        </li>
+                        <li>
+                            Criação de <strong
+                                >Chatbot Jurídico com IA Generativa</strong
+                            > usando LangChain, arquitetura RAG e AWS Bedrock.
+                        </li>
+                        <li>
+                            Desenvolvimento de API Serverless em <strong
+                                >Python (AWS Lambda)</strong
+                            > para leitura automática de notas fiscais (OCR).
+                        </li>
+                        <li>
+                            Padronização de ambientes de desenvolvimento e
+                            produção utilizando <strong>Docker</strong>.
+                        </li>
+                    </ul>
+                </ExpComponent>
+                <ExpComponent
+                    ano="2024"
+                    tempo="6 meses"
+                    cargo="Estagiário"
+                    empresa="Informatech"
+                    modalidade="Presencial"
+                >
+                    <ul class="list-disc pl-4 space-y-1">
+                        <li>
+                            <strong>Setup e implantação on-site</strong> de estações
+                            de trabalho e equipamentos no cliente.
+                        </li>
+                        <li>
+                            Manutenção preventiva e corretiva de <strong
+                                >hardware</strong
+                            > (diagnóstico, trocas e upgrades).
+                        </li>
+                        <li>
+                            <strong>Suporte Técnico Nível 1</strong> focado na resolução
+                            de problemas de software e rede.
+                        </li>
+                        <li>
+                            Gestão e controle de <strong
+                                >inventário de TI</strong
+                            >, monitorando ativos e periféricos.
+                        </li>
+                    </ul>
+                </ExpComponent>
             </div>
         </div>
     </section>
@@ -114,11 +172,12 @@ const title = "Home | Portfolio";
             </div>
         </div>
     </section>
-    <section class="projects" data-aos="fade-up">
+    <section class="projects">
         <div class="pt-8 flex flex-col items-center">
             <SectionTitle>Projetos</SectionTitle>
             <div
                 class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-4 w-full max-w-7xl px-4"
+                data-aos="fade-up"
             >
                 <CardProject
                     title="GoldenPark - Tag Pet"
@@ -197,7 +256,7 @@ const title = "Home | Portfolio";
                     btnLink="https://github.com/JeffSSC/astro_portfolio"
                 />
             </div>
-            <div data-aos="fade-up">
+            <div>
                 <SectionSubtitle>Mais projetos em meu GitHub</SectionSubtitle>
                 <a href="https://github.com/JeffSSC" target="_blank">
                     <TechStack techs={["github"]} />
@@ -205,7 +264,7 @@ const title = "Home | Portfolio";
             </div>
         </div>
     </section>
-    <section class="contact" data-aos="fade-up">
+    <section class="contact">
         <div class="flex flex-col items-center p-4 md:p-10">
             <SectionTitle>Entre em contato</SectionTitle>
             <div
@@ -213,7 +272,7 @@ const title = "Home | Portfolio";
             >
                 <a
                     class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
-                    href="https://github.com/JeffSSC"
+                    href="https://wa.me/5547991158071?text=Ol%C3%A1%20Jefferson!%20Tudo%20bem%3F"
                     target="_blank"
                 >
                     <i class="fab fa-whatsapp text-5xl md:text-9xl"></i>
