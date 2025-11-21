@@ -1,0 +1,308 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import HomeAnimation from "../../components/HomeAnimation.astro";
+import ScrambleText from "../../components/ScrambleText.astro";
+import ScrollArrow from "../../components/ScrollArrow.astro";
+import LogoWall from "../../components/LogoWall.astro";
+import SectionTitle from "../../components/ui/SectionTitle.astro";
+import SectionSubtitle from "../../components/ui/SectionSubtitle.astro";
+import Text from "../../components/ui/Text.astro";
+import TechStack from "../../components/TechStack.astro";
+import CardProject from "../../components/CardProject.astro";
+import ExpComponent from "../../components/ExpComponent.astro";
+
+import myselfImage from "../../assets/images/myself.jpg";
+import mikaelImage from "../../assets/images/mikael.jpg";
+import themisImage from "../../assets/images/themis.jpg";
+import tagGoldenParkImage from "../../assets/images/tag-golden-park.png";
+import extractorImage from "../../assets/images/extractor.png";
+import portfolioImage from "../../assets/images/portfolio.png";
+import aiPractitioner from "../../assets/images/ai_practitioner.png";
+import cloudPractitioner from "../../assets/images/cloud_practitioner.png";
+
+import { useTranslations } from "../../i18n/utils";
+
+export function getStaticPaths() {
+    return [{ params: { lang: "pt" } }, { params: { lang: "en" } }];
+}
+
+const lang = Astro.params.lang || "pt";
+const t = useTranslations(lang as any);
+
+const whatsappMessage = encodeURIComponent(t("hero.whatsapp_msg"));
+const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
+---
+
+<PageLayout title={t("site.title")}>
+    <section class="landing relative h-screen w-full overflow-hidden">
+        <HomeAnimation />
+        <div class="flex justify-center items-center h-screen flex-col">
+            <ScrambleText
+                class="text-xl text-white font-bold font-mono md:text-3xl"
+                >{t("hero.name")}</ScrambleText
+            >
+            <ScrambleText
+                class="font-semibold text-white font-mono text-sm md:text-lg"
+                >{t("hero.role")}</ScrambleText
+            >
+            <div class="absolute bottom-45 md:bottom-50" data-aos="fade-up">
+                <button
+                    class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-1 rounded-full"
+                    ><a
+                        target="_blank"
+                        href={whatsappLink}
+                        class="text-white font-mono text-sm md:text-lg font-bold py-2 px-2 rounded-full inline-block text-center"
+                    >
+                        {t("hero.cta")}
+                    </a>
+                </button>
+            </div>
+            <ScrollArrow />
+        </div>
+    </section>
+    <section class="about">
+        <div class="flex flex-col items-center">
+            <SectionTitle data-aos="fade-up">{t("about.title")}</SectionTitle>
+            <div
+                data-aos="fade-up"
+                class="flex max-w-7xl justify-center items-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
+            >
+                <img
+                    src={myselfImage.src}
+                    alt="Jefferson Silva Caires"
+                    class="object-cover rounded-full size-48"
+                />
+                <Text>
+                    {t("about.text")}
+                    <Text />
+                </Text>
+            </div>
+        </div>
+    </section>
+    <section class="experience">
+        <div class="flex flex-col items-center" data-aos="fade-up">
+            <SectionTitle>{t("exp.title")}</SectionTitle>
+            <div
+                class="flex flex-col max-w-7xl justify-center items-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
+                data-aos="fade-up"
+            >
+                <ExpComponent
+                    ano="2025"
+                    tempo={t("exp.compass.time")}
+                    cargo={t("exp.compass.role")}
+                    empresa="Compass UOL"
+                    modalidade={t("exp.compass.modality")}
+                >
+                    <ul class="list-disc pl-4 space-y-1">
+                        <li>{t("exp.compass.desc.1")}</li>
+                        <li>{t("exp.compass.desc.2")}</li>
+                        <li>{t("exp.compass.desc.3")}</li>
+                        <li>{t("exp.compass.desc.4")}</li>
+                    </ul>
+                </ExpComponent>
+                <ExpComponent
+                    ano="2024"
+                    tempo={t("exp.informatech.time")}
+                    cargo={t("exp.informatech.role")}
+                    empresa="Informatech"
+                    modalidade={t("exp.informatech.modality")}
+                >
+                    <ul class="list-disc pl-4 space-y-1">
+                        <li>{t("exp.informatech.desc.1")}</li>
+                        <li>{t("exp.informatech.desc.2")}</li>
+                        <li>{t("exp.informatech.desc.3")}</li>
+                        <li>{t("exp.informatech.desc.4")}</li>
+                    </ul>
+                </ExpComponent>
+            </div>
+        </div>
+    </section>
+    <div class="pb-10" data-aos="fade-up">
+        <LogoWall />
+    </div>
+    <section class="technologies">
+        <div class="flex flex-col items-center" data-aos="fade-up">
+            <SectionTitle>{t("tech.title")}</SectionTitle>
+            <div class="pt-8 flex flex-col items-center">
+                <SectionSubtitle>{t("tech.certs")}</SectionSubtitle>
+                <div class="flex flex-wrap gap-4 p-5 justify-center">
+                    <div
+                        data-aos="fade-right"
+                        class="flex flex-col gap-2 items-center transition-transform hover:-translate-y-1"
+                    >
+                        <img
+                            src={aiPractitioner.src}
+                            class="max-w-50"
+                            alt="AWS AI Practitioner"
+                        />
+                        <Text>AWS AI Practitioner</Text>
+                    </div>
+                    <div
+                        data-aos="fade-left"
+                        class="flex flex-col gap-2 items-center transition-transform hover:-translate-y-1"
+                    >
+                        <img
+                            src={cloudPractitioner.src}
+                            class="max-w-50"
+                            alt="AWS Cloud Practitioner"
+                        />
+
+                        <Text>AWS Cloud Practitioner</Text>
+                    </div>
+                </div>
+                <SectionSubtitle>{t("tech.stack")}</SectionSubtitle>
+                <TechStack
+                    techs={[
+                        "vuejs",
+                        { name: "Tailwind", icon: "tailwindcss" },
+                        "python",
+                        "django",
+                        "postgresql",
+                        { icon: "amazonwebservices", name: "AWS" },
+                        "docker",
+                    ]}
+                />
+                <SectionSubtitle>{t("tech.exp")}</SectionSubtitle>
+                <TechStack
+                    techs={[
+                        "nodejs",
+                        "mysql",
+                        "nginx",
+                        "jupyter",
+                        "astro",
+                        "linux",
+                        "react",
+                    ]}
+                />
+            </div>
+        </div>
+    </section>
+    <section class="projects">
+        <div class="pt-8 flex flex-col items-center">
+            <SectionTitle data-aos="fade-up">{t("projects.title")}</SectionTitle
+            >
+            <div
+                class="grid grid-cols-1 lg:grid-cols-2 font-mono gap-6 mt-4 w-full max-w-7xl px-4"
+                data-aos="fade-up"
+            >
+                <CardProject
+                    title={t("proj.golden.title")}
+                    description={t("proj.golden.desc")}
+                    imageSrc={tagGoldenParkImage.src}
+                    btn={t("projects.btn_production")}
+                    btnLink="https://www.loom.com/share/f0f5586ce30947aa9347d7d02ebe141c"
+                    tags={[
+                        "Vuejs",
+                        "Tailwind",
+                        "DaisyUI",
+                        "PostgreSQL",
+                        "Python",
+                        "Django",
+                        "Docker",
+                        "Nginx",
+                        "AWS EC2",
+                        "AWS CloudFront",
+                        "AWS Route53",
+                        "AWS CloudFront",
+                        "AWS S3",
+                    ]}
+                />
+                <CardProject
+                    title={t("proj.extractor.title")}
+                    description={t("proj.extractor.desc")}
+                    imageSrc={extractorImage.src}
+                    tags={[
+                        "Python",
+                        "AWS Lambda",
+                        "AWS Textract",
+                        "AWS Bedrock",
+                        "AWS API Gateway",
+                        "AWS S3",
+                        "Docker",
+                    ]}
+                    btn={t("projects.btn_github")}
+                    btnLink="https://github.com/JeffSSC/api_notasFiscais"
+                />
+                <CardProject
+                    title={t("proj.themis.title")}
+                    description={t("proj.themis.desc")}
+                    imageSrc={themisImage.src}
+                    tags={[
+                        "Python",
+                        "RAG",
+                        "langchain",
+                        "Telegram API",
+                        "AWS EC2",
+                        "AWS Transcribe",
+                        "AWS Bedrock",
+                    ]}
+                    btn={t("projects.btn_github")}
+                    btnLink="https://github.com/JeffSSC/api_notasFiscais"
+                />
+                <CardProject
+                    title={t("proj.mikael.title")}
+                    description={t("proj.mikael.desc")}
+                    imageSrc={mikaelImage.src}
+                    btn={t("projects.btn_github")}
+                    btnLink="https://github.com/LuanPonick/Mikael"
+                    tags={["YOLO", "OpenCV", "Python", "LeRobot"]}
+                />
+                <CardProject
+                    title={t("proj.portfolio.title")}
+                    description={t("proj.portfolio.desc")}
+                    imageSrc={portfolioImage.src}
+                    tags={[
+                        "Astro",
+                        "Tailwind",
+                        "TypeScript",
+                        "AWS Route53",
+                        "AWS CloudFront",
+                    ]}
+                    btn={t("projects.btn_github")}
+                    btnLink="https://github.com/JeffSSC/astro_portfolio"
+                />
+            </div>
+            <div class="font-mono" data-aos="fade-up">
+                <SectionSubtitle>{t("projects.github_more")}</SectionSubtitle>
+                <a href="https://github.com/JeffSSC" target="_blank">
+                    <TechStack techs={["github"]} />
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="contact">
+        <div class="flex flex-col items-center p-4 md:p-10" data-aos="fade-up">
+            <SectionTitle>{t("contact.title")}</SectionTitle>
+            <div
+                class="flex flex-wrap font-mono justify-center gap-6 md:gap-10 p-6 md:p-10 w-full"
+            >
+                <a
+                    class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
+                    href={whatsappLink}
+                    target="_blank"
+                >
+                    <i class="fab fa-whatsapp text-5xl md:text-9xl"></i>
+                    <span class="font-bold mt-2">WhatsApp</span>
+                </a>
+
+                <a
+                    class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
+                    href="https://www.linkedin.com/in/jefferson-caires/"
+                    target="_blank"
+                >
+                    <i class="fab fa-linkedin text-5xl md:text-9xl"></i>
+                    <span class="font-bold mt-2">LinkedIn</span>
+                </a>
+
+                <a
+                    class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
+                    href="mailto:jefferson.caires@gmail.com"
+                    target="_blank"
+                >
+                    <i class="fas fa-envelope text-5xl md:text-9xl"></i>
+                    <span class="font-bold mt-2">Email</span>
+                </a>
+            </div>
+        </div>
+    </section>
+</PageLayout>

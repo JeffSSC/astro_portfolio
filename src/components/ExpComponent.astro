@@ -14,7 +14,7 @@ const { ano, tempo, cargo, empresa, modalidade } = Astro.props;
     class="flex flex-col md:flex-row w-full py-8 gap-6 border-b border-gray-800 last:border-0"
 >
     <div
-        class="flex flex-col items-start text-white md:w-1/3 lg:w-1/4 shrink-0"
+        class="flex flex-col items-start text-white font-mono text-md md:text-sm px-2 md:w-1/3 lg:w-1/4 shrink-0"
     >
         <span class="text-sm font-mono text-emerald-400 mb-1">
             {ano} • {tempo}
@@ -29,7 +29,9 @@ const { ano, tempo, cargo, empresa, modalidade } = Astro.props;
         </p>
     </div>
 
-    <div class="text-gray-300 text-base leading-relaxed md:w-2/3 lg:w-3/4">
+    <div
+        class="text-white font-mono text-md md:text-sm px-2 leading-relaxed md:w-2/3 lg:w-3/4"
+    >
         <slot />
     </div>
 </div>
