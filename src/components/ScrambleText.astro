@@ -4,7 +4,14 @@ const { class: externalClasses } = Astro.props;
 ---
 
 <script>
-    function scrambleText(element: HTMLElement, options = {}) {
+    interface ScrambleOptions {
+        speed?: number;
+        duration?: number;
+        characters?: string;
+        delayBetween?: number;
+    }
+
+    function scrambleText(element: HTMLElement, options: ScrambleOptions = {}) {
         const {
             speed = 20,
             duration = 1200,
@@ -28,7 +35,7 @@ const { class: externalClasses } = Astro.props;
         element.style.minWidth = `${originalWidth}px`;
 
         let frame = 0;
-        let interval;
+        let interval: ReturnType<typeof setInterval>;
         const runFrame = () => {
             for (let i = 0; i < originalText.length; i++) {
                 if (originalText[i] === " ") {
@@ -56,7 +63,7 @@ const { class: externalClasses } = Astro.props;
         interval = setInterval(runFrame, speed);
     }
     document.querySelectorAll(".note").forEach((container) => {
-        scrambleText(container, {
+        scrambleText(container as HTMLElement, {
             speed: 30,
             duration: 1500,
             delayBetween: 30,

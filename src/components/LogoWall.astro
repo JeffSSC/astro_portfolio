@@ -1,5 +1,9 @@
 ---
-import "devicon/devicon.min.css";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    techs?: string[];
+}
 
 const {
     techs = [
@@ -19,12 +23,32 @@ const {
     ],
 } = Astro.props;
 
-const typedTechs = techs;
+const iconMap: Record<string, string> = {
+    astro: "simple-icons:astro",
+    vuejs: "simple-icons:vuedotjs",
+    python: "simple-icons:python",
+    html5: "simple-icons:html5",
+    css3: "simple-icons:css3",
+    git: "simple-icons:git",
+    github: "simple-icons:github",
+    amazonwebservices: "simple-icons:amazonaws",
+    docker: "simple-icons:docker",
+    nodejs: "simple-icons:nodedotjs",
+    tailwindcss: "simple-icons:tailwindcss",
+    postgresql: "simple-icons:postgresql",
+    mysql: "simple-icons:mysql",
+};
+
+const typedTechs: string[] = techs;
 const techsReversed = [...typedTechs].reverse();
 
-function capitalize(str) {
+function capitalize(str: string) {
     if (!str) return "";
     return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function getIcon(tech: string) {
+    return iconMap[tech] || `simple-icons:${tech}`;
 }
 ---
 
@@ -33,22 +57,26 @@ function capitalize(str) {
         <div class="marquee__group">
             {
                 typedTechs.map((tech) => (
-                    <i
-                        class={`devicon-${tech}-plain`}
+                    <div
+                        class="logo-item"
                         aria-label={`${capitalize(tech)} logo`}
                         title={`${capitalize(tech)} logo`}
-                    />
+                    >
+                        <Icon name={getIcon(tech)} />
+                    </div>
                 ))
             }
         </div>
         <div aria-hidden="true" class="marquee__group">
             {
                 typedTechs.map((tech) => (
-                    <i
-                        class={`devicon-${tech}-plain`}
+                    <div
+                        class="logo-item"
                         aria-hidden="true"
                         title={`${capitalize(tech)} logo`}
-                    />
+                    >
+                        <Icon name={getIcon(tech)} />
+                    </div>
                 ))
             }
         </div>
@@ -58,34 +86,38 @@ function capitalize(str) {
         <div class="marquee__group">
             {
                 techsReversed.map((tech) => (
-                    <i
-                        class={`devicon-${tech}-plain`}
+                    <div
+                        class="logo-item"
                         aria-label={`${capitalize(tech)} logo`}
                         title={`${capitalize(tech)} logo`}
-                    />
+                    >
+                        <Icon name={getIcon(tech)} />
+                    </div>
                 ))
             }
         </div>
         <div aria-hidden="true" class="marquee__group">
             {
                 techsReversed.map((tech) => (
-                    <i
-                        class={`devicon-${tech}-plain`}
+                    <div
+                        class="logo-item"
                         aria-hidden="true"
                         title={`${capitalize(tech)} logo`}
-                    />
+                    >
+                        <Icon name={getIcon(tech)} />
+                    </div>
                 ))
             }
         </div>
     </div>
 </article>
 
-<style is:global>
+<style>
     :root {
         --color-text: navy;
         --color-bg: papayawhip;
         --color-bg-accent: #ecdcc0;
-        --size: clamp(4.5rem, 6rem, 8.5rem);
+        --size: clamp(8rem, 10rem, 12rem);
         --gap: calc(var(--size) / 12);
         --duration: 40s;
         --scroll-start: 0;
@@ -148,15 +180,21 @@ function capitalize(str) {
         }
     }
 
-    .marquee i {
+    .logo-item {
         display: grid;
         place-items: center;
-        font-size: var(--size);
+        width: var(--size);
+        height: var(--size);
         color: var(--color-text);
         background: var(--color-bg-accent);
         aspect-ratio: 1/1;
         padding: calc(var(--size) / 4);
         border-radius: 0.75rem;
+    }
+
+    .logo-item svg {
+        width: 100%;
+        height: 100%;
     }
 
     .wrapper {

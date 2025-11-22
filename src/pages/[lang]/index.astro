@@ -78,8 +78,8 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                     src={myselfImage}
                     alt="Jefferson Silva Caires"
                     class="object-cover rounded-full size-48"
-                    width={192}
-                    height={192}
+                    width={384}
+                    height={384}
                     quality="mid"
                     format="webp"
                 />
@@ -145,8 +145,8 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                             src={aiPractitioner}
                             class="max-w-50 h-auto"
                             alt="AWS AI Practitioner"
-                            width={200}
-                            height={200}
+                            width={384}
+                            height={384}
                         />
                         <Text>AWS AI Practitioner</Text>
                     </div>
@@ -158,8 +158,8 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                             src={cloudPractitioner}
                             class="max-w-50 h-auto"
                             alt="AWS Cloud Practitioner"
-                            width={200}
-                            height={200}
+                            width={384}
+                            height={384}
                         />
 
                         <Text>AWS Cloud Practitioner</Text>
@@ -203,7 +203,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                 <CardProject
                     title={t("proj.golden.title")}
                     description={t("proj.golden.desc")}
-                    imageSrc={tagGoldenParkImage.src}
+                    imageSrc={tagGoldenParkImage}
                     btn={t("projects.btn_production")}
                     btnLink="https://www.loom.com/share/f0f5586ce30947aa9347d7d02ebe141c"
                     tags={[
@@ -225,7 +225,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                 <CardProject
                     title={t("proj.extractor.title")}
                     description={t("proj.extractor.desc")}
-                    imageSrc={extractorImage.src}
+                    imageSrc={extractorImage}
                     tags={[
                         "Python",
                         "AWS Lambda",
@@ -241,7 +241,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                 <CardProject
                     title={t("proj.themis.title")}
                     description={t("proj.themis.desc")}
-                    imageSrc={themisImage.src}
+                    imageSrc={themisImage}
                     tags={[
                         "Python",
                         "RAG",
@@ -257,7 +257,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                 <CardProject
                     title={t("proj.mikael.title")}
                     description={t("proj.mikael.desc")}
-                    imageSrc={mikaelImage.src}
+                    imageSrc={mikaelImage}
                     btn={t("projects.btn_github")}
                     btnLink="https://github.com/LuanPonick/Mikael"
                     tags={["YOLO", "OpenCV", "Python", "LeRobot"]}
@@ -265,7 +265,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                 <CardProject
                     title={t("proj.portfolio.title")}
                     description={t("proj.portfolio.desc")}
-                    imageSrc={portfolioImage.src}
+                    imageSrc={portfolioImage}
                     tags={[
                         "Astro",
                         "Tailwind",
@@ -279,7 +279,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                     btnLink="https://github.com/JeffSSC/astro_portfolio"
                 />
             </div>
-            <div class="font-mono" data-aos="fade-up">
+            <div class="font-mono">
                 <SectionSubtitle>{t("projects.github_more")}</SectionSubtitle>
                 <a href="https://github.com/JeffSSC" target="_blank">
                     <TechStack techs={["github"]} />
@@ -288,7 +288,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
         </div>
     </section>
     <section class="contact">
-        <div class="flex flex-col items-center p-4 md:p-10" data-aos="fade-up">
+        <div class="flex flex-col items-center p-4 md:p-10">
             <SectionTitle>{t("contact.title")}</SectionTitle>
             <div
                 class="flex flex-wrap font-mono justify-center gap-6 md:gap-10 p-6 md:p-10 w-full"

@@ -224,7 +224,7 @@
             composer.setSize(newWidth, newHeight);
         });
 
-        function animate(time) {
+        function animate(time: number) {
             requestAnimationFrame(animate);
             material.uniforms.uTime.value = time * 0.001;
             mesh.rotation.y += 0.005;
