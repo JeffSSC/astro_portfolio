@@ -11,6 +11,8 @@ import TechStack from "../../components/TechStack.astro";
 import CardProject from "../../components/CardProject.astro";
 import ExpComponent from "../../components/ExpComponent.astro";
 
+import { Image } from "astro:assets";
+
 import myselfImage from "../../assets/images/myself.jpg";
 import mikaelImage from "../../assets/images/mikael.jpg";
 import themisImage from "../../assets/images/themis.jpg";
@@ -70,10 +72,14 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                 data-aos="fade-up"
                 class="flex max-w-7xl justify-center items-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
             >
-                <img
-                    src={myselfImage.src}
+                <Image
+                    src={myselfImage}
                     alt="Jefferson Silva Caires"
                     class="object-cover rounded-full size-48"
+                    width={192}
+                    height={192}
+                    quality="mid"
+                    format="webp"
                 />
                 <Text>
                     {t("about.text")}
@@ -133,10 +139,12 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                         data-aos="fade-right"
                         class="flex flex-col gap-2 items-center transition-transform hover:-translate-y-1"
                     >
-                        <img
-                            src={aiPractitioner.src}
-                            class="max-w-50"
+                        <Image
+                            src={aiPractitioner}
+                            class="max-w-50 h-auto"
                             alt="AWS AI Practitioner"
+                            width={200}
+                            height={200}
                         />
                         <Text>AWS AI Practitioner</Text>
                     </div>
@@ -144,10 +152,12 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                         data-aos="fade-left"
                         class="flex flex-col gap-2 items-center transition-transform hover:-translate-y-1"
                     >
-                        <img
-                            src={cloudPractitioner.src}
-                            class="max-w-50"
+                        <Image
+                            src={cloudPractitioner}
+                            class="max-w-50 h-auto"
                             alt="AWS Cloud Practitioner"
+                            width={200}
+                            height={200}
                         />
 
                         <Text>AWS Cloud Practitioner</Text>
