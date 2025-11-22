@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+
 import PageLayout from "../../layouts/PageLayout.astro";
 import HomeAnimation from "../../components/HomeAnimation.astro";
 import ScrambleText from "../../components/ScrambleText.astro";
@@ -296,7 +298,10 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                     href={whatsappLink}
                     target="_blank"
                 >
-                    <i class="fab fa-whatsapp text-5xl md:text-9xl"></i>
+                    <Icon
+                        name="fa-brands:whatsapp"
+                        class="size-12 md:size-24"
+                    />
                     <span class="font-bold mt-2">WhatsApp</span>
                 </a>
 
@@ -305,7 +310,10 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                     href="https://www.linkedin.com/in/jefferson-caires/"
                     target="_blank"
                 >
-                    <i class="fab fa-linkedin text-5xl md:text-9xl"></i>
+                    <Icon
+                        name="fa-brands:linkedin"
+                        class="size-12 md:size-24"
+                    />
                     <span class="font-bold mt-2">LinkedIn</span>
                 </a>
 
@@ -314,7 +322,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                     href="mailto:jefferson.caires@gmail.com"
                     target="_blank"
                 >
-                    <i class="fas fa-envelope text-5xl md:text-9xl"></i>
+                    <Icon name="fa-solid:envelope" class="size-12 md:size-24" />
                     <span class="font-bold mt-2">Email</span>
                 </a>
             </div>
