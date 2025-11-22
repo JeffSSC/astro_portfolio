@@ -5,28 +5,87 @@ import Header from "../components/Header.astro";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/700.css";
-
 import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
 import "@fontsource/poppins/800.css";
-
 import "@fontsource/jetbrains-mono/400.css";
 import "@fontsource/jetbrains-mono/500.css";
-
 import "devicon/devicon.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-const { title } = Astro.props;
+interface Props {
+    title: string;
+    description?: string;
+    image?: string;
+}
+
+const {
+    title = "Portfolio - Jefferson",
+    description = "Portfólio de Jefferson Silva Caires - Desenvolvedor Full-Stack especializado em Vue, Astro, Python e AWS.",
+    image = "/og-image.png",
+} = Astro.props;
+
+const { pathname, site } = Astro.url;
+const isEn = pathname.startsWith("/en");
+const lang = isEn ? "en" : "pt-BR";
+
+const siteUrl = site ? site.toString() : "https://jeffsc.com.br";
+const canonicalURL = new URL(pathname, siteUrl);
+const socialImageURL = new URL(image, siteUrl);
+
+const cleanPath = pathname.replace(/^\/en/, "").replace(/^\/pt/, "") || "/";
+const ptUrl = new URL(`/pt${cleanPath === "/" ? "" : cleanPath}`, siteUrl);
+const enUrl = new URL(`/en${cleanPath === "/" ? "" : cleanPath}`, siteUrl);
+
+const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Jefferson Silva Caires",
+    url: siteUrl,
+    image: socialImageURL,
+    jobTitle: isEn ? "Full-Stack Developer" : "Desenvolvedor Full-Stack",
+    sameAs: [
+        "https://www.linkedin.com/in/jefferson-caires/",
+        "https://github.com/JeffSSC",
+    ],
+};
 ---
 
-<html lang="pt-BR">
+<!doctype html>
+<html lang={lang}>
     <head>
-        <meta charset="utf-8" />
-
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
+
         <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={canonicalURL} />
+
+        <link rel="alternate" hreflang="pt-BR" href={ptUrl} />
+        <link rel="alternate" hreflang="en" href={enUrl} />
+        <link rel="alternate" hreflang="x-default" href={ptUrl} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalURL} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={socialImageURL} />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={canonicalURL} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={socialImageURL} />
+
+        <script
+            type="application/ld+json"
+            set:html={JSON.stringify(schemaData)}
+        />
+
+        <slot name="head" />
     </head>
     <body class="bg-black overflow-x-hidden overflow-y-auto">
         <Header />

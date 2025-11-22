@@ -29,11 +29,14 @@ export function getStaticPaths() {
 const lang = Astro.params.lang || "pt";
 const t = useTranslations(lang as any);
 
+const pageTitle = t("site.title");
+const pageDescription = t("about.text");
+
 const whatsappMessage = encodeURIComponent(t("hero.whatsapp_msg"));
 const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
 ---
 
-<PageLayout title={t("site.title")}>
+<PageLayout title={pageTitle} description={pageDescription}>
     <section class="landing relative h-screen w-full overflow-hidden">
         <HomeAnimation />
         <div class="flex justify-center items-center h-screen flex-col">
@@ -254,7 +257,9 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                     tags={[
                         "Astro",
                         "Tailwind",
+                        "i18n",
                         "TypeScript",
+                        "AWS S3",
                         "AWS Route53",
                         "AWS CloudFront",
                     ]}
