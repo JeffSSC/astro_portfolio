@@ -84,6 +84,12 @@ const schemaData = {
             set:html={JSON.stringify(schemaData)}
         />
 
+        <style is:global>
+            @font-face {
+                font-display: swap;
+            }
+        </style>
+
         <slot name="head" />
     </head>
     <body class="bg-black overflow-x-hidden overflow-y-auto">

@@ -35,32 +35,42 @@ const { class: externalClasses } = Astro.props;
         element.style.minWidth = `${originalWidth}px`;
 
         let frame = 0;
-        let interval: ReturnType<typeof setInterval>;
-        const runFrame = () => {
-            for (let i = 0; i < originalText.length; i++) {
-                if (originalText[i] === " ") {
-                    output[i] = " ";
-                    continue;
+        let lastTime = 0;
+        let animationFrameId: number;
+
+        const runFrame = (timestamp: number) => {
+            if (!lastTime) lastTime = timestamp;
+            const elapsed = timestamp - lastTime;
+
+            if (elapsed >= speed) {
+                lastTime = timestamp;
+
+                for (let i = 0; i < originalText.length; i++) {
+                    if (originalText[i] === " ") {
+                        output[i] = " ";
+                        continue;
+                    }
+                    if (frame >= resolveFrames[i]) {
+                        output[i] = originalText[i];
+                    } else {
+                        output[i] = characters.charAt(
+                            Math.floor(Math.random() * characters.length),
+                        );
+                    }
                 }
-                if (frame >= resolveFrames[i]) {
-                    output[i] = originalText[i];
-                } else {
-                    output[i] = characters.charAt(
-                        Math.floor(Math.random() * characters.length),
-                    );
-                }
+
+                element.textContent = output.join("");
+                frame++;
             }
 
-            element.textContent = output.join("");
-            frame++;
-
-            if (frame > Math.max(...resolveFrames)) {
-                clearInterval(interval);
+            if (frame <= Math.max(...resolveFrames)) {
+                animationFrameId = requestAnimationFrame(runFrame);
+            } else {
                 element.textContent = originalText;
             }
         };
-        runFrame();
-        interval = setInterval(runFrame, speed);
+
+        animationFrameId = requestAnimationFrame(runFrame);
     }
     document.querySelectorAll(".note").forEach((container) => {
         scrambleText(container as HTMLElement, {

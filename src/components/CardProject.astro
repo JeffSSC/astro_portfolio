@@ -30,7 +30,8 @@ const {
             src={imageSrc as any}
             alt={`Imagem de capa do projeto ${title}`}
             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
+            loading="eager"
+            fetchpriority="high"
             quality="mid"
             format="webp"
             width={600}

@@ -59,7 +59,7 @@ function getIcon(tech: string) {
                 typedTechs.map((tech) => (
                     <div
                         class="logo-item"
-                        aria-label={`${capitalize(tech)} logo`}
+                        aria-hidden="true"
                         title={`${capitalize(tech)} logo`}
                     >
                         <Icon name={getIcon(tech)} />
@@ -88,7 +88,7 @@ function getIcon(tech: string) {
                 techsReversed.map((tech) => (
                     <div
                         class="logo-item"
-                        aria-label={`${capitalize(tech)} logo`}
+                        aria-hidden="true"
                         title={`${capitalize(tech)} logo`}
                     >
                         <Icon name={getIcon(tech)} />
@@ -113,11 +113,11 @@ function getIcon(tech: string) {
 </article>
 
 <style>
-    :root {
+    .wrapper {
         --color-text: navy;
         --color-bg: papayawhip;
         --color-bg-accent: #ecdcc0;
-        --size: clamp(8rem, 10rem, 12rem);
+        --size: clamp(6rem, 8rem, 10rem);
         --gap: calc(var(--size) / 12);
         --duration: 40s;
         --scroll-start: 0;
@@ -125,7 +125,7 @@ function getIcon(tech: string) {
     }
 
     @media (prefers-color-scheme: dark) {
-        :root {
+        .wrapper {
             --color-text: papayawhip;
             --color-bg: rgb(14, 14, 14);
             --color-bg-accent: #151515;

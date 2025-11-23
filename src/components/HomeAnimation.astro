@@ -30,17 +30,18 @@
         const renderer = new THREE.WebGLRenderer({
             antialias: true,
             alpha: true,
+            powerPreference: "high-performance",
         });
 
         renderer.setSize(width, height);
-        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
         container.appendChild(renderer.domElement);
 
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.dispose();
 
-        const geometry = new THREE.IcosahedronGeometry(1, 30);
+        const geometry = new THREE.SphereGeometry(1, 64, 64);
 
         const material = new THREE.ShaderMaterial({
             uniforms: {
@@ -68,7 +69,14 @@
                 varying vec3 vNormal;
                 varying vec3 v3Position;
                 varying float vShellPattern;
+                varying vec3 vViewPosition;
+                
                 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+                
+                // ... (noise functions remain the same, omitted for brevity if not changing) ...
+                // Re-including noise functions to ensure context match if needed, but since I'm replacing the whole block or just the main/varying parts.
+                // Let's replace the main function and varying declarations to be safe.
+                
                 float noise(vec2 uv, float timeOffset) {
                     vec2 i = floor(uv);
                     vec2 f = fract(uv);
@@ -130,7 +138,10 @@
                     displacedPosition += normal * displacementFactor;
                     vNormal = transformedNormal;
                     v3Position = position;
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(displacedPosition, 1.0);
+                    
+                    vec4 mvPosition = modelViewMatrix * vec4(displacedPosition, 1.0);
+                    vViewPosition = -mvPosition.xyz;
+                    gl_Position = projectionMatrix * mvPosition;
                 }
             `,
             fragmentShader: `
@@ -143,13 +154,27 @@
                 varying vec3 vNormal;
                 varying vec3 v3Position;
                 varying float vShellPattern;
+                varying vec3 vViewPosition;
+                
                 void main() {
                     float steppedPattern = smoothstep(uOutlineWidth, uOutlineWidth + 0.2, vShellPattern);
                     vec3 lightDirection = normalize(vec3(0.5, 0.5, 1.0));
                     float lighting = dot(vNormal, lightDirection) * 0.5 + 0.5;
+                    
+                    // Base color mixing
                     vec3 baseColor = mix(uOutlineColor, uSecondaryColor, steppedPattern);
+                    
+                    // Fresnel Effect
+                    vec3 viewDir = normalize(vViewPosition);
+                    float fresnel = pow(1.0 - max(0.0, dot(vNormal, viewDir)), 3.0);
+                    
+                    // Combine
                     float highlightIntensity = smoothstep(0.0, 0.5, vShellPattern);
                     vec3 finalColor = baseColor + uColor * highlightIntensity * uDepth * lighting;
+                    
+                    // Add Fresnel glow
+                    finalColor += uColor * fresnel * 0.8;
+                    
                     gl_FragColor = vec4(finalColor * lighting, 1.0);
                 }
             `,
@@ -224,12 +249,27 @@
             composer.setSize(newWidth, newHeight);
         });
 
+        let isVisible = true;
+
         function animate(time: number) {
             requestAnimationFrame(animate);
+            if (!isVisible) return;
+
             material.uniforms.uTime.value = time * 0.001;
             mesh.rotation.y += 0.005;
             composer.render();
         }
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    isVisible = entry.isIntersecting;
+                });
+            },
+            { threshold: 0 },
+        );
+
+        observer.observe(container);
 
         randomizer.randomize();
         animate(0);
