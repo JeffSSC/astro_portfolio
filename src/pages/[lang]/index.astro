@@ -5,7 +5,6 @@ import PageLayout from "../../layouts/PageLayout.astro";
 import HomeAnimation from "../../components/HomeAnimation.astro";
 import ScrambleText from "../../components/ScrambleText.astro";
 import ScrollArrow from "../../components/ScrollArrow.astro";
-import LogoWall from "../../components/LogoWall.astro";
 import SectionTitle from "../../components/ui/SectionTitle.astro";
 import SectionSubtitle from "../../components/ui/SectionSubtitle.astro";
 import Text from "../../components/ui/Text.astro";
@@ -21,8 +20,6 @@ import themisImage from "../../assets/images/themis.jpg";
 import tagGoldenParkImage from "../../assets/images/tag-golden-park.png";
 import extractorImage from "../../assets/images/extractor.png";
 import portfolioImage from "../../assets/images/portfolio.png";
-import aiPractitioner from "../../assets/images/ai_practitioner.png";
-import cloudPractitioner from "../../assets/images/cloud_practitioner.png";
 
 import { useTranslations } from "../../i18n/utils";
 
@@ -54,11 +51,11 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
             >
             <div class="absolute bottom-45 md:bottom-50" data-aos="fade-up">
                 <button
-                    class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-1 rounded-full"
+                    class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-2 rounded-sm"
                     ><a
                         target="_blank"
                         href={whatsappLink}
-                        class="text-white font-mono text-sm md:text-lg font-bold py-2 px-2 rounded-full inline-block text-center"
+                        class="text-white font-mono text-sm py-2 px-2 rounded-full inline-block text-center"
                     >
                         {t("hero.cta")}
                     </a>
@@ -130,9 +127,6 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
             </div>
         </div>
     </section>
-    <div class="pb-10" data-aos="fade-up">
-        <LogoWall />
-    </div>
     <section class="technologies">
         <div class="flex flex-col items-center" data-aos="fade-up">
             <SectionTitle>{t("tech.title")}</SectionTitle>
