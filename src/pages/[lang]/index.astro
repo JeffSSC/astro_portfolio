@@ -12,15 +12,6 @@ import TechStack from "../../components/TechStack.astro";
 import CardProject from "../../components/CardProject.astro";
 import ExpComponent from "../../components/ExpComponent.astro";
 
-import { Image } from "astro:assets";
-
-import myselfImage from "../../assets/images/myself.jpg";
-import mikaelImage from "../../assets/images/mikael.jpg";
-import themisImage from "../../assets/images/themis.jpg";
-import tagGoldenParkImage from "../../assets/images/tag-golden-park.png";
-import extractorImage from "../../assets/images/extractor.png";
-import portfolioImage from "../../assets/images/portfolio.png";
-
 import { useTranslations } from "../../i18n/utils";
 
 export function getStaticPaths() {
@@ -69,19 +60,8 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
             <SectionTitle data-aos="fade-up">{t("about.title")}</SectionTitle>
             <div
                 data-aos="fade-up"
-                class="flex max-w-7xl justify-center items-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
+                class="flex max-w-7xl justify-center items-center text-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
             >
-                <Image
-                    src={myselfImage}
-                    alt="Jefferson Silva Caires"
-                    class="object-cover rounded-full size-48"
-                    width={384}
-                    height={384}
-                    quality="mid"
-                    format="webp"
-                    loading="eager"
-                    fetchpriority="high"
-                />
                 <Text>
                     {t("about.text")}
                     <Text />
@@ -146,7 +126,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                             >
                             </div>
                         </div>
-                        <Text>AWS AI Practitioner</Text>
+                        <Text>AWS Cloud Practitioner</Text>
                     </div>
                     <div
                         data-aos="fade-left"
@@ -162,7 +142,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                             </div>
                         </div>
 
-                        <Text>AWS Cloud Practitioner</Text>
+                        <Text>AWS AI Practitioner</Text>
                     </div>
                 </div>
                 <script
@@ -207,7 +187,6 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
             <CardProject
                 title={t("proj.golden.title")}
                 description={t("proj.golden.desc")}
-                imageSrc={tagGoldenParkImage}
                 btn={t("projects.btn_production")}
                 btnLink="https://www.loom.com/share/f0f5586ce30947aa9347d7d02ebe141c"
                 tags={[
@@ -229,7 +208,6 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
             <CardProject
                 title={t("proj.extractor.title")}
                 description={t("proj.extractor.desc")}
-                imageSrc={extractorImage}
                 tags={[
                     "Python",
                     "AWS Lambda",
@@ -245,7 +223,6 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
             <CardProject
                 title={t("proj.themis.title")}
                 description={t("proj.themis.desc")}
-                imageSrc={themisImage}
                 tags={[
                     "Python",
                     "RAG",
@@ -261,7 +238,6 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
             <CardProject
                 title={t("proj.mikael.title")}
                 description={t("proj.mikael.desc")}
-                imageSrc={mikaelImage}
                 btn={t("projects.btn_github")}
                 btnLink="https://github.com/LuanPonick/Mikael"
                 tags={["YOLO", "OpenCV", "Python", "LeRobot"]}
@@ -269,7 +245,6 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
             <CardProject
                 title={t("proj.portfolio.title")}
                 description={t("proj.portfolio.desc")}
-                imageSrc={portfolioImage}
                 tags={[
                     "Astro",
                     "Tailwind",
@@ -283,7 +258,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                 btnLink="https://github.com/JeffSSC/astro_portfolio"
             />
         </div>
-        <div class="font-mono">
+        <div class="font-mono pt-6" data-aos="fade-up">
             <SectionSubtitle>{t("projects.github_more")}</SectionSubtitle>
             <a href="https://github.com/JeffSSC" target="_blank">
                 <TechStack techs={["github"]} />
