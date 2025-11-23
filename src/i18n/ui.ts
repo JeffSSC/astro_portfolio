@@ -18,7 +18,12 @@ export const ui = {
 
         // About Section
         'about.title': 'Sobre mim',
-        'about.text': 'Sou um profissional Full-Stack com experiência em tecnologias Front-end (Vue e Astro), Back-end (NodeJS e Python), Bancos de Dados (PostgreSQL e MySQL) e Cloud AWS com dois certificados (AWS AI Practitioner e AWS Cloud Practitioner).',
+        'about.text': [
+            'Sou um profissional <strong>Full-Stack</strong> com experiência em tecnologias <strong>Front-end</strong> (<strong>Vue</strong> e <strong>Astro</strong>), <strong>Back-end</strong> (<strong>NodeJS</strong> e <strong>Python</strong>), Bancos de Dados (<strong>PostgreSQL</strong> e <strong>MySQL</strong>) e <strong>Cloud AWS</strong> com dois certificados (<strong>AWS AI Practitioner</strong> e <strong>AWS Cloud Practitioner</strong>).',
+            'Gosto de buscar novos desafios e aprender novas tecnologias enquanto construo algo novo.',
+            'Estou sempre em busca de aprimoramento constante, participando de comunidades e eventos de tecnologia para me manter atualizado com as melhores práticas do mercado.',
+            'Meu objetivo é criar soluções impactantes que resolvam problemas reais e melhorem a vida das pessoas através da tecnologia.'
+        ],
 
         // Experience Section
         'exp.title': 'Experiência',
@@ -89,7 +94,12 @@ export const ui = {
 
         // About Section
         'about.title': 'About Me',
-        'about.text': 'I am a Full-Stack professional experienced in Front-end technologies (Vue and Astro), Back-end (NodeJS and Python), Databases (PostgreSQL and MySQL), and AWS Cloud, holding two certifications (AWS AI Practitioner and AWS Cloud Practitioner).',
+        'about.text': [
+            'I am a <strong>Full-Stack</strong> professional experienced in <strong>Front-end</strong> technologies (<strong>Vue</strong> and <strong>Astro</strong>), <strong>Back-end</strong> (<strong>NodeJS</strong> and <strong>Python</strong>), Databases (<strong>PostgreSQL</strong> and <strong>MySQL</strong>), and <strong>AWS Cloud</strong>, holding two certifications (<strong>AWS AI Practitioner</strong> and <strong>AWS Cloud Practitioner</strong>).',
+            'I enjoy seeking new challenges and learning new technologies while building something new.',
+            'I am always looking for constant improvement, participating in communities and technology events to keep up to date with the best practices in the market.',
+            'My goal is to create impactful solutions that solve real problems and improve people\'s lives through technology.'
+        ],
 
         // Experience Section
         'exp.title': 'Experience',

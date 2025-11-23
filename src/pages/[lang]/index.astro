@@ -22,14 +22,14 @@ const lang = Astro.params.lang || "pt";
 const t = useTranslations(lang as any);
 
 const pageTitle = t("site.title");
-const pageDescription = t("about.text");
+const pageDescription = (t("about.text") as readonly string[])[0];
 
 const whatsappMessage = encodeURIComponent(t("hero.whatsapp_msg"));
 const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
 ---
 
 <PageLayout title={pageTitle} description={pageDescription}>
-    <section class="landing relative h-screen w-full overflow-hidden">
+    <section class="landing relative h-screen overflow-hidden">
         <HomeAnimation />
         <div class="flex justify-center items-center h-screen flex-col">
             <ScrambleText
@@ -41,36 +41,35 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                 >{t("hero.role")}</ScrambleText
             >
             <div class="absolute bottom-45 md:bottom-50" data-aos="fade-up">
-                <button
-                    class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-2 rounded-sm"
-                    ><a
-                        target="_blank"
-                        href={whatsappLink}
-                        class="text-white font-mono text-sm py-2 px-2 rounded-full inline-block text-center"
-                    >
-                        {t("hero.cta")}
-                    </a>
-                </button>
+                <a
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bg-gray-500 hover:bg-gray-700 text-white font-mono text-sm rounded-sm h-12 px-6 inline-flex items-center justify-center transition-colors"
+                >
+                    {t("hero.cta")}
+                </a>
             </div>
             <ScrollArrow />
         </div>
     </section>
-    <section class="about">
-        <div class="flex flex-col items-center">
+    <section class="about flex flex-col items-center">
+        <div class="flex flex-col max-w-5xl items-center">
             <SectionTitle data-aos="fade-up">{t("about.title")}</SectionTitle>
             <div
                 data-aos="fade-up"
-                class="flex max-w-7xl justify-center items-center text-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
+                class="flex flex-col max-w-5xl justify-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
             >
-                <Text>
-                    {t("about.text")}
-                    <Text />
-                </Text>
+                {
+                    (t("about.text") as readonly string[]).map((paragraph) => (
+                        <Text class="mb-4" set:html={paragraph} />
+                    ))
+                }
             </div>
         </div>
     </section>
-    <section class="experience">
-        <div class="flex flex-col items-center" data-aos="fade-up">
+    <section class="experience flex flex-col items-center">
+        <div class="flex flex-col max-w-5xl items-center" data-aos="fade-up">
             <SectionTitle>{t("exp.title")}</SectionTitle>
             <div
                 class="flex flex-col max-w-7xl justify-center items-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
@@ -107,8 +106,8 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
             </div>
         </div>
     </section>
-    <section class="technologies">
-        <div class="flex flex-col items-center" data-aos="fade-up">
+    <section class="technologies flex flex-col items-center">
+        <div class="flex flex-col items-center max-w-5xl" data-aos="fade-up">
             <SectionTitle>{t("tech.title")}</SectionTitle>
             <div class="pt-8 flex flex-col items-center">
                 <SectionSubtitle>{t("tech.certs")}</SectionSubtitle>
@@ -177,8 +176,8 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
         </div>
     </section>
 </PageLayout>
-<section class="projects">
-    <div class="pt-8 flex flex-col items-center">
+<section class="projects flex flex-col items-center">
+    <div class="pt-8 flex flex-col items-center max-w-5xl">
         <SectionTitle data-aos="fade-up">{t("projects.title")}</SectionTitle>
         <div
             class="grid grid-cols-1 lg:grid-cols-2 font-mono gap-6 mt-4 w-full max-w-7xl px-4"
@@ -266,8 +265,8 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
         </div>
     </div>
 </section>
-<section class="contact">
-    <div class="flex flex-col items-center p-4 md:p-10">
+<section class="contact flex flex-col items-center">
+    <div class="flex flex-col items-center p-4 md:p-10 max-w-5xl">
         <SectionTitle>{t("contact.title")}</SectionTitle>
         <div
             class="flex flex-wrap font-mono justify-center gap-6 md:gap-10 p-6 md:p-10 w-full"
