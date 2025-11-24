@@ -11,74 +11,134 @@ const { class: externalClasses } = Astro.props;
         delayBetween?: number;
     }
 
-    function scrambleText(element: HTMLElement, options: ScrambleOptions = {}) {
-        const {
-            speed = 20,
-            duration = 1200,
-            characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}<>?",
-            delayBetween = 20,
-        } = options;
+    class TextScrambler {
+        private element: HTMLElement;
+        private options: ScrambleOptions;
+        private originalText: string;
+        private resolveFrames: number[];
+        private frame: number = 0;
+        private lastTime: number = 0;
+        private animationFrameId: number | null = null;
+        private output: string[];
 
-        if (!element) return;
+        constructor(element: HTMLElement, options: ScrambleOptions = {}) {
+            this.element = element;
+            this.options = {
+                speed: 20,
+                duration: 1200,
+                characters:
+                    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}<>?",
+                delayBetween: 20,
+                ...options,
+            };
+            this.originalText = element.textContent || "";
+            this.output = Array(this.originalText.length).fill("");
+            this.resolveFrames = Array.from(
+                { length: this.originalText.length },
+                (_, i) =>
+                    Math.floor(
+                        Math.random() *
+                            (this.options.duration! / this.options.speed!),
+                    ) +
+                    i * (this.options.delayBetween! / this.options.speed!),
+            );
+        }
 
-        const originalText = element.textContent;
-        const output = Array(originalText.length).fill("");
-        const resolveFrames = Array.from(
-            { length: originalText.length },
-            (_, i) =>
-                Math.floor(Math.random() * (duration / speed)) +
-                i * (delayBetween / speed),
-        );
+        // Phase 1: Read layout properties
+        public prepare() {
+            // Force a layout calculation only once per element if needed,
+            // but ideally we batch this across all instances if possible.
+            // For now, we just read it here.
+            const width = this.element.scrollWidth;
+            return width;
+        }
 
-        const originalWidth = element.scrollWidth;
+        // Phase 2: Write layout properties
+        public setWidth(width: number) {
+            this.element.style.minWidth = `${width}px`;
+        }
 
-        element.style.minWidth = `${originalWidth}px`;
+        public start() {
+            this.animationFrameId = requestAnimationFrame(this.runFrame);
+        }
 
-        let frame = 0;
-        let lastTime = 0;
-        let animationFrameId: number;
+        private runFrame = (timestamp: number) => {
+            if (!this.lastTime) this.lastTime = timestamp;
+            const elapsed = timestamp - this.lastTime;
 
-        const runFrame = (timestamp: number) => {
-            if (!lastTime) lastTime = timestamp;
-            const elapsed = timestamp - lastTime;
-
-            if (elapsed >= speed) {
-                lastTime = timestamp;
-
-                for (let i = 0; i < originalText.length; i++) {
-                    if (originalText[i] === " ") {
-                        output[i] = " ";
-                        continue;
-                    }
-                    if (frame >= resolveFrames[i]) {
-                        output[i] = originalText[i];
-                    } else {
-                        output[i] = characters.charAt(
-                            Math.floor(Math.random() * characters.length),
-                        );
-                    }
-                }
-
-                element.textContent = output.join("");
-                frame++;
+            if (elapsed >= this.options.speed!) {
+                this.lastTime = timestamp;
+                this.updateText();
             }
 
-            if (frame <= Math.max(...resolveFrames)) {
-                animationFrameId = requestAnimationFrame(runFrame);
+            if (this.frame <= Math.max(...this.resolveFrames)) {
+                this.animationFrameId = requestAnimationFrame(this.runFrame);
             } else {
-                element.textContent = originalText;
+                this.element.textContent = this.originalText;
             }
         };
 
-        animationFrameId = requestAnimationFrame(runFrame);
+        private updateText() {
+            const { characters } = this.options;
+
+            for (let i = 0; i < this.originalText.length; i++) {
+                if (this.originalText[i] === " ") {
+                    this.output[i] = " ";
+                    continue;
+                }
+                if (this.frame >= this.resolveFrames[i]) {
+                    this.output[i] = this.originalText[i];
+                } else {
+                    this.output[i] = characters!.charAt(
+                        Math.floor(Math.random() * characters!.length),
+                    );
+                }
+            }
+
+            this.element.textContent = this.output.join("");
+            this.frame++;
+        }
     }
-    document.querySelectorAll(".note").forEach((container) => {
-        scrambleText(container as HTMLElement, {
+
+    // Batch execution to avoid layout thrashing
+    const elements = document.querySelectorAll(".note");
+    const scramblers: TextScrambler[] = [];
+    const widths: number[] = [];
+
+    // 1. Read all widths
+    elements.forEach((el) => {
+        const scrambler = new TextScrambler(el as HTMLElement, {
             speed: 30,
             duration: 1500,
             delayBetween: 30,
         });
+        scramblers.push(scrambler);
+        widths.push(scrambler.prepare());
     });
+
+    // 2. Write all widths
+    scramblers.forEach((scrambler, i) => {
+        scrambler.setWidth(widths[i]);
+    });
+
+    // 3. Start animations
+    // Use IntersectionObserver to start animation only when visible
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(elements).indexOf(entry.target);
+                    if (index !== -1) {
+                        scramblers[index].start();
+                        observer.unobserve(entry.target);
+                    }
+                }
+            });
+        },
+        { threshold: 0.1 },
+    );
+
+    elements.forEach((el) => observer.observe(el));
 </script>
 
 <div class:list={["note", externalClasses]}>
