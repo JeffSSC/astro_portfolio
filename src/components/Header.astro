@@ -25,6 +25,7 @@ const resumeLabel = isEn ? "Resume" : "Currículo";
                     <div class="flex gap-1">
                         <a
                             href="/pt"
+                            aria-label="Mudar para Português"
                             class={`transition-colors ${!isEn ? "text-emerald-400 font-bold" : "text-white hover:text-gray-300"}`}
                         >
                             PT
@@ -32,6 +33,7 @@ const resumeLabel = isEn ? "Resume" : "Currículo";
                         <span class="text-white">/</span>
                         <a
                             href="/en"
+                            aria-label="Switch to English"
                             class={`transition-colors ${isEn ? "text-emerald-400 font-bold" : "text-white hover:text-gray-300"}`}
                         >
                             EN
