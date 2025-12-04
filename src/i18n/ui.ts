@@ -80,6 +80,35 @@ export const ui = {
 
         // Contact Section
         'contact.title': 'Entre em contato',
+
+        // Testimonials Section
+        'testimonials.title': 'Depoimentos',
+        'testimonials': [
+            {
+                text: 'Valorizo profissionais que facilitam o fluxo de trabalho, e o Jefferson se encaixa perfeitamente nesse perfil. Ele é um desenvolvedor altamente organizado, o que traz previsibilidade e clareza para as atividades que assume. Além do domínio técnico, possui uma excelente capacidade de adaptação. Em situações de mudança de escopo ou incidentes repentinos, ele atua com inteligência e agilidade, mantendo o foco na resolução do problema. Sua ética de trabalho e integridade fazem dele um membro de equipe confiável e colaborativo. Recomendo fortemente seu trabalho.',
+                author: 'Aloisio Souza Gonçalves',
+                role: 'Scrum Master',
+                avatar: '/assets/aloisio.jpg',
+            },
+            {
+                text: 'Conheci o Jefferson num evento de hackathon em Blumenau, o que já mostra um grande interesse em fazer network e se desafiar no mundo tech. Tem um conhecimento excelente de lógica de programação para resolver problemas, mostrou um excelente domínio em python, banco de dados, docker, dentre outras necessidades que tínhamos no desafio. Certeza que será um profissional exemplar por onde passar, recomendo bastante!',
+                author: 'Patrick Monteiro',
+                role: 'Vue.js Specialist | Senior Front-end',
+                avatar: '/assets/patrick.jpg',
+            },
+            {
+                text: 'É uma pessoa extremamente comprometida, organizada e colaborativa. Sempre demonstra disposição em ajudar o grupo e buscar as melhores soluções. Profissionalmente, o Jeff é dedicado, responsável e possui uma facilidade incrível em se comunicar e trabalhar em equipe',
+                author: 'Lucas Franco da Silva',
+                role: 'Desenvolvedor de software',
+                avatar: '/assets/lucas.jpg',
+            },
+            {
+                text: 'Tive o prazer de acompanhar o Jefferson durante seu percurso acadêmico e vi de perto seu crescimento e dedicação. Ele se destacou por sua curiosidade intelectual, capacidade de aprender rapidamente e aplicar o conhecimento de forma prática e relevante. Em todos os momentos, demonstrou uma postura colaborativa, com excelente comunicação e espírito de equipe. Jefferson é proativo e tem uma forte orientação para resultados — qualidades que o tornam preparado para enfrentar novos desafios e gerar impacto positivo em qualquer ambiente profissional. Além disso, ele mostra integridade, ética e vontade de fazer a diferença. Tenho plena confiança de que Jefferson continuará construindo uma trajetória de sucesso e recomendo-o com entusiasmo para novas oportunidades nas quais possa aplicar seu talento.',
+                author: 'Bruno Utiyama',
+                role: 'Professor / Engenheiro',
+                avatar: '/assets/bruno.jpg',
+            },
+        ],
     },
 
     en: {
@@ -156,5 +185,34 @@ export const ui = {
 
         // Contact Section
         'contact.title': 'Get in Touch',
+
+        // Testimonials Section
+        'testimonials.title': 'Testimonials',
+        'testimonials': [
+            {
+                text: 'I value professionals who facilitate workflow, and Jefferson fits this profile perfectly. He is a highly organized developer, which brings predictability and clarity to the activities he takes on. Beyond technical mastery, he has excellent adaptability. In situations of scope change or sudden incidents, he acts with intelligence and agility, keeping focus on problem resolution. His work ethic and integrity make him a reliable and collaborative team member. I strongly recommend his work.',
+                author: 'Aloisio Souza Gonçalves',
+                role: 'Scrum Master',
+                avatar: '/assets/aloisio.jpg',
+            },
+            {
+                text: 'I met Jefferson at a hackathon event in Blumenau, which already shows a great interest in networking and challenging himself in the tech world. He has excellent knowledge of programming logic to solve problems, showed excellent mastery in Python, databases, Docker, among other needs we had in the challenge. I am sure he will be an exemplary professional wherever he goes, I highly recommend him!',
+                author: 'Patrick Monteiro',
+                role: 'Vue.js Specialist | Senior Front-end',
+                avatar: '/assets/patrick.jpg',
+            },
+            {
+                text: 'He is an extremely committed, organized, and collaborative person. He always demonstrates willingness to help the group and seek the best solutions. Professionally, Jeff is dedicated, responsible, and has an incredible ease in communicating and working in a team.',
+                author: 'Lucas Franco da Silva',
+                role: 'Software Developer',
+                avatar: '/assets/lucas.jpg',
+            },
+            {
+                text: 'I had the pleasure of following Jefferson during his academic journey and saw his growth and dedication up close. He stood out for his intellectual curiosity, ability to learn quickly, and apply knowledge in a practical and relevant way. At all times, he demonstrated a collaborative posture, with excellent communication and team spirit. Jefferson is proactive and has a strong results orientation — qualities that make him prepared to face new challenges and generate positive impact in any professional environment. Furthermore, he shows integrity, ethics, and a desire to make a difference. I have full confidence that Jefferson will continue building a successful trajectory and I recommend him with enthusiasm for new opportunities where he can apply his talent.',
+                author: 'Bruno Utiyama',
+                role: 'Professor / Engineer',
+                avatar: '/assets/bruno.jpg',
+            },
+        ],
     },
 } as const;

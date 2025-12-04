@@ -1,0 +1,150 @@
+---
+interface Testimonial {
+    text: string;
+    author: string;
+    role: string;
+    avatar: string;
+}
+
+interface Props {
+    testimonials: Testimonial[];
+}
+
+const { testimonials } = Astro.props;
+---
+
+<style>
+    .swiper {
+        overflow: hidden;
+        width: 100%;
+        padding-top: 10px;
+    }
+
+    .swiper-slide {
+        width: 100%;
+        flex-shrink: 0;
+    }
+
+    .swiper-button-prev:after,
+    .swiper-rtl .swiper-button-next:after {
+        content: "" !important;
+    }
+
+    .swiper-button-next:after,
+    .swiper-rtl .swiper-button-prev:after {
+        content: "" !important;
+    }
+
+    .swiper-button-next svg,
+    .swiper-button-prev svg {
+        width: 24px !important;
+        height: 24px !important;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        position: relative !important;
+    }
+</style>
+
+<div class="mt-4 w-full">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <div class="swiper mySwiper mb-10">
+            <div class="swiper-wrapper">
+                {
+                    testimonials.map((testimonial) => (
+                        <div class="swiper-slide group bg-[#151515] border border-solid h-auto border-gray-800 shadow-lg rounded-xl p-6 transition-transform duration-500 hover:-translate-y-1">
+                            <div class="flex items-center gap-5 mb-9">
+                                <img
+                                    class="rounded-full object-cover w-14 h-14"
+                                    src={testimonial.avatar}
+                                    alt="avatar"
+                                />
+                                <div class="grid gap-1">
+                                    <h5 class="text-white font-medium transition-all duration-500 group-hover:text-teal-400">
+                                        {testimonial.author}
+                                    </h5>
+                                    <span class="text-sm leading-6 text-gray-400 transition-all duration-500 group-hover:text-white">
+                                        {testimonial.role}
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="text-lg text-gray-400 leading-relaxed font-light min-h-24 transition-all duration-500 group-hover:text-white">
+                                {testimonial.text
+                                    .split(".")
+                                    .map((sentence, index, array) => (
+                                        <>
+                                            {sentence}
+                                            {index < array.length - 1 && "."}
+                                            {index < array.length - 1 && <br />}
+                                            {index < array.length - 1 && <br />}
+                                        </>
+                                    ))}
+                            </p>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+
+        <div class="flex justify-center items-center gap-8">
+            <button
+                id="slider-button-left"
+                class="swiper-button-prev group flex justify-center items-center border border-solid border-teal-600 w-12 h-12 transition-all duration-500 rounded-full hover:bg-teal-600"
+                data-carousel-prev
+            >
+                <svg
+                    class="h-6 w-6 text-teal-600 group-hover:text-white"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M20.9999 12L4.99992 12M9.99992 6L4.70703 11.2929C4.3737 11.6262 4.20703 11.7929 4.20703 12C4.20703 12.2071 4.3737 12.3738 4.70703 12.7071L9.99992 18"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
+            <button
+                id="slider-button-right"
+                class="swiper-button-next group flex justify-center items-center border border-solid border-teal-600 w-12 h-12 transition-all duration-500 rounded-full hover:bg-teal-600"
+                data-carousel-next
+            >
+                <svg
+                    class="h-6 w-6 text-teal-600 group-hover:text-white"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M3 12L19 12M14 18L19.2929 12.7071C19.6262 12.3738 19.7929 12.2071 19.7929 12C19.7929 11.7929 19.6262 11.6262 19.2929 11.2929L14 6"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    import Swiper from "swiper";
+    import { Navigation } from "swiper/modules";
+    import "swiper/css";
+    import "swiper/css/navigation";
+
+    const swiper = new Swiper(".mySwiper", {
+        modules: [Navigation],
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        autoHeight: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+</script>

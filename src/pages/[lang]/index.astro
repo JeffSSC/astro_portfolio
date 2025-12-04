@@ -11,6 +11,7 @@ import Text from "../../components/ui/Text.astro";
 import TechStack from "../../components/TechStack.astro";
 import CardProject from "../../components/CardProject.astro";
 import ExpComponent from "../../components/ExpComponent.astro";
+import TestimonialComponent from "../../components/TestimonialComponent.astro";
 
 import { useTranslations } from "../../i18n/utils";
 
@@ -20,6 +21,7 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang || "pt";
 const t = useTranslations(lang as any);
+const testimonials = t("testimonials");
 
 const pageTitle = t("site.title");
 const pageDescription = (t("about.text") as readonly string[])[0];
@@ -64,7 +66,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
         class="opacity-0 transition-opacity duration-1000 ease-in-out"
     >
         <section class="about flex flex-col items-center">
-            <div class="flex flex-col max-w-5xl items-center">
+            <div class="pt-8 flex flex-col max-w-5xl items-center">
                 <SectionTitle data-aos="fade-up"
                     >{t("about.title")}</SectionTitle
                 >
@@ -84,7 +86,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
         </section>
         <section class="experience flex flex-col items-center">
             <div
-                class="flex flex-col max-w-5xl items-center"
+                class="pt-8 flex flex-col max-w-5xl items-center"
                 data-aos="fade-up"
             >
                 <SectionTitle>{t("exp.title")}</SectionTitle>
@@ -125,7 +127,7 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
         </section>
         <section class="technologies flex flex-col items-center">
             <div
-                class="flex flex-col items-center max-w-5xl"
+                class="pt-8 flex flex-col items-center max-w-5xl"
                 data-aos="fade-up"
             >
                 <SectionTitle>{t("tech.title")}</SectionTitle>
@@ -196,153 +198,169 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
                 />
             </div>
         </section>
+        <section class="testimonials flex flex-col items-center">
+            <div
+                class="pt-8 flex flex-col items-center max-w-5xl"
+                data-aos="fade-in-up"
+            >
+                <SectionTitle>{t("testimonials.title")}</SectionTitle>
+                <TestimonialComponent testimonials={testimonials as any} />
+            </div>
+        </section>
+    </div>
+    <div
+        id="projects-contact-content"
+        class="opacity-0 transition-opacity duration-1000 ease-in-out"
+    >
+        <section class="projects flex flex-col items-center">
+            <div class="pt-8 flex flex-col items-center max-w-5xl">
+                <SectionTitle data-aos="fade-up"
+                    >{t("projects.title")}</SectionTitle
+                >
+                <div
+                    class="grid grid-cols-1 lg:grid-cols-2 font-mono gap-6 mt-4 w-full max-w-7xl px-4"
+                    data-aos="fade-up"
+                >
+                    <CardProject
+                        title={t("proj.golden.title")}
+                        description={t("proj.golden.desc")}
+                        btn={t("projects.btn_production")}
+                        btnLink="https://www.loom.com/share/f0f5586ce30947aa9347d7d02ebe141c"
+                        tags={[
+                            "Vuejs",
+                            "Tailwind",
+                            "DaisyUI",
+                            "PostgreSQL",
+                            "Python",
+                            "Django",
+                            "Docker",
+                            "Nginx",
+                            "AWS EC2",
+                            "AWS CloudFront",
+                            "AWS Route53",
+                            "AWS CloudFront",
+                            "AWS S3",
+                        ]}
+                    />
+                    <CardProject
+                        title={t("proj.extractor.title")}
+                        description={t("proj.extractor.desc")}
+                        tags={[
+                            "Python",
+                            "AWS Lambda",
+                            "AWS Textract",
+                            "AWS Bedrock",
+                            "AWS API Gateway",
+                            "AWS S3",
+                            "Docker",
+                        ]}
+                        btn={t("projects.btn_github")}
+                        btnLink="https://github.com/JeffSSC/api_notasFiscais"
+                    />
+                    <CardProject
+                        title={t("proj.themis.title")}
+                        description={t("proj.themis.desc")}
+                        tags={[
+                            "Python",
+                            "RAG",
+                            "langchain",
+                            "Telegram API",
+                            "AWS EC2",
+                            "AWS Transcribe",
+                            "AWS Bedrock",
+                        ]}
+                        btn={t("projects.btn_github")}
+                        btnLink="https://github.com/JeffSSC/ThemisChatBot"
+                    />
+                    <CardProject
+                        title={t("proj.mikael.title")}
+                        description={t("proj.mikael.desc")}
+                        btn={t("projects.btn_github")}
+                        btnLink="https://github.com/LuanPonick/Mikael"
+                        tags={["YOLO", "OpenCV", "Python", "LeRobot"]}
+                    />
+                    <CardProject
+                        title={t("proj.portfolio.title")}
+                        description={t("proj.portfolio.desc")}
+                        tags={[
+                            "Astro",
+                            "Tailwind",
+                            "i18n",
+                            "TypeScript",
+                            "AWS S3",
+                            "AWS Route53",
+                            "AWS CloudFront",
+                        ]}
+                        btn={t("projects.btn_github")}
+                        btnLink="https://github.com/JeffSSC/astro_portfolio"
+                    />
+                </div>
+                <div class="font-mono pt-6" data-aos="fade-up">
+                    <SectionSubtitle
+                        >{t("projects.github_more")}</SectionSubtitle
+                    >
+                    <a href="https://github.com/JeffSSC" target="_blank">
+                        <TechStack techs={["github"]} />
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section class="contact flex flex-col items-center">
+            <div
+                class="pt-8 flex flex-col items-center p-4 md:p-10 max-w-5xl"
+                data-aos="fade-in-up"
+            >
+                <SectionTitle>{t("contact.title")}</SectionTitle>
+                <div
+                    class="flex flex-wrap font-mono justify-center gap-6 md:gap-10 p-6 md:p-10 w-full"
+                >
+                    <a
+                        class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
+                        href={whatsappLink}
+                        target="_blank"
+                    >
+                        <Icon
+                            name="fa-brands:whatsapp"
+                            class="size-12 md:size-24"
+                        />
+                        <span class="font-bold mt-2">WhatsApp</span>
+                    </a>
+
+                    <a
+                        class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
+                        href="https://www.linkedin.com/in/jefferson-caires/"
+                        target="_blank"
+                    >
+                        <Icon
+                            name="fa-brands:linkedin"
+                            class="size-12 md:size-24"
+                        />
+                        <span class="font-bold mt-2">LinkedIn</span>
+                    </a>
+
+                    <a
+                        class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
+                        href="mailto:jefferson.caires@gmail.com"
+                        target="_blank"
+                    >
+                        <Icon
+                            name="fa-solid:envelope"
+                            class="size-12 md:size-24"
+                        />
+                        <span class="font-bold mt-2">Email</span>
+                    </a>
+                </div>
+            </div>
+        </section>
     </div>
 </PageLayout>
-<div
-    id="projects-contact-content"
-    class="opacity-0 transition-opacity duration-1000 ease-in-out"
->
-    <section class="projects flex flex-col items-center">
-        <div class="pt-8 flex flex-col items-center max-w-5xl">
-            <SectionTitle data-aos="fade-up">{t("projects.title")}</SectionTitle
-            >
-            <div
-                class="grid grid-cols-1 lg:grid-cols-2 font-mono gap-6 mt-4 w-full max-w-7xl px-4"
-                data-aos="fade-up"
-            >
-                <CardProject
-                    title={t("proj.golden.title")}
-                    description={t("proj.golden.desc")}
-                    btn={t("projects.btn_production")}
-                    btnLink="https://www.loom.com/share/f0f5586ce30947aa9347d7d02ebe141c"
-                    tags={[
-                        "Vuejs",
-                        "Tailwind",
-                        "DaisyUI",
-                        "PostgreSQL",
-                        "Python",
-                        "Django",
-                        "Docker",
-                        "Nginx",
-                        "AWS EC2",
-                        "AWS CloudFront",
-                        "AWS Route53",
-                        "AWS CloudFront",
-                        "AWS S3",
-                    ]}
-                />
-                <CardProject
-                    title={t("proj.extractor.title")}
-                    description={t("proj.extractor.desc")}
-                    tags={[
-                        "Python",
-                        "AWS Lambda",
-                        "AWS Textract",
-                        "AWS Bedrock",
-                        "AWS API Gateway",
-                        "AWS S3",
-                        "Docker",
-                    ]}
-                    btn={t("projects.btn_github")}
-                    btnLink="https://github.com/JeffSSC/api_notasFiscais"
-                />
-                <CardProject
-                    title={t("proj.themis.title")}
-                    description={t("proj.themis.desc")}
-                    tags={[
-                        "Python",
-                        "RAG",
-                        "langchain",
-                        "Telegram API",
-                        "AWS EC2",
-                        "AWS Transcribe",
-                        "AWS Bedrock",
-                    ]}
-                    btn={t("projects.btn_github")}
-                    btnLink="https://github.com/JeffSSC/ThemisChatBot"
-                />
-                <CardProject
-                    title={t("proj.mikael.title")}
-                    description={t("proj.mikael.desc")}
-                    btn={t("projects.btn_github")}
-                    btnLink="https://github.com/LuanPonick/Mikael"
-                    tags={["YOLO", "OpenCV", "Python", "LeRobot"]}
-                />
-                <CardProject
-                    title={t("proj.portfolio.title")}
-                    description={t("proj.portfolio.desc")}
-                    tags={[
-                        "Astro",
-                        "Tailwind",
-                        "i18n",
-                        "TypeScript",
-                        "AWS S3",
-                        "AWS Route53",
-                        "AWS CloudFront",
-                    ]}
-                    btn={t("projects.btn_github")}
-                    btnLink="https://github.com/JeffSSC/astro_portfolio"
-                />
-            </div>
-            <div class="font-mono pt-6" data-aos="fade-up">
-                <SectionSubtitle>{t("projects.github_more")}</SectionSubtitle>
-                <a href="https://github.com/JeffSSC" target="_blank">
-                    <TechStack techs={["github"]} />
-                </a>
-            </div>
-        </div>
-    </section>
-    <section class="contact flex flex-col items-center">
-        <div class="flex flex-col items-center p-4 md:p-10 max-w-5xl">
-            <SectionTitle>{t("contact.title")}</SectionTitle>
-            <div
-                class="flex flex-wrap font-mono justify-center gap-6 md:gap-10 p-6 md:p-10 w-full"
-            >
-                <a
-                    class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
-                    href={whatsappLink}
-                    target="_blank"
-                >
-                    <Icon
-                        name="fa-brands:whatsapp"
-                        class="size-12 md:size-24"
-                    />
-                    <span class="font-bold mt-2">WhatsApp</span>
-                </a>
-
-                <a
-                    class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
-                    href="https://www.linkedin.com/in/jefferson-caires/"
-                    target="_blank"
-                >
-                    <Icon
-                        name="fa-brands:linkedin"
-                        class="size-12 md:size-24"
-                    />
-                    <span class="font-bold mt-2">LinkedIn</span>
-                </a>
-
-                <a
-                    class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
-                    href="mailto:jefferson.caires@gmail.com"
-                    target="_blank"
-                >
-                    <Icon name="fa-solid:envelope" class="size-12 md:size-24" />
-                    <span class="font-bold mt-2">Email</span>
-                </a>
-            </div>
-        </div>
-    </section>
-</div>
 
 <style is:global>
-    /* Initially hide the header */
     header {
         opacity: 0;
         transition: opacity 1s ease-in-out;
     }
 
-    /* When loaded, show everything */
     body.loaded header,
     body.loaded #landing-content,
     body.loaded #main-content,
@@ -353,15 +371,11 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
 
 <script>
     function showContent() {
-        // Add a delay before showing the content to let the animation shine first
         setTimeout(() => {
             document.body.classList.add("loaded");
         }, 1000);
     }
 
     window.addEventListener("home-animation-ready", showContent);
-
-    // Fallback in case the event is missed or takes too long
-    // Increased fallback time to account for the new delay
     setTimeout(showContent, 4000);
 </script>
