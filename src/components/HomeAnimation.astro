@@ -2,7 +2,10 @@
 
 ---
 
-<div id="canvas-container" class="absolute top-0 left-0 w-full h-full -z-10">
+<div
+    id="canvas-container"
+    class="absolute top-0 left-0 w-full h-full -z-10 opacity-0 transition-opacity duration-1000 ease-in-out"
+>
 </div>
 
 <script>
@@ -210,6 +213,13 @@
 
             window.addEventListener("resize", onResize);
             animate(0);
+
+            // Fade in and dispatch event
+            setTimeout(() => {
+                container.classList.remove("opacity-0");
+                container.classList.add("opacity-100");
+                window.dispatchEvent(new CustomEvent("home-animation-ready"));
+            }, 100);
         };
 
         function getRandomHSL() {

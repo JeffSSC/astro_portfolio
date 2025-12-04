@@ -29,9 +29,15 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
 ---
 
 <PageLayout title={pageTitle} description={pageDescription}>
-    <section class="landing relative h-screen overflow-hidden">
-        <HomeAnimation client:visible />
-        <div class="flex justify-center items-center h-screen flex-col">
+    <section
+        class="landing relative h-screen overflow-hidden"
+        data-aos="fade-up"
+    >
+        <HomeAnimation />
+        <div
+            id="landing-content"
+            class="flex justify-center items-center h-screen flex-col opacity-0 transition-opacity duration-1000 ease-in-out"
+        >
             <ScrambleText
                 class="text-xl text-white font-bold font-mono md:text-3xl"
                 >{t("hero.name")}</ScrambleText
@@ -53,250 +59,309 @@ const whatsappLink = `https://wa.me/5547991158071?text=${whatsappMessage}`;
             <ScrollArrow />
         </div>
     </section>
-    <section class="about flex flex-col items-center">
-        <div class="flex flex-col max-w-5xl items-center">
-            <SectionTitle data-aos="fade-up">{t("about.title")}</SectionTitle>
-            <div
-                data-aos="fade-up"
-                class="flex flex-col max-w-5xl justify-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
-            >
-                {
-                    (t("about.text") as readonly string[]).map((paragraph) => (
-                        <Text class="mb-4" set:html={paragraph} />
-                    ))
-                }
-            </div>
-        </div>
-    </section>
-    <section class="experience flex flex-col items-center">
-        <div class="flex flex-col max-w-5xl items-center" data-aos="fade-up">
-            <SectionTitle>{t("exp.title")}</SectionTitle>
-            <div
-                class="flex flex-col max-w-7xl justify-center items-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
-                data-aos="fade-up"
-            >
-                <ExpComponent
-                    ano="2025"
-                    tempo={t("exp.compass.time")}
-                    cargo={t("exp.compass.role")}
-                    empresa="Compass UOL"
-                    modalidade={t("exp.compass.modality")}
+    <div
+        id="main-content"
+        class="opacity-0 transition-opacity duration-1000 ease-in-out"
+    >
+        <section class="about flex flex-col items-center">
+            <div class="flex flex-col max-w-5xl items-center">
+                <SectionTitle data-aos="fade-up"
+                    >{t("about.title")}</SectionTitle
                 >
-                    <ul class="list-disc pl-4 space-y-1">
-                        <li>{t("exp.compass.desc.1")}</li>
-                        <li>{t("exp.compass.desc.2")}</li>
-                        <li>{t("exp.compass.desc.3")}</li>
-                        <li>{t("exp.compass.desc.4")}</li>
-                    </ul>
-                </ExpComponent>
-                <ExpComponent
-                    ano="2024"
-                    tempo={t("exp.informatech.time")}
-                    cargo={t("exp.informatech.role")}
-                    empresa="Informatech"
-                    modalidade={t("exp.informatech.modality")}
+                <div
+                    data-aos="fade-up"
+                    class="flex flex-col max-w-5xl justify-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
                 >
-                    <ul class="list-disc pl-4 space-y-1">
-                        <li>{t("exp.informatech.desc.1")}</li>
-                        <li>{t("exp.informatech.desc.2")}</li>
-                        <li>{t("exp.informatech.desc.3")}</li>
-                        <li>{t("exp.informatech.desc.4")}</li>
-                    </ul>
-                </ExpComponent>
-            </div>
-        </div>
-    </section>
-    <section class="technologies flex flex-col items-center">
-        <div class="flex flex-col items-center max-w-5xl" data-aos="fade-up">
-            <SectionTitle>{t("tech.title")}</SectionTitle>
-            <div class="pt-8 flex flex-col items-center">
-                <SectionSubtitle>{t("tech.certs")}</SectionSubtitle>
-                <div class="flex flex-wrap gap-4 p-5 justify-center">
-                    <div
-                        data-aos="fade-right"
-                        class="flex flex-col gap-2 items-center transition-transform hover:-translate-y-1"
-                    >
-                        <div class="bg-white rounded-lg shadow-lg">
-                            <div
-                                data-iframe-width="300"
-                                data-iframe-height="240"
-                                data-share-badge-id="536e030f-489d-443b-9d28-03fbba352de4"
-                                data-share-badge-host="https://www.credly.com"
-                            >
-                            </div>
-                        </div>
-                        <Text>AWS Cloud Practitioner</Text>
-                    </div>
-                    <div
-                        data-aos="fade-left"
-                        class="flex flex-col gap-2 items-center transition-transform hover:-translate-y-1"
-                    >
-                        <div class="bg-white rounded-lg shadow-lg">
-                            <div
-                                data-iframe-width="300"
-                                data-iframe-height="240"
-                                data-share-badge-id="62403a74-4357-43b0-93e9-07f0dacc7007"
-                                data-share-badge-host="https://www.credly.com"
-                            >
-                            </div>
-                        </div>
-
-                        <Text>AWS AI Practitioner</Text>
-                    </div>
+                    {
+                        (t("about.text") as readonly string[]).map(
+                            (paragraph) => (
+                                <Text class="mb-4" set:html={paragraph} />
+                            ),
+                        )
+                    }
                 </div>
-                <script
-                    type="text/javascript"
-                    async
-                    src="//cdn.credly.com/assets/utilities/embed.js"></script>
             </div>
-            <SectionSubtitle>{t("tech.stack")}</SectionSubtitle>
-            <TechStack
-                techs={[
-                    "vuejs",
-                    { name: "Tailwind", icon: "tailwindcss" },
-                    "python",
-                    "django",
-                    "postgresql",
-                    { icon: "amazonwebservices", name: "AWS" },
-                    "docker",
-                ]}
-            />
-            <SectionSubtitle>{t("tech.exp")}</SectionSubtitle>
-            <TechStack
-                techs={[
-                    "nodejs",
-                    "mysql",
-                    "nginx",
-                    "jupyter",
-                    "astro",
-                    "linux",
-                    "react",
-                ]}
-            />
+        </section>
+        <section class="experience flex flex-col items-center">
+            <div
+                class="flex flex-col max-w-5xl items-center"
+                data-aos="fade-up"
+            >
+                <SectionTitle>{t("exp.title")}</SectionTitle>
+                <div
+                    class="flex flex-col max-w-7xl justify-center items-center gap-4 p-4 pt-5 md:p-10 sm:ml-10 sm:mr-10 flex-wrap md:flex-nowrap"
+                    data-aos="fade-up"
+                >
+                    <ExpComponent
+                        ano="2025"
+                        tempo={t("exp.compass.time")}
+                        cargo={t("exp.compass.role")}
+                        empresa="Compass UOL"
+                        modalidade={t("exp.compass.modality")}
+                    >
+                        <ul class="list-disc pl-4 space-y-1">
+                            <li>{t("exp.compass.desc.1")}</li>
+                            <li>{t("exp.compass.desc.2")}</li>
+                            <li>{t("exp.compass.desc.3")}</li>
+                            <li>{t("exp.compass.desc.4")}</li>
+                        </ul>
+                    </ExpComponent>
+                    <ExpComponent
+                        ano="2024"
+                        tempo={t("exp.informatech.time")}
+                        cargo={t("exp.informatech.role")}
+                        empresa="Informatech"
+                        modalidade={t("exp.informatech.modality")}
+                    >
+                        <ul class="list-disc pl-4 space-y-1">
+                            <li>{t("exp.informatech.desc.1")}</li>
+                            <li>{t("exp.informatech.desc.2")}</li>
+                            <li>{t("exp.informatech.desc.3")}</li>
+                            <li>{t("exp.informatech.desc.4")}</li>
+                        </ul>
+                    </ExpComponent>
+                </div>
+            </div>
+        </section>
+        <section class="technologies flex flex-col items-center">
+            <div
+                class="flex flex-col items-center max-w-5xl"
+                data-aos="fade-up"
+            >
+                <SectionTitle>{t("tech.title")}</SectionTitle>
+                <div class="pt-8 flex flex-col items-center">
+                    <SectionSubtitle>{t("tech.certs")}</SectionSubtitle>
+                    <div class="flex flex-wrap gap-4 p-5 justify-center">
+                        <div
+                            data-aos="fade-right"
+                            class="flex flex-col gap-2 items-center transition-transform hover:-translate-y-1"
+                        >
+                            <div class="bg-white rounded-lg shadow-lg">
+                                <div
+                                    data-iframe-width="300"
+                                    data-iframe-height="240"
+                                    data-share-badge-id="536e030f-489d-443b-9d28-03fbba352de4"
+                                    data-share-badge-host="https://www.credly.com"
+                                >
+                                </div>
+                            </div>
+                            <Text>AWS Cloud Practitioner</Text>
+                        </div>
+                        <div
+                            data-aos="fade-left"
+                            class="flex flex-col gap-2 items-center transition-transform hover:-translate-y-1"
+                        >
+                            <div class="bg-white rounded-lg shadow-lg">
+                                <div
+                                    data-iframe-width="300"
+                                    data-iframe-height="240"
+                                    data-share-badge-id="62403a74-4357-43b0-93e9-07f0dacc7007"
+                                    data-share-badge-host="https://www.credly.com"
+                                >
+                                </div>
+                            </div>
+
+                            <Text>AWS AI Practitioner</Text>
+                        </div>
+                    </div>
+                    <script
+                        type="text/javascript"
+                        async
+                        src="//cdn.credly.com/assets/utilities/embed.js"
+                    ></script>
+                </div>
+                <SectionSubtitle>{t("tech.stack")}</SectionSubtitle>
+                <TechStack
+                    techs={[
+                        "vuejs",
+                        { name: "Tailwind", icon: "tailwindcss" },
+                        "python",
+                        "django",
+                        "postgresql",
+                        { icon: "amazonwebservices", name: "AWS" },
+                        "docker",
+                    ]}
+                />
+                <SectionSubtitle>{t("tech.exp")}</SectionSubtitle>
+                <TechStack
+                    techs={[
+                        "nodejs",
+                        "mysql",
+                        "nginx",
+                        "jupyter",
+                        "astro",
+                        "linux",
+                        "react",
+                    ]}
+                />
+            </div>
+        </section>
+    </div>
+</PageLayout>
+<div
+    id="projects-contact-content"
+    class="opacity-0 transition-opacity duration-1000 ease-in-out"
+>
+    <section class="projects flex flex-col items-center">
+        <div class="pt-8 flex flex-col items-center max-w-5xl">
+            <SectionTitle data-aos="fade-up">{t("projects.title")}</SectionTitle
+            >
+            <div
+                class="grid grid-cols-1 lg:grid-cols-2 font-mono gap-6 mt-4 w-full max-w-7xl px-4"
+                data-aos="fade-up"
+            >
+                <CardProject
+                    title={t("proj.golden.title")}
+                    description={t("proj.golden.desc")}
+                    btn={t("projects.btn_production")}
+                    btnLink="https://www.loom.com/share/f0f5586ce30947aa9347d7d02ebe141c"
+                    tags={[
+                        "Vuejs",
+                        "Tailwind",
+                        "DaisyUI",
+                        "PostgreSQL",
+                        "Python",
+                        "Django",
+                        "Docker",
+                        "Nginx",
+                        "AWS EC2",
+                        "AWS CloudFront",
+                        "AWS Route53",
+                        "AWS CloudFront",
+                        "AWS S3",
+                    ]}
+                />
+                <CardProject
+                    title={t("proj.extractor.title")}
+                    description={t("proj.extractor.desc")}
+                    tags={[
+                        "Python",
+                        "AWS Lambda",
+                        "AWS Textract",
+                        "AWS Bedrock",
+                        "AWS API Gateway",
+                        "AWS S3",
+                        "Docker",
+                    ]}
+                    btn={t("projects.btn_github")}
+                    btnLink="https://github.com/JeffSSC/api_notasFiscais"
+                />
+                <CardProject
+                    title={t("proj.themis.title")}
+                    description={t("proj.themis.desc")}
+                    tags={[
+                        "Python",
+                        "RAG",
+                        "langchain",
+                        "Telegram API",
+                        "AWS EC2",
+                        "AWS Transcribe",
+                        "AWS Bedrock",
+                    ]}
+                    btn={t("projects.btn_github")}
+                    btnLink="https://github.com/JeffSSC/ThemisChatBot"
+                />
+                <CardProject
+                    title={t("proj.mikael.title")}
+                    description={t("proj.mikael.desc")}
+                    btn={t("projects.btn_github")}
+                    btnLink="https://github.com/LuanPonick/Mikael"
+                    tags={["YOLO", "OpenCV", "Python", "LeRobot"]}
+                />
+                <CardProject
+                    title={t("proj.portfolio.title")}
+                    description={t("proj.portfolio.desc")}
+                    tags={[
+                        "Astro",
+                        "Tailwind",
+                        "i18n",
+                        "TypeScript",
+                        "AWS S3",
+                        "AWS Route53",
+                        "AWS CloudFront",
+                    ]}
+                    btn={t("projects.btn_github")}
+                    btnLink="https://github.com/JeffSSC/astro_portfolio"
+                />
+            </div>
+            <div class="font-mono pt-6" data-aos="fade-up">
+                <SectionSubtitle>{t("projects.github_more")}</SectionSubtitle>
+                <a href="https://github.com/JeffSSC" target="_blank">
+                    <TechStack techs={["github"]} />
+                </a>
+            </div>
         </div>
     </section>
-</PageLayout>
-<section class="projects flex flex-col items-center">
-    <div class="pt-8 flex flex-col items-center max-w-5xl">
-        <SectionTitle data-aos="fade-up">{t("projects.title")}</SectionTitle>
-        <div
-            class="grid grid-cols-1 lg:grid-cols-2 font-mono gap-6 mt-4 w-full max-w-7xl px-4"
-            data-aos="fade-up"
-        >
-            <CardProject
-                title={t("proj.golden.title")}
-                description={t("proj.golden.desc")}
-                btn={t("projects.btn_production")}
-                btnLink="https://www.loom.com/share/f0f5586ce30947aa9347d7d02ebe141c"
-                tags={[
-                    "Vuejs",
-                    "Tailwind",
-                    "DaisyUI",
-                    "PostgreSQL",
-                    "Python",
-                    "Django",
-                    "Docker",
-                    "Nginx",
-                    "AWS EC2",
-                    "AWS CloudFront",
-                    "AWS Route53",
-                    "AWS CloudFront",
-                    "AWS S3",
-                ]}
-            />
-            <CardProject
-                title={t("proj.extractor.title")}
-                description={t("proj.extractor.desc")}
-                tags={[
-                    "Python",
-                    "AWS Lambda",
-                    "AWS Textract",
-                    "AWS Bedrock",
-                    "AWS API Gateway",
-                    "AWS S3",
-                    "Docker",
-                ]}
-                btn={t("projects.btn_github")}
-                btnLink="https://github.com/JeffSSC/api_notasFiscais"
-            />
-            <CardProject
-                title={t("proj.themis.title")}
-                description={t("proj.themis.desc")}
-                tags={[
-                    "Python",
-                    "RAG",
-                    "langchain",
-                    "Telegram API",
-                    "AWS EC2",
-                    "AWS Transcribe",
-                    "AWS Bedrock",
-                ]}
-                btn={t("projects.btn_github")}
-                btnLink="https://github.com/JeffSSC/ThemisChatBot"
-            />
-            <CardProject
-                title={t("proj.mikael.title")}
-                description={t("proj.mikael.desc")}
-                btn={t("projects.btn_github")}
-                btnLink="https://github.com/LuanPonick/Mikael"
-                tags={["YOLO", "OpenCV", "Python", "LeRobot"]}
-            />
-            <CardProject
-                title={t("proj.portfolio.title")}
-                description={t("proj.portfolio.desc")}
-                tags={[
-                    "Astro",
-                    "Tailwind",
-                    "i18n",
-                    "TypeScript",
-                    "AWS S3",
-                    "AWS Route53",
-                    "AWS CloudFront",
-                ]}
-                btn={t("projects.btn_github")}
-                btnLink="https://github.com/JeffSSC/astro_portfolio"
-            />
-        </div>
-        <div class="font-mono pt-6" data-aos="fade-up">
-            <SectionSubtitle>{t("projects.github_more")}</SectionSubtitle>
-            <a href="https://github.com/JeffSSC" target="_blank">
-                <TechStack techs={["github"]} />
-            </a>
-        </div>
-    </div>
-</section>
-<section class="contact flex flex-col items-center">
-    <div class="flex flex-col items-center p-4 md:p-10 max-w-5xl">
-        <SectionTitle>{t("contact.title")}</SectionTitle>
-        <div
-            class="flex flex-wrap font-mono justify-center gap-6 md:gap-10 p-6 md:p-10 w-full"
-        >
-            <a
-                class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
-                href={whatsappLink}
-                target="_blank"
+    <section class="contact flex flex-col items-center">
+        <div class="flex flex-col items-center p-4 md:p-10 max-w-5xl">
+            <SectionTitle>{t("contact.title")}</SectionTitle>
+            <div
+                class="flex flex-wrap font-mono justify-center gap-6 md:gap-10 p-6 md:p-10 w-full"
             >
-                <Icon name="fa-brands:whatsapp" class="size-12 md:size-24" />
-                <span class="font-bold mt-2">WhatsApp</span>
-            </a>
+                <a
+                    class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
+                    href={whatsappLink}
+                    target="_blank"
+                >
+                    <Icon
+                        name="fa-brands:whatsapp"
+                        class="size-12 md:size-24"
+                    />
+                    <span class="font-bold mt-2">WhatsApp</span>
+                </a>
 
-            <a
-                class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
-                href="https://www.linkedin.com/in/jefferson-caires/"
-                target="_blank"
-            >
-                <Icon name="fa-brands:linkedin" class="size-12 md:size-24" />
-                <span class="font-bold mt-2">LinkedIn</span>
-            </a>
+                <a
+                    class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
+                    href="https://www.linkedin.com/in/jefferson-caires/"
+                    target="_blank"
+                >
+                    <Icon
+                        name="fa-brands:linkedin"
+                        class="size-12 md:size-24"
+                    />
+                    <span class="font-bold mt-2">LinkedIn</span>
+                </a>
 
-            <a
-                class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
-                href="mailto:jefferson.caires@gmail.com"
-                target="_blank"
-            >
-                <Icon name="fa-solid:envelope" class="size-12 md:size-24" />
-                <span class="font-bold mt-2">Email</span>
-            </a>
+                <a
+                    class="text-white flex flex-col items-center transition-transform hover:-translate-y-1"
+                    href="mailto:jefferson.caires@gmail.com"
+                    target="_blank"
+                >
+                    <Icon name="fa-solid:envelope" class="size-12 md:size-24" />
+                    <span class="font-bold mt-2">Email</span>
+                </a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
+
+<style is:global>
+    /* Initially hide the header */
+    header {
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
+
+    /* When loaded, show everything */
+    body.loaded header,
+    body.loaded #landing-content,
+    body.loaded #main-content,
+    body.loaded #projects-contact-content {
+        opacity: 1;
+    }
+</style>
+
+<script>
+    function showContent() {
+        // Add a delay before showing the content to let the animation shine first
+        setTimeout(() => {
+            document.body.classList.add("loaded");
+        }, 1000);
+    }
+
+    window.addEventListener("home-animation-ready", showContent);
+
+    // Fallback in case the event is missed or takes too long
+    // Increased fallback time to account for the new delay
+    setTimeout(showContent, 4000);
+</script>
