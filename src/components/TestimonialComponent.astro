@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 interface Testimonial {
     text: string;
     author: string;
@@ -11,6 +13,10 @@ interface Props {
 }
 
 const { testimonials } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/*.{jpeg,jpg,png,gif}",
+);
 ---
 
 <style>
@@ -52,37 +58,60 @@ const { testimonials } = Astro.props;
         <div class="swiper mySwiper mb-10">
             <div class="swiper-wrapper">
                 {
-                    testimonials.map((testimonial) => (
-                        <div class="swiper-slide group bg-[#151515] border border-solid h-auto border-gray-800 shadow-lg rounded-xl p-6 transition-transform duration-500 hover:-translate-y-1">
-                            <div class="flex items-center gap-5 mb-9">
-                                <img
-                                    class="rounded-full object-cover w-14 h-14"
-                                    src={testimonial.avatar}
-                                    alt="avatar"
-                                />
-                                <div class="grid gap-1">
-                                    <h5 class="text-white font-medium transition-all duration-500 group-hover:text-teal-400">
-                                        {testimonial.author}
-                                    </h5>
-                                    <span class="text-sm leading-6 text-gray-400 transition-all duration-500 group-hover:text-white">
-                                        {testimonial.role}
-                                    </span>
+                    testimonials.map((testimonial) => {
+                        const imagePath = testimonial.avatar.replace(
+                            "/assets/",
+                            "/src/assets/",
+                        );
+                        const imageSrc = images[imagePath];
+
+                        return (
+                            <div class="swiper-slide group bg-[#151515] border border-solid h-auto border-gray-800 shadow-lg rounded-xl p-6 transition-transform duration-500 hover:-translate-y-1">
+                                <div class="flex items-center gap-5 mb-9">
+                                    {imageSrc ? (
+                                        <Image
+                                            class="rounded-full object-cover w-14 h-14"
+                                            src={imageSrc()}
+                                            alt={testimonial.author}
+                                            width={56}
+                                            height={56}
+                                        />
+                                    ) : (
+                                        <img
+                                            class="rounded-full object-cover w-14 h-14"
+                                            src={testimonial.avatar}
+                                            alt={testimonial.author}
+                                        />
+                                    )}
+                                    <div class="grid gap-1">
+                                        <h5 class="text-white font-medium transition-all duration-500 group-hover:text-teal-400">
+                                            {testimonial.author}
+                                        </h5>
+                                        <span class="text-sm leading-6 text-gray-400 transition-all duration-500 group-hover:text-white">
+                                            {testimonial.role}
+                                        </span>
+                                    </div>
                                 </div>
+                                <p class="text-lg text-gray-400 leading-relaxed font-light min-h-24 transition-all duration-500 group-hover:text-white">
+                                    {testimonial.text
+                                        .split(".")
+                                        .map((sentence, index, array) => (
+                                            <>
+                                                {sentence}
+                                                {index < array.length - 1 &&
+                                                    "."}
+                                                {index < array.length - 1 && (
+                                                    <br />
+                                                )}
+                                                {index < array.length - 1 && (
+                                                    <br />
+                                                )}
+                                            </>
+                                        ))}
+                                </p>
                             </div>
-                            <p class="text-lg text-gray-400 leading-relaxed font-light min-h-24 transition-all duration-500 group-hover:text-white">
-                                {testimonial.text
-                                    .split(".")
-                                    .map((sentence, index, array) => (
-                                        <>
-                                            {sentence}
-                                            {index < array.length - 1 && "."}
-                                            {index < array.length - 1 && <br />}
-                                            {index < array.length - 1 && <br />}
-                                        </>
-                                    ))}
-                            </p>
-                        </div>
-                    ))
+                        );
+                    })
                 }
             </div>
         </div>
