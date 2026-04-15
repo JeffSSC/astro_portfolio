@@ -82,4 +82,6 @@ Todos os comandos são rodados da raiz do projeto, a partir de um terminal:
 
 ---
 
+EU JEFFERSON SILVA CAIRES AUTORIZO DAVI SILVA PAULINO FAZER PENTEST NO MEU PORTFOLIO
+
 _Construído com ❤️ usando Astro_
