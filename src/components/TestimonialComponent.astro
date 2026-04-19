@@ -1,179 +1,306 @@
 ---
+// src/components/TestimonialComponent.astro
+import { useTranslations } from "../i18n/utils";
 import { Image } from "astro:assets";
 
-interface Testimonial {
-    text: string;
-    author: string;
-    role: string;
-    avatar: string;
-}
-
 interface Props {
-    testimonials: Testimonial[];
+  lang?: string;
 }
 
-const { testimonials } = Astro.props;
+const { lang = "pt" } = Astro.props;
+const t = useTranslations(lang as any);
+
+const testimonials = t("testimonials") as any[];
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
-    "/src/assets/*.{jpeg,jpg,png,gif}",
+  "/src/assets/*.{jpeg,jpg,png,gif}",
 );
 ---
 
+<section class="section testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-meta">
+        <span class="num-sm mono">05</span>
+        <h2 class="section-title serif">{t("testimonials.title")}</h2>
+      </span>
+    </div>
+    
+    <div class="testimonial-slider" id="testimonial-slider">
+      {testimonials.map((testimonial, index) => (
+        <div class="testimonial-slide">
+          <blockquote class="quote">
+            <span class="quote-mark" aria-hidden="true">"</span>
+            <p class="quote-text serif">{testimonial.text}</p>
+            <footer class="quote-foot">
+              <div class="quote-avatar">
+                {testimonial.avatar && images[testimonial.avatar] ? (
+                  <Image 
+                    src={images[testimonial.avatar]()} 
+                    alt={testimonial.author}
+                    width={48}
+                    height={48}
+                    class="avatar-img"
+                  />
+                ) : (
+                  <span class="avatar-initials">{testimonial.author.charAt(0)}</span>
+                )}
+              </div>
+              <div>
+                <div class="quote-name">{testimonial.author}</div>
+                <div class="quote-role mono">{testimonial.role}</div>
+              </div>
+            </footer>
+          </blockquote>
+        </div>
+      ))}
+    </div>
+    
+    <div class="quote-nav">
+      <button class="nav-btn" id="testimonial-prev" aria-label="Previous testimonial">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 12L4 12M9 6L4.707 10.293C4.374 10.626 4.207 10.793 4.207 11C4.207 11.207 4.374 11.374 4.707 11.707L9 16"/>
+        </svg>
+      </button>
+      <button class="nav-btn" id="testimonial-next" aria-label="Next testimonial">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 12L20 12M15 18L19.293 13.707C19.626 13.374 19.793 13.207 19.793 13C19.793 12.793 19.626 12.626 19.293 12.293L15 8"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="quote-dots" id="testimonial-dots">
+      {testimonials.map((_, i) => (
+        <button class="dot-btn" data-index={i} aria-label={`Go to testimonial ${i + 1}`}></button>
+      ))}
+    </div>
+  </div>
+</section>
+
 <style>
-    .swiper {
-        overflow: hidden;
-        width: 100%;
-        padding-top: 10px;
-    }
+  .testimonials {
+    padding: 100px 0;
+  }
 
-    .swiper-slide {
-        width: 100%;
-        flex-shrink: 0;
+  @media (max-width: 720px) {
+    .testimonials {
+      padding: 60px 0;
     }
+  }
 
-    .swiper-button-prev:after,
-    .swiper-rtl .swiper-button-next:after {
-        content: "" !important;
-    }
+  .container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
 
-    .swiper-button-next:after,
-    .swiper-rtl .swiper-button-prev:after {
-        content: "" !important;
-    }
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 40px;
+    align-items: end;
+    margin-bottom: 60px;
+  }
 
-    .swiper-button-next svg,
-    .swiper-button-prev svg {
-        width: 24px !important;
-        height: 24px !important;
+  @media (max-width: 860px) {
+    .section-head {
+      grid-template-columns: 1fr;
+      gap: 16px;
     }
+  }
 
-    .swiper-button-next,
-    .swiper-button-prev {
-        position: relative !important;
+  .section-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .num-sm {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-size: clamp(38px, 6vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+
+  .testimonial-slider {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .quote {
+    position: relative;
+    margin: 0;
+    padding: 40px 0 40px 60px;
+    animation: quoteIn 0.6s cubic-bezier(0.22, 0.8, 0.2, 1);
+  }
+
+  @keyframes quoteIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
     }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .quote {
+      padding: 20px 0 20px 40px;
+    }
+  }
+
+  .quote-mark {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    font-size: 140px;
+    line-height: 0.7;
+    color: var(--accent);
+  }
+
+  @media (max-width: 720px) {
+    .quote-mark {
+      font-size: 80px;
+    }
+  }
+
+  .quote-text {
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.32;
+    margin: 0 0 30px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .quote-foot {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .quote-avatar {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 18px;
+    color: var(--ink);
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .avatar-initials {
+    font-family: var(--font-mono);
+    font-size: 18px;
+  }
+
+  .quote-name {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .quote-role {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .quote-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .nav-btn {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--rule);
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .nav-btn:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+
+  .quote-dots {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .dot-btn {
+    width: 24px;
+    height: 4px;
+    background: var(--rule);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, width 0.3s;
+  }
+
+  .dot-btn.active,
+  .dot-btn:hover {
+    background: var(--ink);
+  }
 </style>
 
-<div class="mt-4 w-full">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <div class="swiper mySwiper mb-10">
-            <div class="swiper-wrapper">
-                {
-                    testimonials.map((testimonial) => {
-                        const imagePath = testimonial.avatar.replace(
-                            "/assets/",
-                            "/src/assets/",
-                        );
-                        const imageSrc = images[imagePath];
-
-                        return (
-                            <div class="swiper-slide group bg-[#151515] border border-solid h-auto border-gray-800 shadow-lg rounded-xl p-6 transition-transform duration-500 hover:-translate-y-1">
-                                <div class="flex items-center gap-5 mb-9">
-                                    {imageSrc ? (
-                                        <Image
-                                            class="rounded-full object-cover w-14 h-14"
-                                            src={imageSrc()}
-                                            alt={testimonial.author}
-                                            width={56}
-                                            height={56}
-                                        />
-                                    ) : (
-                                        <img
-                                            class="rounded-full object-cover w-14 h-14"
-                                            src={testimonial.avatar}
-                                            alt={testimonial.author}
-                                        />
-                                    )}
-                                    <div class="grid gap-1">
-                                        <h5 class="text-white font-medium transition-all duration-500 group-hover:text-teal-400">
-                                            {testimonial.author}
-                                        </h5>
-                                        <span class="text-sm leading-6 text-gray-400 transition-all duration-500 group-hover:text-white">
-                                            {testimonial.role}
-                                        </span>
-                                    </div>
-                                </div>
-                                <p class="text-lg text-gray-400 leading-relaxed font-light min-h-24 transition-all duration-500 group-hover:text-white">
-                                    {testimonial.text
-                                        .split(".")
-                                        .map((sentence, index, array) => (
-                                            <>
-                                                {sentence}
-                                                {index < array.length - 1 &&
-                                                    "."}
-                                                {index < array.length - 1 && (
-                                                    <br />
-                                                )}
-                                                {index < array.length - 1 && (
-                                                    <br />
-                                                )}
-                                            </>
-                                        ))}
-                                </p>
-                            </div>
-                        );
-                    })
-                }
-            </div>
-        </div>
-
-        <div class="flex justify-center items-center gap-8">
-            <button
-                id="slider-button-left"
-                class="swiper-button-prev group flex justify-center items-center border border-solid border-teal-600 w-12 h-12 transition-all duration-500 rounded-full hover:bg-teal-600"
-                data-carousel-prev
-            >
-                <svg
-                    class="h-6 w-6 text-teal-600 group-hover:text-white"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M20.9999 12L4.99992 12M9.99992 6L4.70703 11.2929C4.3737 11.6262 4.20703 11.7929 4.20703 12C4.20703 12.2071 4.3737 12.3738 4.70703 12.7071L9.99992 18"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"></path>
-                </svg>
-            </button>
-            <button
-                id="slider-button-right"
-                class="swiper-button-next group flex justify-center items-center border border-solid border-teal-600 w-12 h-12 transition-all duration-500 rounded-full hover:bg-teal-600"
-                data-carousel-next
-            >
-                <svg
-                    class="h-6 w-6 text-teal-600 group-hover:text-white"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M3 12L19 12M14 18L19.2929 12.7071C19.6262 12.3738 19.7929 12.2071 19.7929 12C19.7929 11.7929 19.6262 11.6262 19.2929 11.2929L14 6"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"></path>
-                </svg>
-            </button>
-        </div>
-    </div>
-</div>
-
 <script>
-    import Swiper from "swiper";
-    import { Navigation } from "swiper/modules";
-    import "swiper/css";
-    import "swiper/css/navigation";
-
-    const swiper = new Swiper(".mySwiper", {
-        modules: [Navigation],
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        autoHeight: true,
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
+  const slider = document.getElementById("testimonial-slider");
+  const prevBtn = document.getElementById("testimonial-prev");
+  const nextBtn = document.getElementById("testimonial-next");
+  const dots = document.querySelectorAll(".dot-btn");
+  
+  if (slider && prevBtn && nextBtn) {
+    const slides = slider.querySelectorAll(".testimonial-slide");
+    let currentIndex = 0;
+    
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        (slide as HTMLElement).style.display = i === index ? "block" : "none";
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+      });
+      currentIndex = index;
+    }
+    
+    showSlide(0);
+    
+    prevBtn.addEventListener("click", () => {
+      const newIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(newIndex);
     });
+    
+    nextBtn.addEventListener("click", () => {
+      const newIndex = (currentIndex + 1) % slides.length;
+      showSlide(newIndex);
+    });
+    
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => showSlide(i));
+    });
+  }
 </script>

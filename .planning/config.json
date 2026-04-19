@@ -1,0 +1,11 @@
+{
+  "mode": "interactive",
+  "research": true,
+  "plan_checker": true,
+  "verifier": true,
+  "planning": {
+    "commit_docs": true,
+    "search_gitignored": false
+  },
+  "model": "inherit"
+}

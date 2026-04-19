@@ -1,0 +1,153 @@
+---
+// src/components/About.astro
+import { useTranslations } from "../i18n/utils";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "pt" } = Astro.props;
+const t = useTranslations(lang as any);
+
+const aboutText = t("about.text") as readonly string[];
+---
+
+<section class="section about" id="about-section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-meta">
+        <span class="num-sm mono">01</span>
+        <h2 class="section-title serif">About</h2>
+      </div>
+    </div>
+    
+    <div class="about-grid">
+      <div class="about-main">
+        {aboutText.map((paragraph, index) => (
+          <p class="about-p serif" set:html={paragraph} />
+        ))}
+      </div>
+      
+      <aside class="about-side">
+        <dl class="kv">
+          <dt class="mono">Location</dt>
+          <dd>Brazil</dd>
+          
+          <dt class="mono">Availability</dt>
+          <dd>Open to work</dd>
+          
+          <dt class="mono">Role</dt>
+          <dd>Full-Stack Developer</dd>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: 100px 0;
+  }
+
+  @media (max-width: 720px) {
+    .about {
+      padding: 60px 0;
+    }
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 40px;
+    align-items: end;
+    margin-bottom: 60px;
+  }
+
+  @media (max-width: 860px) {
+    .section-head {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  .section-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .num-sm {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-size: clamp(38px, 6vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 60px;
+  }
+
+  @media (max-width: 860px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+
+  .about-main {
+    max-width: 720px;
+  }
+
+  .about-p {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    line-height: 1.32;
+    margin: 0 0 18px;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+
+  .about-p:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-side {
+    align-self: start;
+    position: sticky;
+    top: 100px;
+  }
+
+  @media (max-width: 860px) {
+    .about-side {
+      position: static;
+    }
+  }
+
+  .kv {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 14px 20px;
+    padding: 24px;
+    border: 1px solid var(--rule);
+    background: var(--card);
+  }
+
+  .kv dt {
+    color: var(--muted);
+    margin: 0;
+    padding-top: 2px;
+  }
+
+  .kv dd {
+    margin: 0;
+    font-size: 14px;
+  }
+</style>

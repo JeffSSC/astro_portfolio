@@ -1,0 +1,168 @@
+---
+import { useTranslations } from "../i18n/utils";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = "pt" } = Astro.props;
+const t = useTranslations(lang as any);
+---
+
+<section class="section contact" id="contact">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-meta">
+        <span class="num-sm mono">06</span>
+        <span class="mono">{t("contact.kicker" as any)}</span>
+      </div>
+      <h2 class="section-title serif">
+        {t("contact.title.1" as any)}<br />
+        <em class="quiet">{t("contact.title.2" as any)}</em>
+      </h2>
+    </div>
+
+    <div class="contact-grid">
+      <a
+        href="https://wa.me/5547991158071?text=Hello%20Jefferson!%20How%20are%20you%3F"
+        target="_blank"
+        rel="noopener"
+        class="contact-card"
+      >
+        <span class="contact-sub mono">{t("contact.fastest" as any)}</span>
+        <span class="contact-label serif">WhatsApp</span>
+      </a>
+      <a
+        href="mailto:jefferson.caires@gmail.com"
+        target="_blank"
+        rel="noopener"
+        class="contact-card"
+      >
+        <span class="contact-sub mono">{t("contact.anytime" as any)}</span>
+        <span class="contact-label serif">Email</span>
+      </a>
+      <a
+        href="https://www.linkedin.com/in/jefferson-caires/"
+        target="_blank"
+        rel="noopener"
+        class="contact-card"
+      >
+        <span class="contact-sub mono">{t("contact.professional" as any)}</span>
+        <span class="contact-label serif">LinkedIn</span>
+      </a>
+      <a
+        href="https://github.com/JeffSSC"
+        target="_blank"
+        rel="noopener"
+        class="contact-card"
+      >
+        <span class="contact-sub mono">{t("contact.code" as any)}</span>
+        <span class="contact-label serif">GitHub</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding: 100px 0;
+  }
+
+  @media (max-width: 720px) {
+    .contact {
+      padding: 60px 0;
+    }
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 40px;
+    align-items: end;
+    margin-bottom: 60px;
+  }
+
+  @media (max-width: 860px) {
+    .section-head {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  .section-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .num-sm {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-size: clamp(38px, 6vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+
+  .quiet {
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  @media (max-width: 860px) {
+    .contact-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .contact-card {
+    background: var(--bg);
+    padding: 40px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    transition: background 0.3s, color 0.3s;
+    color: var(--ink);
+  }
+
+  .contact-card:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .contact-card:hover .contact-sub {
+    color: var(--bg);
+    opacity: 0.7;
+  }
+
+  .contact-label {
+    font-size: 38px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-top: 8px;
+  }
+
+  .contact-sub {
+    color: var(--muted);
+    font-size: 12px;
+  }
+</style>

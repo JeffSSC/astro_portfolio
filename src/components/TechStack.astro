@@ -1,149 +1,261 @@
 ---
+// src/components/TechStack.astro
+import { useTranslations } from "../i18n/utils";
 import { Icon } from "astro-icon/components";
 
-interface TechItem {
-    icon: string;
-    name: string;
-}
-
 interface Props {
-    techs?: (string | TechItem)[];
+  lang?: string;
 }
 
-const {
-    techs = [
-        "astro",
-        { icon: "vuejs", name: "Vue.js" },
-        "python",
-        "html5",
-        "css3",
-        "git",
-        "github",
-        { icon: "amazonwebservices", name: "AWS" },
-        "docker",
-        "nodejs",
-        "tailwindcss",
-        "postgresql",
-        "mysql",
+const { lang = "pt" } = Astro.props;
+const t = useTranslations(lang as any);
+
+const techCategories = [
+  {
+    label: "Frontend",
+    techs: [
+      { icon: "simple-icons:astro", name: "Astro" },
+      { icon: "simple-icons:vuedotjs", name: "Vue.js" },
+      { icon: "simple-icons:html5", name: "HTML5" },
+      { icon: "simple-icons:css3", name: "CSS3" },
+      { icon: "simple-icons:tailwindcss", name: "Tailwind" },
+      { icon: "simple-icons:typescript", name: "TypeScript" },
     ],
-} = Astro.props;
+  },
+  {
+    label: "Backend",
+    techs: [
+      { icon: "simple-icons:python", name: "Python" },
+      { icon: "simple-icons:nodedotjs", name: "Node.js" },
+      { icon: "simple-icons:postgresql", name: "PostgreSQL" },
+      { icon: "simple-icons:mysql", name: "MySQL" },
+      { icon: "simple-icons:amazonaws", name: "AWS" },
+    ],
+  },
+  {
+    label: "Tools & DevOps",
+    techs: [
+      { icon: "simple-icons:git", name: "Git" },
+      { icon: "simple-icons:github", name: "GitHub" },
+      { icon: "simple-icons:docker", name: "Docker" },
+      { icon: "simple-icons:figma", name: "Figma" },
+    ],
+  },
+];
 
-const iconMap: Record<string, string> = {
-    astro: "simple-icons:astro",
-    vuejs: "simple-icons:vuedotjs",
-    python: "simple-icons:python",
-    html5: "simple-icons:html5",
-    css3: "simple-icons:css3",
-    git: "simple-icons:git",
-    github: "simple-icons:github",
-    amazonwebservices: "simple-icons:amazonaws",
-    docker: "simple-icons:docker",
-    nodejs: "simple-icons:nodedotjs",
-    tailwindcss: "simple-icons:tailwindcss",
-    postgresql: "simple-icons:postgresql",
-    mysql: "simple-icons:mysql",
-};
-
-function getIcon(item: string | TechItem) {
-    const key = typeof item === "string" ? item : item.icon;
-    return iconMap[key] || `simple-icons:${key}`;
-}
-
-function getName(item: string | TechItem) {
-    if (typeof item !== "string") return item.name;
-    return item.charAt(0).toUpperCase() + item.slice(1);
-}
+const certifications = [
+  { name: "AWS AI Practitioner", year: "2024" },
+  { name: "AWS Cloud Practitioner", year: "2024" },
+];
 ---
 
-<section class="wrapper">
-    <div class="grid-container">
-        {
-            techs.map((tech) => (
-                <div class="tech-item">
-                    <div class="icon-wrapper">
-                        <Icon name={getIcon(tech)} />
-                    </div>
-                    <span class="tech-name">{getName(tech)}</span>
-                </div>
-            ))
-        }
+<section class="section stack" id="stack">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-meta">
+        <span class="num-sm mono">04</span>
+        <h2 class="section-title serif">{t("tech.title")}</h2>
+      </span>
     </div>
+    
+    <div class="stack-grid">
+      {techCategories.map((category) => (
+        <div class="stack-col">
+          <span class="stack-label mono">{category.label}</span>
+          <div class="chips">
+            {category.techs.map((tech) => (
+              <span class="chip">
+                <span class="chip-dot"></span>
+                {tech.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="certs-section">
+      <span class="stack-label mono">{t("tech.certs")}</span>
+      <div class="certs">
+        {certifications.map((cert) => (
+          <div class="cert">
+            <div class="cert-badge">
+              <span class="cert-ring"></span>
+              <span class="serif">{cert.year.slice(-2)}</span>
+            </div>
+            <div>
+              <div class="cert-name">{cert.name}</div>
+              <div class="cert-meta mono">AWS</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
 </section>
 
 <style>
-    .wrapper {
-        --color-text: navy;
-        --color-bg: papayawhip;
-        --color-bg-accent: #ecdcc0;
-        --size: clamp(4rem, 6rem, 8rem);
-        --gap: calc(var(--size) / 12);
-    }
+  .stack {
+    padding: 100px 0;
+  }
 
-    @media (prefers-color-scheme: dark) {
-        .wrapper {
-            --color-text: papayawhip;
-            --color-bg: rgb(14, 14, 14);
-            --color-bg-accent: #151515;
-        }
+  @media (max-width: 720px) {
+    .stack {
+      padding: 60px 0;
     }
+  }
 
-    .wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        padding: 1.5rem 0;
-    }
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 40px;
+    align-items: end;
+    margin-bottom: 60px;
+  }
 
-    .grid-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: calc(var(--gap) * 2);
-        max-width: 1200px;
+  @media (max-width: 860px) {
+    .section-head {
+      grid-template-columns: 1fr;
+      gap: 16px;
     }
+  }
 
-    .tech-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-        transition: transform 0.2s ease;
-    }
+  .section-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
 
-    .icon-wrapper {
-        display: grid;
-        place-items: center;
-        width: var(--size);
-        height: var(--size);
-        color: var(--color-text);
-        background: var(--color-bg-accent);
-        aspect-ratio: 1/1;
-        padding: calc(var(--size) / 10);
-        border-radius: 0.75rem;
-        transition: background-color 0.2s ease;
-    }
+  .num-sm {
+    color: var(--ink);
+    font-weight: 500;
+  }
 
-    .icon-wrapper svg {
-        width: 100%;
-        height: 100%;
-        transition: filter 0.2s ease;
-    }
+  .section-title {
+    font-size: clamp(38px, 6vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
 
-    .tech-name {
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: white;
-        opacity: 0.8;
-        text-align: center;
-    }
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    margin-bottom: 60px;
+  }
 
-    .tech-item:hover {
-        transform: translateY(-5px);
-        cursor: pointer;
+  @media (max-width: 860px) {
+    .stack-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
     }
+  }
 
-    .tech-item:hover .icon-wrapper svg {
-        filter: brightness(1.1);
+  .stack-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .stack-label {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid var(--rule);
+    background: var(--card);
+    font-size: 13px;
+    font-family: var(--font-mono);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .chip:hover {
+    border-color: var(--ink);
+  }
+
+  .chip-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  .certs-section {
+    margin-top: 40px;
+  }
+
+  .certs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    max-width: 600px;
+  }
+
+  @media (max-width: 520px) {
+    .certs {
+      grid-template-columns: 1fr;
     }
+  }
+
+  .cert {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid var(--rule);
+    background: var(--card);
+  }
+
+  .cert-badge {
+    width: 64px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+
+  .cert-ring {
+    position: absolute;
+    inset: 6px;
+    border: 1px dashed var(--accent);
+    border-radius: 50%;
+    animation: spin 18s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .cert-badge .serif {
+    font-size: 18px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cert-name {
+    font-size: 18px;
+  }
+
+  .cert-meta {
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 12px;
+  }
 </style>

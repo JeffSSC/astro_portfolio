@@ -23,12 +23,17 @@
 **Plans:** 1 plan
 
 - [ ] 06-01-PLAN.md — Tech Stack and Testimonials
-| 7 | Contact & Footer | pending | Contact cards, footer |
+| 7 | Contact & Footer | completed | Contact cards, footer |
 
 **Plans:** 1 plan
 
-- [ ] 07-01-PLAN.md — Implement Contact and Footer components
-| 8 | Polish & Responsive | pending | Animations, mobile, testing |
+- [x] 07-01-PLAN.md — Implement Contact and Footer components
+
+| 8 | Polish & Responsive | planned | Animations, mobile, testing |
+
+**Plans:** 1 plan
+
+- [ ] 08-01-PLAN.md — Polish all sections for responsive and animations
 
 ---
 

@@ -1,0 +1,209 @@
+---
+// src/components/Navigation.astro
+import ThemeToggle from "./ThemeToggle.astro";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+---
+
+<nav class="nav" id="main-nav">
+  <div class="nav-container">
+    <div class="nav-left">
+      <a href="/" class="nav-brand">
+        <span class="brand-mark">JSC</span>
+        <span class="brand-name">Jefferson Silva Caires</span>
+      </a>
+    </div>
+
+    <div class="nav-center">
+      <div class="nav-links">
+        <a href="#about" class="nav-link">
+          <span class="num-sm">01</span>
+          <span>About</span>
+        </a>
+        <a href="#experience" class="nav-link">
+          <span class="num-sm">02</span>
+          <span>Experience</span>
+        </a>
+        <a href="#stack" class="nav-link">
+          <span class="num-sm">03</span>
+          <span>Stack</span>
+        </a>
+        <a href="#work" class="nav-link">
+          <span class="num-sm">04</span>
+          <span>Work</span>
+        </a>
+        <a href="#testimonials" class="nav-link">
+          <span class="num-sm">05</span>
+          <span>Testimonials</span>
+        </a>
+        <a href="#contact" class="nav-link">
+          <span class="num-sm">06</span>
+          <span>Contact</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <LanguageSwitcher />
+      <ThemeToggle />
+    </div>
+  </div>
+  <div class="nav-progress"></div>
+</nav>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 40px;
+    margin-bottom: 0;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, padding 0.3s;
+  }
+
+  .nav.scrolled {
+    border-bottom-color: var(--rule);
+    padding: 14px 40px;
+  }
+
+  .nav-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: var(--accent);
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform 0.15s linear;
+  }
+
+  .nav-container {
+    display: contents;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-center {
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-self: end;
+  }
+
+  @media (max-width: 720px) {
+    .nav {
+      padding: 14px 20px;
+      grid-template-columns: 1fr auto;
+    }
+    .nav-center {
+      display: none;
+    }
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand-mark {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    line-height: 1;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    letter-spacing: -0.02em;
+  }
+
+  .brand-name {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+
+  @media (max-width: 520px) {
+    .brand-name {
+      display: none;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 14px;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: -6px;
+    height: 1px;
+    background: var(--ink);
+    transition: right 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    right: 0;
+  }
+
+  .num-sm {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--muted);
+  }
+
+  .nav-link span:last-child {
+    font-family: var(--font-sans);
+  }
+</style>
+
+<script>
+  const nav = document.getElementById("main-nav");
+  const progress = nav?.querySelector(".nav-progress") as HTMLElement;
+
+  function updateNav() {
+    if (!nav) return;
+    const scrolled = window.scrollY > 20;
+    nav.classList.toggle("scrolled", scrolled);
+
+    // Update progress bar
+    if (progress) {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled2 = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
+      progress.style.transform = `scaleX(${scrolled2})`;
+    }
+  }
+
+  window.addEventListener("scroll", updateNav, { passive: true });
+  window.addEventListener("resize", updateNav, { passive: true });
+  updateNav();
+</script>

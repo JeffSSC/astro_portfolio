@@ -1,13 +1,11 @@
 ---
-import "../assets/styles/tailwind.css";
-import Header from "../components/Header.astro";
+import "../styles/base.css";
+import Navigation from "../components/Navigation.astro";
 
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/700.css";
-import "@fontsource/poppins/600.css";
-import "@fontsource/poppins/700.css";
-import "@fontsource/poppins/800.css";
+import "@fontsource/instrument-serif/400.css";
 import "@fontsource/jetbrains-mono/400.css";
 import "@fontsource/jetbrains-mono/500.css";
 
@@ -84,19 +82,18 @@ const schemaData = {
             set:html={JSON.stringify(schemaData)}
         />
 
+        <script is:inline>
+            (function() {
+                const theme = localStorage.getItem("theme") ?? 
+                    (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+                document.documentElement.setAttribute("data-theme", theme);
+            })();
+        </script>
+
         <slot name="head" />
     </head>
-    <body class="bg-black overflow-x-hidden overflow-y-auto">
-        <Header />
+    <body>
+        <Navigation />
         <slot />
-        <script>
-            import AOS from "aos";
-            import "aos/dist/aos.css";
-            AOS.init({
-                duration: 1000,
-                once: true,
-                disable: "mobile",
-            });
-        </script>
     </body>
 </html>

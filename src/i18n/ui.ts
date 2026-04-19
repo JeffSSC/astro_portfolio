@@ -80,6 +80,19 @@ export const ui = {
 
         // Contact Section
         'contact.title': 'Entre em contato',
+        'contact.kicker': 'Índice · Contato',
+        'contact.title.1': 'Vamos construir',
+        'contact.title.2': 'algo juntos.',
+        'contact.fastest': 'Mais rápido',
+        'contact.anytime': 'A qualquer momento',
+        'contact.professional': 'Profissional',
+        'contact.code': 'Código',
+        
+        // Footer Section
+        'footer.built_with': '© 2026 · Construído com Astro e carinho',
+        'footer.designed_with': 'Projetado com Claude Design',
+        'footer.last_refactor': 'Último refatoramento · Abr 2026',
+        'footer.back_to_top': 'Voltar ao topo ↑',
 
         // Testimonials Section
         'testimonials.title': 'Depoimentos',
@@ -185,6 +198,19 @@ export const ui = {
 
         // Contact Section
         'contact.title': 'Get in Touch',
+        'contact.kicker': 'Index · Contact',
+        'contact.title.1': 'Let\'s build',
+        'contact.title.2': 'something together.',
+        'contact.fastest': 'Fastest',
+        'contact.anytime': 'Anytime',
+        'contact.professional': 'Professional',
+        'contact.code': 'Code',
+        
+        // Footer Section
+        'footer.built_with': '© 2026 · Built with Astro & care',
+        'footer.designed_with': 'Designed with Claude Design',
+        'footer.last_refactor': 'Last refactor · Apr 2026',
+        'footer.back_to_top': 'Back to top ↑',
 
         // Testimonials Section
         'testimonials.title': 'Testimonials',

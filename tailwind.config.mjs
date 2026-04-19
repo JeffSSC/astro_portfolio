@@ -7,10 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        serif: ["Instrument Serif", ...defaultTheme.fontFamily.serif],
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
-
-        heading: ["Poppins", ...defaultTheme.fontFamily.sans],
-
         mono: ["JetBrains Mono", ...defaultTheme.fontFamily.mono],
       },
     },
