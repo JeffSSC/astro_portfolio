@@ -1,153 +1,43 @@
 ---
-// src/components/About.astro
-import { useTranslations } from "../i18n/utils";
+import { getData, type DataLang } from "../i18n/data";
 
 interface Props {
-  lang?: string;
+  lang: DataLang;
 }
 
-const { lang = "pt" } = Astro.props;
-const t = useTranslations(lang as any);
-
-const aboutText = t("about.text") as readonly string[];
+const { lang } = Astro.props;
+const data = getData(lang);
 ---
-
-<section class="section about" id="about-section">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-meta">
-        <span class="num-sm mono">01</span>
-        <h2 class="section-title serif">About</h2>
-      </div>
+<section id="about" class="py-24 md:py-14">
+  <header class="reveal in grid md:grid-cols-[1fr_2fr_1fr] gap-4 md:gap-10 items-end mb-14">
+    <div class="flex flex-col gap-1">
+      <span class="mono text-ink">00</span>
+      <span class="mono">{lang === "pt" ? "Índice · Sobre" : "Index · About"}</span>
     </div>
-    
-    <div class="about-grid">
-      <div class="about-main">
-        {aboutText.map((paragraph, index) => (
-          <p class="about-p serif" set:html={paragraph} />
-        ))}
-      </div>
-      
-      <aside class="about-side">
-        <dl class="kv">
-          <dt class="mono">Location</dt>
-          <dd>Brazil</dd>
-          
-          <dt class="mono">Availability</dt>
-          <dd>Open to work</dd>
-          
-          <dt class="mono">Role</dt>
-          <dd>Full-Stack Developer</dd>
-        </dl>
-      </aside>
+    <h2 class="serif m-0 tracking-[-0.03em] leading-[1.02] mb-2 min-w-max" style="font-size: clamp(38px, 6vw, 72px);">
+      {lang === "pt" ? "Engenharia pragmática" : "Pragmatic engineering"}<br />
+      <span class="quiet">{lang === "pt" ? "sob medida, tipada e testada." : "measured, typed and tested."}</span>
+    </h2>
+  </header>
+  <div class="grid md:grid-cols-[1fr_360px] gap-15 md:gap-8">
+    <div>
+      {data.about.map((p: string) => (
+        <p class="serif text-[28px] leading-[1.32] m-0 mb-4 max-w-[720px] text-pretty">{p}</p>
+      ))}
     </div>
+    <aside class="self-start md:sticky md:top-24">
+      <dl class="m-0 grid grid-cols-[90px_1fr] gap-x-5 gap-y-3.5 p-6 border border-rule bg-card">
+        <dt class="mono">{lang === "pt" ? "Baseado em" : "Based in"}</dt>
+        <dd class="m-0 text-sm">{data.location}</dd>
+        <dt class="mono">{lang === "pt" ? "Foco" : "Focus"}</dt>
+        <dd class="m-0 text-sm">{lang === "pt" ? "Full-stack · IA Aplicada · Cloud" : "Full-stack · Applied AI · Cloud"}</dd>
+        <dt class="mono">{lang === "pt" ? "Escreve" : "Writes"}</dt>
+        <dd class="m-0 text-sm">Python · TypeScript · SQL</dd>
+        <dt class="mono">{lang === "pt" ? "Fala" : "Speaks"}</dt>
+        <dd class="m-0 text-sm">{lang === "pt" ? "Português · Inglês" : "Portuguese · English"}</dd>
+        <dt class="mono">{lang === "pt" ? "Certs" : "Certs"}</dt>
+        <dd class="m-0 text-sm">AWS AI · AWS CP</dd>
+      </dl>
+    </aside>
   </div>
 </section>
-
-<style>
-  .about {
-    padding: 100px 0;
-  }
-
-  @media (max-width: 720px) {
-    .about {
-      padding: 60px 0;
-    }
-  }
-
-  .section-head {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 40px;
-    align-items: end;
-    margin-bottom: 60px;
-  }
-
-  @media (max-width: 860px) {
-    .section-head {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-  }
-
-  .section-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .num-sm {
-    color: var(--ink);
-    font-weight: 500;
-  }
-
-  .section-title {
-    font-size: clamp(38px, 6vw, 72px);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    margin: 0;
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 360px;
-    gap: 60px;
-  }
-
-  @media (max-width: 860px) {
-    .about-grid {
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
-  }
-
-  .about-main {
-    max-width: 720px;
-  }
-
-  .about-p {
-    font-family: var(--font-serif);
-    font-size: 28px;
-    line-height: 1.32;
-    margin: 0 0 18px;
-    color: var(--ink);
-    text-wrap: pretty;
-  }
-
-  .about-p:last-child {
-    margin-bottom: 0;
-  }
-
-  .about-side {
-    align-self: start;
-    position: sticky;
-    top: 100px;
-  }
-
-  @media (max-width: 860px) {
-    .about-side {
-      position: static;
-    }
-  }
-
-  .kv {
-    margin: 0;
-    display: grid;
-    grid-template-columns: 90px 1fr;
-    gap: 14px 20px;
-    padding: 24px;
-    border: 1px solid var(--rule);
-    background: var(--card);
-  }
-
-  .kv dt {
-    color: var(--muted);
-    margin: 0;
-    padding-top: 2px;
-  }
-
-  .kv dd {
-    margin: 0;
-    font-size: 14px;
-  }
-</style>

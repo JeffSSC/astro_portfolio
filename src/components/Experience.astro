@@ -1,220 +1,49 @@
 ---
-// src/components/Experience.astro
-import { useTranslations } from "../i18n/utils";
+import { getData, type DataLang } from "../i18n/data";
 
 interface Props {
-  lang?: string;
+  lang: DataLang;
 }
 
-const { lang = "pt" } = Astro.props;
-const t = useTranslations(lang as any);
-
-const experiences = [
-  {
-    company: "Compass UOL",
-    role: t("exp.compass.role"),
-    year: "2024",
-    time: t("exp.compass.time"),
-    modality: t("exp.compass.modality"),
-    desc: [
-      t("exp.compass.desc.1"),
-      t("exp.compass.desc.2"),
-      t("exp.compass.desc.3"),
-      t("exp.compass.desc.4"),
-    ],
-  },
-  {
-    company: "Informatech",
-    role: t("exp.informatech.role"),
-    year: "2023",
-    time: t("exp.informatech.time"),
-    modality: t("exp.informatech.modality"),
-    desc: [
-      t("exp.informatech.desc.1"),
-      t("exp.informatech.desc.2"),
-      t("exp.informatech.desc.3"),
-      t("exp.informatech.desc.4"),
-    ],
-  },
-];
+const { lang } = Astro.props;
+const data = getData(lang);
 ---
-
-<section class="section experience" id="experience">
-  <div class="container">
-    <div class="section-head">
-      <span class="section-meta">
-        <span class="num-sm mono">02</span>
-        <h2 class="section-title serif">Experience</h2>
-      </span>
+<section id="experience" class="py-24 md:py-14 mb-8 md:mb-12">
+  <header class="grid md:grid-cols-[1fr_2fr_1fr] gap-10 items-end mb-14">
+    <div class="flex flex-col gap-1">
+      <span class="mono text-ink">02</span>
+      <span class="mono">{lang === "pt" ? "Índice · Experiência" : "Index · Experience"}</span>
     </div>
-    
-    <ul class="exp-list">
-      {experiences.map((exp, index) => (
-        <li class="exp-item">
-          <div class="exp-year">
-            <span class="big-year serif">{exp.year}</span>
-            <span class="mono text-sm">{exp.time} · {exp.modality}</span>
-          </div>
-          <div class="exp-main">
-            <div class="exp-head">
-              <h3 class="exp-company serif">{exp.company}</h3>
-              <span class="exp-role mono">{exp.role}</span>
+    <h2 class="serif m-0 tracking-[-0.03em] leading-[1.02]" style="font-size: clamp(38px, 6vw, 72px);">
+      {lang === "pt" ? "Onde entreguei." : "Where I've shipped."}
+    </h2>
+  </header>
+  <ol class="list-none p-0 m-0 grid gap-20 md:gap-15">
+    {data.experience.map((e, idx) => (
+      <li class={`grid md:grid-cols-[200px_1fr] gap-12 pt-7 ${idx === 0 ? "" : "border-t border-rule"}`}>
+        <div class="flex flex-col gap-1">
+          <span class="serif text-[72px] leading-none tracking-[-0.03em]">{e.year}</span>
+          <span class="mono">{e.duration}</span>
+        </div>
+        <div>
+          <div class="flex flex-wrap justify-between gap-4 items-baseline mb-5">
+            <h3 class="serif m-0 text-[40px] leading-[1.05] tracking-[-0.02em]">{e.company}</h3>
+            <div class="mono flex gap-2 text-muted">
+              <span>{e.role}</span>
+              <span class="text-rule">·</span>
+              <span>{e.mode}</span>
             </div>
-            <ul class="exp-bullets">
-              {exp.desc.filter(Boolean).map((item, i) => (
-                <li>
-                  <span class="bullet-num mono">{String(i + 1).padStart(2, '0')}</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
           </div>
-        </li>
-      ))}
-    </ul>
-  </div>
+          <ul class="list-none p-0 m-0 grid gap-3">
+            {e.bullets.map((b: string, j: number) => (
+              <li class="grid grid-cols-[30px_1fr] gap-3.5 items-baseline max-w-[640px] text-ink-2 text-[15px] leading-[1.55]">
+                <span class="mono text-muted">{String(j + 1).padStart(2, "0")}</span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </li>
+    ))}
+  </ol>
 </section>
-
-<style>
-  .experience {
-    padding: 100px 0;
-  }
-
-  @media (max-width: 720px) {
-    .experience {
-      padding: 60px 0;
-    }
-  }
-
-  .section-head {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 40px;
-    align-items: end;
-    margin-bottom: 60px;
-  }
-
-  @media (max-width: 860px) {
-    .section-head {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-  }
-
-  .section-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .num-sm {
-    color: var(--ink);
-    font-weight: 500;
-  }
-
-  .section-title {
-    font-size: clamp(38px, 6vw, 72px);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    margin: 0;
-  }
-
-  .exp-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 60px;
-  }
-
-  .exp-item {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 48px;
-    padding-top: 30px;
-    border-top: 1px solid var(--rule);
-  }
-
-  .exp-item:first-child {
-    border-top: 0;
-    padding-top: 0;
-  }
-
-  @media (max-width: 720px) {
-    .exp-item {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-  }
-
-  .exp-year {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .big-year {
-    font-size: 72px;
-    line-height: 1;
-    letter-spacing: -0.03em;
-    color: var(--ink);
-  }
-
-  .text-sm {
-    font-size: 14px;
-  }
-
-  .exp-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 16px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-
-  .exp-company {
-    font-size: 40px;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin: 0;
-  }
-
-  .exp-role {
-    display: flex;
-    gap: 8px;
-    color: var(--muted);
-  }
-
-  .exp-bullets {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 12px;
-    max-width: 640px;
-  }
-
-  .exp-bullets li {
-    display: grid;
-    grid-template-columns: 30px 1fr;
-    gap: 14px;
-    align-items: baseline;
-    color: var(--ink-2);
-    font-size: 15px;
-    line-height: 1.55;
-  }
-
-  .bullet-num {
-    color: var(--muted);
-  }
-
-  @media (max-width: 520px) {
-    .big-year {
-      font-size: 48px;
-    }
-    .exp-company {
-      font-size: 28px;
-    }
-  }
-</style>

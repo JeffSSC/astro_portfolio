@@ -1,168 +1,42 @@
 ---
-import { useTranslations } from "../i18n/utils";
+import { getData, type DataLang } from "../i18n/data";
 
 interface Props {
-  lang?: string;
+  lang: DataLang;
 }
 
-const { lang = "pt" } = Astro.props;
-const t = useTranslations(lang as any);
+const { lang } = Astro.props;
+const data = getData(lang);
+
+const cards = [
+  { num: `01 · ${lang === "pt" ? "Mais rápido" : "Fastest"}`, label: "WhatsApp", sub: "+55 47 99115 8071 →", href: data.contact.whatsapp },
+  { num: `02 · ${lang === "pt" ? "Qualquer hora" : "Anytime"}`, label: lang === "pt" ? "E-mail" : "Email", sub: `${data.contact.email} →`, href: `mailto:${data.contact.email}` },
+  { num: `03 · ${lang === "pt" ? "Profissional" : "Professional"}`, label: "LinkedIn", sub: "/in/jefferson-caires →", href: data.contact.linkedin },
+  { num: `04 · ${lang === "pt" ? "Código" : "Code"}`, label: "GitHub", sub: "/JeffSSC →", href: data.contact.github },
+];
 ---
-
-<section class="section contact" id="contact">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-meta">
-        <span class="num-sm mono">06</span>
-        <span class="mono">{t("contact.kicker" as any)}</span>
-      </div>
-      <h2 class="section-title serif">
-        {t("contact.title.1" as any)}<br />
-        <em class="quiet">{t("contact.title.2" as any)}</em>
-      </h2>
+<section id="contact" class="py-24 md:py-14">
+  <header class="grid md:grid-cols-[1fr_2fr_1fr] gap-10 items-end mb-14">
+    <div class="flex flex-col gap-1">
+      <span class="mono text-ink">05</span>
+      <span class="mono">{lang === "pt" ? "Índice · Contato" : "Index · Contact"}</span>
     </div>
-
-    <div class="contact-grid">
-      <a
-        href="https://wa.me/5547991158071?text=Hello%20Jefferson!%20How%20are%20you%3F"
-        target="_blank"
-        rel="noopener"
-        class="contact-card"
-      >
-        <span class="contact-sub mono">{t("contact.fastest" as any)}</span>
-        <span class="contact-label serif">WhatsApp</span>
+    <h2 class="serif m-0 tracking-[-0.03em] leading-[1.02]" style="font-size: clamp(38px, 6vw, 72px);">
+      {lang === "pt" ? "Vamos construir" : "Let's build"}<br />
+      <em class="quiet">{lang === "pt" ? "algo juntos." : "something together."}</em>
+    </h2>
+  </header>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-px bg-rule border border-rule">
+    {cards.map((c) => (
+      <a href={c.href} target="_blank" rel="noopener"
+        class="bg-bg p-7 flex flex-col gap-3 min-h-[180px] transition-colors hover:bg-ink hover:text-bg contact-card">
+        <span class="mono">{c.num}</span>
+        <span class="serif text-[38px] tracking-[-0.02em] leading-none mt-2">{c.label}</span>
+        <span class="mono mt-auto">{c.sub}</span>
       </a>
-      <a
-        href="mailto:jefferson.caires@gmail.com"
-        target="_blank"
-        rel="noopener"
-        class="contact-card"
-      >
-        <span class="contact-sub mono">{t("contact.anytime" as any)}</span>
-        <span class="contact-label serif">Email</span>
-      </a>
-      <a
-        href="https://www.linkedin.com/in/jefferson-caires/"
-        target="_blank"
-        rel="noopener"
-        class="contact-card"
-      >
-        <span class="contact-sub mono">{t("contact.professional" as any)}</span>
-        <span class="contact-label serif">LinkedIn</span>
-      </a>
-      <a
-        href="https://github.com/JeffSSC"
-        target="_blank"
-        rel="noopener"
-        class="contact-card"
-      >
-        <span class="contact-sub mono">{t("contact.code" as any)}</span>
-        <span class="contact-label serif">GitHub</span>
-      </a>
-    </div>
+    ))}
   </div>
 </section>
-
-<style>
-  .contact {
-    padding: 100px 0;
-  }
-
-  @media (max-width: 720px) {
-    .contact {
-      padding: 60px 0;
-    }
-  }
-
-  .section-head {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 40px;
-    align-items: end;
-    margin-bottom: 60px;
-  }
-
-  @media (max-width: 860px) {
-    .section-head {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-  }
-
-  .section-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .num-sm {
-    color: var(--ink);
-    font-weight: 500;
-  }
-
-  .section-title {
-    font-size: clamp(38px, 6vw, 72px);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    margin: 0;
-  }
-
-  .quiet {
-    color: var(--muted);
-    font-style: italic;
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-    background: var(--rule);
-    border: 1px solid var(--rule);
-  }
-
-  @media (max-width: 860px) {
-    .contact-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 520px) {
-    .contact-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .contact-card {
-    background: var(--bg);
-    padding: 40px 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 8px;
-    transition: background 0.3s, color 0.3s;
-    color: var(--ink);
-  }
-
-  .contact-card:hover {
-    background: var(--ink);
-    color: var(--bg);
-  }
-
-  .contact-card:hover .contact-sub {
-    color: var(--bg);
-    opacity: 0.7;
-  }
-
-  .contact-label {
-    font-size: 38px;
-    letter-spacing: -0.02em;
-    line-height: 1;
-    margin-top: 8px;
-  }
-
-  .contact-sub {
-    color: var(--muted);
-    font-size: 12px;
-  }
+<style is:global>
+  .contact-card:hover .mono { color: color-mix(in srgb, var(--bg) 60%, transparent); }
 </style>

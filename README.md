@@ -1,85 +1,59 @@
-# 🚀 Portfólio - JeffSSC
+# Portfolio — Astro + Tailwind
 
-![Astro](https://img.shields.io/badge/astro-%232C2052.svg?style=for-the-badge&logo=astro&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![Threejs](https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white)
-![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+Refactor of the portfolio as an **Astro 5** project with **Tailwind CSS** and a small set of **React islands** (hydrated only where interactivity is needed).
 
-> Um site de portfólio moderno e de alta performance construído com Astro, Tailwind CSS e Three.js.
+## Structure
 
-## ✨ Funcionalidades
-
-- **Animações 3D**: Elementos 3D imersivos impulsionados por [Three.js](https://threejs.org/).
-- **Design Responsivo**: Layout totalmente responsivo construído com [Tailwind CSS](https://tailwindcss.com/).
-- **Alta Performance**: Geração de site estático com [Astro](https://astro.build/) para tempos de carregamento extremamente rápidos.
-- **Tipagem Segura**: Base de código robusta usando [TypeScript](https://www.typescriptlang.org/).
-- **Ferramentas Modernas**: Impulsionado por [Vite](https://vitejs.dev/) para uma experiência de desenvolvimento rápida.
-
-## 🛠️ Stack Tecnológica
-
-- **Framework**: Astro
-- **Estilização**: Tailwind CSS
-- **Linguagem**: TypeScript
-- **Animações**: Three.js, AOS (Animate On Scroll)
-- **Ícones**: FontAwesome, Simple Icons
-
-## 🚀 Começando
-
-Para obter uma cópia local e rodar o projeto, siga estes passos simples.
-
-### Pré-requisitos
-
-- npm ou yarn
-
-### Instalação
-
-1. Clone o repositório
-   ```sh
-   git clone https://github.com/JeffSSC/astro_portfolio.git
-   ```
-2. Instale os pacotes NPM
-   ```sh
-   npm install
-   ```
-3. Rode o servidor de desenvolvimento
-   ```sh
-   npm run dev
-   ```
-
-## 📂 Estrutura do Projeto
-
-Dentro do seu projeto Astro, você verá as seguintes pastas e arquivos:
-
-```text
-/
-├── public/          # Ativos estáticos
+```
+astro/
+├── astro.config.mjs          # React + Tailwind integrations, static output
+├── tailwind.config.mjs       # Design tokens via CSS vars (accent, ink, etc.)
 ├── src/
-│   ├── assets/      # Ativos do projeto (imagens, estilos)
-│   ├── components/  # Componentes Astro reutilizáveis
-│   ├── layouts/     # Layouts de página
-│   └── pages/       # Rotas de página
-└── package.json     # Dependências e scripts do projeto
+│   ├── data/portfolio.ts     # Single source of truth for all content
+│   ├── styles/global.css     # Tokens, base, component layer helpers
+│   ├── layouts/Base.astro    # HTML shell, fonts, theme bootstrap
+│   ├── components/
+│   │   ├── Nav.tsx           # client:load — scroll progress, theme toggle
+│   │   ├── Hero.tsx          # client:load — cursor spotlight, live clock
+│   │   ├── About.astro       # static
+│   │   ├── Projects.tsx      # client:visible — filter + expand rows
+│   │   ├── Experience.astro  # static
+│   │   ├── Stack.astro       # static (CSS marquee)
+│   │   ├── Testimonials.tsx  # client:visible — carousel
+│   │   ├── Contact.astro     # static
+│   │   └── Footer.astro      # static
+│   └── pages/index.astro     # composition
 ```
 
-## 🧞 Comandos
+## Why this is faster than the previous SPA
 
-Todos os comandos são rodados da raiz do projeto, a partir de um terminal:
+- **Static HTML by default** — sections that don't need JS (about, experience, stack, contact, footer) render zero client code.
+- **Partial hydration** — only `Nav` and `Hero` hydrate on load. `Projects` and `Testimonials` hydrate when they scroll into view (`client:visible`).
+- **No Babel in the browser** — real TSX build at compile time, not `<script type="text/babel">`.
+- **Tailwind purge** — CSS ships only what's used.
+- **No CDN React** — bundled + tree-shaken, fonts preconnected with `display=swap`.
 
-| Comando                   | Ação                                             |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Instala as dependências                          |
-| `npm run dev`             | Inicia o servidor local em `localhost:4321`      |
-| `npm run build`           | Compila seu site de produção para `./dist/`      |
-| `npm run preview`         | Visualiza sua build localmente, antes do deploy  |
-| `npm run astro ...`       | Roda comandos CLI como `astro add`, `astro check`|
+## Run locally
 
-## 👤 Autor
+```bash
+cd astro
+pnpm install      # or npm / yarn
+pnpm dev          # localhost:4321
+pnpm build        # static output in ./dist
+pnpm preview
+```
 
-**JeffSSC**
+## Deploy
 
-- GitHub: [@JeffSSC](https://github.com/JeffSSC)
+Any static host: Cloudflare Pages, Vercel, Netlify, AWS S3 + CloudFront.
+Build command: `pnpm build` — output dir: `dist/`.
 
----
+## Tokens
 
-_Construído com ❤️ usando Astro_
+All colors are CSS custom properties in `global.css`. `html[data-theme="dark"]` flips the palette. Tailwind consumes them via `tailwind.config.mjs` so utilities like `bg-bg`, `text-ink`, `border-rule` stay in sync.
+
+## Notes
+
+- The live preview in this workspace (`index.html` + `app.jsx` at the project root) is the single-file version, kept for visual reference. The `astro/` folder is the production build.
+- React components use `"use client"` implicitly via Astro's `client:*` directives — no extra pragmas needed.
+- Animations respect `prefers-reduced-motion`.

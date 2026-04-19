@@ -1,71 +1,11 @@
 ---
-import { useTranslations } from "../i18n/utils";
-
-interface Props {
-  lang?: string;
-}
-
-const { lang = "pt" } = Astro.props;
-const t = useTranslations(lang as any);
 ---
-
-<footer class="footer">
-  <div class="container">
-    <div class="footer-big serif">Jefferson Silva Caires.</div>
-    <div class="footer-row mono">
-      <span>{t("footer.built_with" as any)}</span>
-      <span>{t("footer.designed_with" as any)}</span>
-      <span>{t("footer.last_refactor" as any)}</span>
-      <a href="#top" class="back-to-top">{t("footer.back_to_top" as any)}</a>
-    </div>
+<footer class="pt-20 border-t border-rule mt-20">
+  <div class="serif tracking-[-0.04em] leading-none mb-7" style="font-size: clamp(60px, 14vw, 200px);">Jefferson Silva <em class="italic text-accent">Caires.</em></div>
+  <div class="flex flex-wrap justify-between gap-4 pt-5 border-t border-rule">
+    <span class="mono">© 2026 · Built with Astro, Typescript & care</span>
+    <span class="mono">Designed with Claude Design</span>
+    <span class="mono">Last refactor · Apr 2026</span>
+    <a class="mono hover:text-accent" href="#top">Back to top ↑</a>
   </div>
 </footer>
-
-<style>
-  .footer {
-    padding: 100px 0 40px;
-    background: var(--bg);
-    overflow: hidden;
-  }
-
-  .container {
-    max-width: 1320px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
-
-  @media (max-width: 720px) {
-    .container {
-      padding: 0 20px;
-    }
-  }
-
-  .footer-big {
-    font-size: clamp(60px, 14vw, 200px);
-    line-height: 1;
-    letter-spacing: -0.04em;
-    margin-bottom: 30px;
-    color: var(--ink);
-  }
-
-  .footer-row {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
-    border-top: 1px solid var(--rule);
-    padding-top: 24px;
-    font-size: 13px;
-    color: var(--muted);
-  }
-
-  .back-to-top {
-    color: var(--ink);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .back-to-top:hover {
-    color: var(--accent);
-  }
-</style>

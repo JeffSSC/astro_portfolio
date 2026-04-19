@@ -1,0 +1,31 @@
+---
+import Base from "../../layouts/Base.astro";
+import About from "../../components/About.astro";
+import Experience from "../../components/Experience.astro";
+import Stack from "../../components/Stack.astro";
+import Contact from "../../components/Contact.astro";
+import Footer from "../../components/Footer.astro";
+import { Nav } from "../../components/Nav";
+import { Hero } from "../../components/Hero";
+import { Projects } from "../../components/Projects";
+import { Testimonials } from "../../components/Testimonials";
+---
+<Base>
+  <Nav client:load lang="en" />
+  <main class="container-x">
+    <Hero client:load lang="en" />
+    <div class="rule" />
+    <About lang="en" />
+    <div class="rule" />
+    <Projects client:visible lang="en" />
+    <div class="rule" />
+    <Experience lang="en" />
+    <div class="rule" />
+    <Stack lang="en" />
+    <div class="rule" />
+    <Testimonials client:visible lang="en" />
+    <div class="rule" />
+    <Contact lang="en" />
+    <Footer />
+  </main>
+</Base>

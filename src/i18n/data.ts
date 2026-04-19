@@ -1,0 +1,468 @@
+export const DATA = {
+  en: {
+    name: "Jefferson Silva Caires",
+    role: "Full-Stack Developer",
+    location: "Joinville, Brazil",
+    available: "Currently building at Peekerton",
+    tagline:
+      "I build practical, cloud-native software — full-stack apps, serverless APIs, and applied AI systems.",
+    about: [
+      "Full-Stack professional with experience in Front-end (React, Vue, Astro), Back-end (Node.js, Python), databases (PostgreSQL, MySQL) and Cloud (AWS & GCP).",
+      "I ship alongside learning — iterating in communities and events to stay sharp on the practices that actually matter in production.",
+      "The goal is simple: build things that solve real problems and make the systems around them quieter, faster, and easier to operate.",
+    ],
+    experience: [
+      {
+        year: "2026 → Now",
+        duration: "Ongoing",
+        company: "Peekerton",
+        role: "Full-Stack Developer",
+        mode: "Remote",
+        bullets: [
+          "Built a Python Circuit Breaker using Chain of Responsibility with typed generics (ParamSpec/TypeVar) and Redis-backed state — upstream failures fail fast and recover via probes.",
+          "Re-architected monolithic CI into decoupled ci.yml (run tests) + build.yml on Github Actions.",
+          "Shipped ephemeral environments on-demand GCP managed-compute.",
+          "Built a Playwright E2E suite from scratch (Page Object Model).",
+          "Shipped a PR Reviewer with Claude Code Actions and GitHub MCP with severity-tagged findings and autonomous Approve / Request-Changes decisions.",
+          "Bootstrapped a shared React + TypeScript component library — bare esbuild build, pnpm, publint + arethetypeswrong gating.",
+        ],
+      },
+      {
+        year: "2025",
+        duration: "6 months",
+        company: "Compass UOL",
+        role: "AI Intern",
+        mode: "Remote",
+        bullets: [
+          "Agile delivery in Scrum/Kanban; Jira for tracking and planning.",
+          "Built a Legal Chatbot with Generative AI — LangChain, RAG, AWS Bedrock.",
+          "Shipped a Serverless API in Python (AWS Lambda) for automated OCR on invoices.",
+          "Standardized dev and prod environments with Docker.",
+        ],
+      },
+      {
+        year: "2024",
+        duration: "6 months",
+        company: "Informatech",
+        role: "IT Intern",
+        mode: "On-site",
+        bullets: [
+          "Setup and on-site deployment of workstations at client sites.",
+          "Preventive & corrective hardware maintenance: diagnosis, replacements, upgrades.",
+          "L1 support focused on software and networking.",
+          "Inventory and peripheral asset control.",
+        ],
+      },
+    ],
+    certs: [
+      {
+        name: "AWS AI Practitioner",
+        issuer: "Amazon Web Services",
+        code: "AIF-C01",
+        year: "2025",
+        badge: "AWS",
+      },
+      {
+        name: "AWS Cloud Practitioner",
+        issuer: "Amazon Web Services",
+        code: "CLF-C02",
+        year: "2024",
+        badge: "AWS",
+      },
+    ],
+    stackMain: [
+      "Python",
+      "FastAPI",
+      "Next.js",
+      "TypeScript",
+      "PostgreSQL",
+      "GCP",
+      "AWS",
+      "Docker",
+    ],
+    stackOther: [
+      "Vue.js",
+      "React",
+      "Django",
+      "Node.js",
+      "Redis",
+      "Playwright",
+      "pytest",
+      "GitHub Actions",
+      "Tailwind",
+      "Astro",
+      "Linux",
+    ],
+    projects: [
+      {
+        id: "goldenpark",
+        title: "GoldenPark — Pet Tag",
+        tag: "Live product",
+        kind: "product",
+        year: "2025",
+        summary:
+          "Pet identification via QR code. Physical tags link to digital profiles with public contact and an admin panel for owners.",
+        stack: [
+          "Vue.js",
+          "Tailwind",
+          "DaisyUI",
+          "PostgreSQL",
+          "Python",
+          "Django",
+          "Docker",
+          "Nginx",
+          "AWS EC2",
+          "CloudFront",
+          "Route53",
+          "S3",
+        ],
+        link: "https://www.loom.com/share/f0f5586ce30947aa9347d7d02ebe141c",
+        linkLabel: "Watch demo",
+      },
+      {
+        id: "extractor",
+        title: "Extractor — Invoice API",
+        tag: "Serverless",
+        kind: "api",
+        year: "2025",
+        summary:
+          "A Python serverless API that extracts and structures data from Brazilian electronic invoices (NF-e) using OCR.",
+        stack: [
+          "Python",
+          "AWS Lambda",
+          "Textract",
+          "Bedrock",
+          "API Gateway",
+          "S3",
+          "Docker",
+        ],
+        link: "https://github.com/JeffSSC/api_notasFiscais",
+        linkLabel: "Source",
+      },
+      {
+        id: "themis",
+        title: "Themis — Legal Chatbot",
+        tag: "Applied AI",
+        kind: "ai",
+        year: "2025",
+        summary:
+          "A legal chatbot using retrieval-augmented generation over a document corpus, deployed on AWS with a Telegram front door.",
+        stack: [
+          "Python",
+          "RAG",
+          "LangChain",
+          "Telegram API",
+          "AWS EC2",
+          "Transcribe",
+          "Bedrock",
+        ],
+        link: "https://github.com/JeffSSC/ThemisChatBot",
+        linkLabel: "Source",
+      },
+      {
+        id: "mikael",
+        title: "Mikael — LeRobot",
+        tag: "Hardware / CV",
+        kind: "ai",
+        year: "2024",
+        summary:
+          "A robotic hand that plays UNO — computer vision pipeline recognizes cards and drives motor control.",
+        stack: ["YOLO", "OpenCV", "Python", "LeRobot"],
+        link: "https://github.com/LuanPonick/Mikael",
+        linkLabel: "Source",
+      },
+      {
+        id: "portfolio",
+        title: "Portfolio / Blog",
+        tag: "Personal",
+        kind: "product",
+        year: "2024",
+        summary:
+          "Personal site for projects and notes — static, i18n-enabled, deployed via CloudFront. Designed with Claude Design.",
+        stack: [
+          "Astro",
+          "Tailwind",
+          "i18n",
+          "TypeScript",
+          "AWS S3",
+          "Route53",
+          "CloudFront",
+          "Claude Design",
+        ],
+        link: "https://github.com/JeffSSC/astro_portfolio",
+        linkLabel: "Source",
+      },
+    ],
+    testimonials: [
+      {
+        name: "Aloisio Souza Gonçalves",
+        role: "Scrum Master",
+        quote:
+          "A highly organized developer — brings predictability and clarity to what he takes on. Beyond technical mastery he adapts: when scope changes or incidents hit, he keeps focus on resolution. Ethical, reliable, collaborative.",
+      },
+      {
+        name: "Patrick Monteiro",
+        role: "Vue.js Specialist · Senior Front-end",
+        quote:
+          "I met Jefferson at a hackathon — that alone says plenty about his drive to network and push himself. Excellent problem-solving instincts; strong Python, databases, Docker.",
+      },
+      {
+        name: "Lucas Franco da Silva",
+        role: "Software Developer",
+        quote:
+          "Extremely committed, organized, collaborative — always willing to help the group find the best path. Dedicated, responsible, and genuinely easy to work with.",
+      },
+      {
+        name: "Bruno Utiyama",
+        role: "Professor / Engineer",
+        quote:
+          "I followed Jefferson through his academic journey. Intellectual curiosity, quick learning, practical application. Proactive and results-oriented — prepared for new challenges and positive impact.",
+      },
+    ],
+    contact: {
+      email: "jeff.silva.caires@gmail.com",
+      whatsapp:
+        "https://wa.me/5547991158071?text=Hello%20Jefferson!%20How%20are%20you%3F",
+      linkedin: "https://www.linkedin.com/in/jefferson-caires/",
+      github: "https://github.com/JeffSSC",
+      resume:
+        "https://docs.google.com/document/d/1va40naUIQ2HIlfadBKLjUKFGfLekvbnIuvD0No9AEMY/edit?usp=sharing",
+    },
+  },
+  pt: {
+    name: "Jefferson Silva Caires",
+    role: "Desenvolvedor Full-Stack",
+    location: "Joinville, Brasil",
+    available: "Atualmente construindo na Peekerton",
+    tagline:
+      "Eu construo software prático e cloud-native — apps full-stack, APIs serverless e sistemas de IA aplicada.",
+    about: [
+      "Profissional Full-Stack com experiência em Front-end (React, Vue, Astro), Back-end (Node.js, Python), bancos de dados (PostgreSQL, MySQL) e Cloud (AWS & GCP).",
+      "Eu entrego enquanto aprendo — iterando em comunidades e eventos para me manter afiado nas práticas que realmente importam em produção.",
+      "O objetivo é simples: construir coisas que resolvem problemas reais e tornam os sistemas ao redor mais silenciosos, rápidos e fáceis de operar.",
+    ],
+    experience: [
+      {
+        year: "2026 → Agora",
+        duration: "Em andamento",
+        company: "Peekerton",
+        role: "Desenvolvedor Full-Stack",
+        mode: "Remoto",
+        bullets: [
+          "Construí um Circuit Breaker em Python usando Chain of Responsibility com generics tipados (ParamSpec/TypeVar) e estado em Redis — falhas de upstream falham rápido e se recuperam via probes.",
+          "Re-arquitetei CI monolítico em ci.yml desacoplado (rodar testes) + build.yml no Github Actions.",
+          "Entreguei ambientes efêmeros on-demand no GCP managed-compute.",
+          "Construí uma suite E2E com Playwright do zero (Page Object Model).",
+          "Entreguei um Revisor de PR com Claude Code Actions e GitHub MCP com achados tagueados por severidade e decisões autônomas de Aprovar / Solicitar mudanças.",
+          "Bootstrap de uma biblioteca de componentes React + TypeScript — build esbuild bare, pnpm, gating com publint + arethetypeswrong.",
+        ],
+      },
+      {
+        year: "2025",
+        duration: "6 meses",
+        company: "Compass UOL",
+        role: "Estagiário de IA",
+        mode: "Remoto",
+        bullets: [
+          "Entrega ágil em Scrum/Kanban; Jira para tracking e planejamento.",
+          "Construí um Chatbot Jurídico com IA Generativa — LangChain, RAG, AWS Bedrock.",
+          "Entreguei uma API Serverless em Python (AWS Lambda) para OCR automatizado em notas fiscais.",
+          "Padronizei ambientes de dev e prod com Docker.",
+        ],
+      },
+      {
+        year: "2024",
+        duration: "6 meses",
+        company: "Informatech",
+        role: "Estagiário de TI",
+        mode: "Presencial",
+        bullets: [
+          "Instalação e deploy presencial de estações de trabalho em clientes.",
+          "Manutenção preventiva e corretiva de hardware: diagnóstico, substituições, upgrades.",
+          "Suporte L1 focado em software e rede.",
+          "Controle de inventário e ativos periféricos.",
+        ],
+      },
+    ],
+    certs: [
+      {
+        name: "AWS AI Practitioner",
+        issuer: "Amazon Web Services",
+        code: "AIF-C01",
+        year: "2025",
+        badge: "AWS",
+      },
+      {
+        name: "AWS Cloud Practitioner",
+        issuer: "Amazon Web Services",
+        code: "CLF-C02",
+        year: "2024",
+        badge: "AWS",
+      },
+    ],
+    stackMain: [
+      "Python",
+      "FastAPI",
+      "Next.js",
+      "TypeScript",
+      "PostgreSQL",
+      "GCP",
+      "AWS",
+      "Docker",
+    ],
+    stackOther: [
+      "Vue.js",
+      "React",
+      "Django",
+      "Node.js",
+      "Redis",
+      "Playwright",
+      "pytest",
+      "GitHub Actions",
+      "Tailwind",
+      "Astro",
+      "Linux",
+    ],
+    projects: [
+      {
+        id: "goldenpark",
+        title: "GoldenPark — Tag de Pet",
+        tag: "Produto em produção",
+        kind: "product",
+        year: "2025",
+        summary:
+          "Identificação de pets via QR code. Tags físicas linkam a perfis digitais com contato público e painel admin para donos.",
+        stack: [
+          "Vue.js",
+          "Tailwind",
+          "DaisyUI",
+          "PostgreSQL",
+          "Python",
+          "Django",
+          "Docker",
+          "Nginx",
+          "AWS EC2",
+          "CloudFront",
+          "Route53",
+          "S3",
+        ],
+        link: "https://www.loom.com/share/f0f5586ce30947aa9347d7d02ebe141c",
+        linkLabel: "Ver demo",
+      },
+      {
+        id: "extractor",
+        title: "Extractor — API de Notas",
+        tag: "Serverless",
+        kind: "api",
+        year: "2025",
+        summary:
+          "Uma API serverless em Python que extrai e estrutura dados de notas fiscais eletrônicas brasileiras (NF-e) usando OCR.",
+        stack: [
+          "Python",
+          "AWS Lambda",
+          "Textract",
+          "Bedrock",
+          "API Gateway",
+          "S3",
+          "Docker",
+        ],
+        link: "https://github.com/JeffSSC/api_notasFiscais",
+        linkLabel: "Código",
+      },
+      {
+        id: "themis",
+        title: "Themis — Chatbot Jurídico",
+        tag: "IA Aplicada",
+        kind: "ai",
+        year: "2025",
+        summary:
+          "Um chatbot jurídico usando RAG (retrieval-augmented generation) sobre um corpus de documentos, deploy na AWS com Telegram como entrada.",
+        stack: [
+          "Python",
+          "RAG",
+          "LangChain",
+          "Telegram API",
+          "AWS EC2",
+          "Transcribe",
+          "Bedrock",
+        ],
+        link: "https://github.com/JeffSSC/ThemisChatBot",
+        linkLabel: "Código",
+      },
+      {
+        id: "mikael",
+        title: "Mikael — LeRobot",
+        tag: "Hardware / CV",
+        kind: "ai",
+        year: "2024",
+        summary:
+          "Uma mão robótica que joga UNO — pipeline de visão computacional reconhece cartas e controla motores.",
+        stack: ["YOLO", "OpenCV", "Python", "LeRobot"],
+        link: "https://github.com/LuanPonick/Mikael",
+        linkLabel: "Código",
+      },
+      {
+        id: "portfolio",
+        title: "Portfólio / Blog",
+        tag: "Pessoal",
+        kind: "product",
+        year: "2024",
+        summary:
+          "Site pessoal para projetos e notas — estático, com i18n, deploy via CloudFront. Design com Claude Design.",
+        stack: [
+          "Astro",
+          "Tailwind",
+          "i18n",
+          "TypeScript",
+          "AWS S3",
+          "Route53",
+          "CloudFront",
+          "Claude Design",
+        ],
+        link: "https://github.com/JeffSSC/astro_portfolio",
+        linkLabel: "Código",
+      },
+    ],
+    testimonials: [
+      {
+        name: "Aloisio Souza Gonçalves",
+        role: "Scrum Master",
+        quote:
+          "Um desenvolvedor altamente organizado — traz previsibilidade e clareza para o que assume. Além da maestria técnica, ele se adapta: quando o escopo muda ou incidentes acontecem, mantém foco na resolução. Ético, confiável, colaborativo.",
+      },
+      {
+        name: "Patrick Monteiro",
+        role: "Especialista Vue.js · Front-end Sênior",
+        quote:
+          "Conheci Jefferson em um hackathon — isso por si só diz muito sobre sua vontade de network e se desafiar. Excelente instinto para resolução de problemas; forte em Python, bancos de dados, Docker.",
+      },
+      {
+        name: "Lucas Franco da Silva",
+        role: "Desenvolvedor de Software",
+        quote:
+          "Extremamente comprometido, organizado, colaborativo — sempre disposto a ajudar o grupo a encontrar o melhor caminho. Dedicado, responsável e genuinamente fácil de trabalhar.",
+      },
+      {
+        name: "Bruno Utiyama",
+        role: "Professor / Engenheiro",
+        quote:
+          "Acompanhei Jefferson durante sua jornada acadêmica. Curiosidade intelectual, aprendizado rápido, aplicação prática. Proativo e orientado a resultados — preparado para novos desafios e impacto positivo.",
+      },
+    ],
+    contact: {
+      email: "jeff.silva.caires@gmail.com",
+      whatsapp:
+        "https://wa.me/5547991158071?text=Ol%C3%A1%20Jefferson!%20Tudo%20bem%3F",
+      linkedin: "https://www.linkedin.com/in/jefferson-caires/",
+      github: "https://github.com/JeffSSC",
+      resume:
+        "https://docs.google.com/document/d/1va40naUIQ2HIlfadBKLjUKFGfLekvbnIuvD0No9AEMY/edit?usp=sharing",
+    },
+  },
+} as const;
+
+export type DataLang = keyof typeof DATA;
+
+export function getData(lang: DataLang) {
+  return DATA[lang];
+}

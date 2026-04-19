@@ -1,0 +1,68 @@
+---
+import { getData, type DataLang } from "../i18n/data";
+
+interface Props {
+  lang: DataLang;
+}
+
+const { lang } = Astro.props;
+const data = getData(lang);
+const marquee = [...data.stackMain, ...data.stackOther, ...data.stackMain, ...data.stackOther];
+---
+<section id="stack" class="py-24 md:py-14">
+  <header class="grid md:grid-cols-[1fr_2fr_1fr] gap-10 items-end mb-14">
+    <div class="flex flex-col gap-1">
+      <span class="mono text-ink">03</span>
+      <span class="mono">{lang === "pt" ? "Índice · Stack" : "Index · Stack"}</span>
+    </div>
+    <h2 class="serif m-0 tracking-[-0.03em] leading-[1.02]" style="font-size: clamp(38px, 6vw, 72px);">
+      {lang === "pt" ? "Ferramentas do ofício." : "Tools of the trade."}
+    </h2>
+  </header>
+  <div class="grid md:grid-cols-3 gap-12 md:gap-8">
+    <div>
+      <div class="mono mb-4">{lang === "pt" ? "Stack principal" : "Main stack"}</div>
+      <div class="flex flex-wrap gap-2">
+        {data.stackMain.map((s: string) => <span class="chip"><span class="w-1.5 h-1.5 rounded-full bg-accent" />{s}</span>)}
+      </div>
+    </div>
+    <div>
+      <div class="mono mb-4">{lang === "pt" ? "Experiência com" : "Experience with"}</div>
+      <div class="flex flex-wrap gap-2">
+        {data.stackOther.map((s: string) => <span class="chip bg-transparent text-ink-2"><span class="w-1.5 h-1.5 rounded-full bg-accent" />{s}</span>)}
+      </div>
+    </div>
+    <div>
+      <div class="mono mb-4">{lang === "pt" ? "Certificações" : "Certifications"}</div>
+      <div class="grid gap-4">
+        {data.certs.map((c) => (
+          <div class="grid grid-cols-[64px_1fr] gap-4 items-center p-4 border border-rule bg-card">
+            <div class="w-16 h-16 grid place-items-center bg-bg border border-rule relative">
+              <span class="serif text-lg relative z-10">{c.badge}</span>
+            </div>
+            <div>
+              <div class="serif text-lg">{c.name}</div>
+              <div class="mono mt-0.5">{c.issuer} · {c.code} · {c.year}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+  <div class="mt-14 py-5 border-y border-rule overflow-hidden" style="mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);" aria-hidden>
+    <div class="flex gap-9 items-center w-max" style="animation: scroll 40s linear infinite;">
+      {marquee.map((s: string) => (
+        <span class="flex items-center gap-9 flex-shrink-0">
+          <span class="serif text-4xl tracking-[-0.02em]">{s}</span>
+          <span class="text-accent text-sm">◆</span>
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  @keyframes scroll { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    section [style*="animation"] { animation: none !important; }
+  }
+</style>
