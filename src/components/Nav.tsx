@@ -41,15 +41,26 @@ export function Nav({ lang: initialLang }: NavProps) {
   const switchLang = (newLang: DataLang) => {
     if (newLang === lang) return;
     const currentPath = window.location.pathname;
-    const newPath = currentPath.replace(/^\/(en|pt)/, `/${newLang}`);
-    window.location.href = newPath;
+    
+    // If the new language is the default (en), remove the /pt prefix if it exists
+    if (newLang === "en") {
+      const newPath = currentPath.replace(/^\/pt(\/|$)/, "/");
+      window.location.href = newPath || "/";
+    } else {
+      // If the new language is pt, add the /pt prefix
+      // Avoid doubling slashes if currentPath is already "/"
+      const newPath = `/pt${currentPath === "/" ? "" : currentPath}`;
+      window.location.href = newPath;
+    }
   };
+
+  const base = lang === "en" ? "" : "/pt";
 
   return (
     <nav className={`sticky top-0 z-30 grid grid-cols-[1fr_auto_1fr] items-center gap-6 backdrop-blur-xl transition-all ${scrolled ? "border-b border-rule py-3.5 px-10" : "py-5 px-10"} md:px-5`}
       style={{ background: "color-mix(in srgb, var(--bg) 85%, transparent)" }}>
       <div className="absolute left-0 right-0 -bottom-px h-px bg-accent origin-left transition-transform duration-150" style={{ transform: `scaleX(${progress})` }} aria-hidden />
-      <a href={`/${lang}/#top`} className="flex items-center gap-3">
+      <a href={`${base}/#top`} className="flex items-center gap-3">
         <span className="serif grid place-items-center w-[34px] h-[34px] border border-ink text-xl leading-none">JSC</span>
         <span className="serif text-lg hidden sm:inline">Jefferson Silva Caires</span>
       </a>
@@ -61,7 +72,7 @@ export function Nav({ lang: initialLang }: NavProps) {
           ["01", "Work", "#work"], ["02", "Experience", "#experience"], ["03", "Stack", "#stack"],
           ["04", "Words", "#words"], ["05", "Contact", "#contact"],
         ]).map(([n, label, href]) => (
-          <a key={href} href={`/${lang}${href}`} className="relative text-sm flex items-baseline gap-1.5">
+          <a key={href} href={`${base}${href}`} className="relative text-sm flex items-baseline gap-1.5">
             <span className="font-mono text-[10px] text-muted">{n}</span> {label}
           </a>
         ))}
