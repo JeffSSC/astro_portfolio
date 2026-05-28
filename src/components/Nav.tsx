@@ -78,28 +78,25 @@ export function Nav({ lang: initialLang }: NavProps) {
         ))}
       </div>
       <div className="flex items-center gap-4 justify-self-end">
-        <div className="flex gap-1.5 font-mono text-xs text-muted" role="tablist" aria-label="Language selection">
+        <div className="flex gap-1.5 font-mono text-xs" aria-label="Language selection">
           <button 
-            role="tab"
-            aria-selected={lang === "en"}
-            className={lang === "en" ? "text-ink" : ""} 
+            className={lang === "en" ? "text-ink" : "text-muted"} 
             onClick={() => switchLang("en")}
+            aria-label="Switch to English"
           >
             EN
           </button>
-          <span aria-hidden>/</span>
+          <span className="text-muted" aria-hidden>/</span>
           <button 
-            role="tab"
-            aria-selected={lang === "pt"}
-            className={lang === "pt" ? "text-ink" : ""} 
+            className={lang === "pt" ? "text-ink" : "text-muted"} 
             onClick={() => switchLang("pt")}
+            aria-label="Mudar para Português"
           >
             PT
           </button>
         </div>
         <button 
           onClick={toggleTheme} 
-          aria-label={lang === "pt" ? `Mudar para tema ${theme === "dark" ? "claro" : "escuro"}` : `Switch to ${theme === "dark" ? "light" : "dark"} theme`}
           className="flex items-center gap-2 px-3 py-1.5 border border-rule rounded-full hover:border-ink hover:bg-card transition">
           <span className="w-2.5 h-2.5 rounded-full bg-ink" style={{ boxShadow: "inset 0 0 0 2px var(--bg)" }} />
           <span className="mono">{theme === "dark" ? (lang === "pt" ? "Claro" : "Light") : (lang === "pt" ? "Escuro" : "Dark")}</span>
