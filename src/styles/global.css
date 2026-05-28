@@ -6,8 +6,8 @@
   :root {
     --bg: #f2eee6;
     --ink: #14120f;
-    --ink-2: #36322b;
-    --muted: #4a473f;
+    --ink-2: #2d2a24;
+    --muted: #424039;
     --rule: #cfc8b9;
     --card: #ece7dc;
     --accent: oklch(0.48 0.14 145);
@@ -17,7 +17,7 @@
     --bg: #0e0d0b;
     --ink: #ede7d8;
     --ink-2: #bdb6a4;
-    --muted: #76716a;
+    --muted: #8c877d;
     --rule: #2a2722;
     --card: #16140f;
     --accent: oklch(0.75 0.14 145);

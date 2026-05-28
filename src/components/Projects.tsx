@@ -53,7 +53,7 @@ export function Projects({ lang }: ProjectsProps) {
               </span>
             ))}
             {p.stack.length > 5 && (
-              <span className="chip-xs opacity-60">+{p.stack.length - 5}</span>
+              <span className="chip-xs text-muted">+{p.stack.length - 5}</span>
             )}
           </div>
           <a
