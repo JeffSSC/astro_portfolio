@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "preact/hooks";
 import { ACCENT_HUES, type Theme } from "../data/portfolio";
 import type { DataLang } from "../i18n/data";
 

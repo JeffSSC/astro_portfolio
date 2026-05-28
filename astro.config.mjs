@@ -1,9 +1,12 @@
 import { defineConfig } from "astro/config";
-import react from "@astrojs/react";
+import preact from "@astrojs/preact";
 import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
-  integrations: [react(), tailwind({ applyBaseStyles: false })],
+  integrations: [preact(), tailwind({ applyBaseStyles: false })],
   output: "static",
   site: "https://jeffsc.com.br",
+  build: {
+    inlineStylesheets: "always",
+  },
 });

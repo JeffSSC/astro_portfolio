@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState } from "preact/hooks";
 import { getData, type DataLang } from "../i18n/data";
 import { Reveal } from "./Reveal";
 

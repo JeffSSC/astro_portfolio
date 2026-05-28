@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "preact/hooks";
 import { getData, type DataLang } from "../i18n/data";
 
 interface TestimonialsProps {

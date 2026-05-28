@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "preact/hooks";
+import type { ComponentChildren } from "preact";
 
 export function Reveal({ children, as: As = "div", delay = 0, className = "", y = 24 }: {
-  children: ReactNode; as?: any; delay?: number; className?: string; y?: number;
+  children: ComponentChildren; as?: any; delay?: number; className?: string; y?: number;
 }) {
   const ref = useRef<HTMLElement | null>(null);
   const [on, setOn] = useState(false);

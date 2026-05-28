@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { getData, type DataLang } from "../i18n/data";
 
 interface HeroProps {
