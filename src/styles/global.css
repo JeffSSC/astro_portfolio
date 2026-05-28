@@ -104,13 +104,20 @@
     display: inline-block;
     transform: translateY(100%);
     opacity: 0;
-    animation: heroLine 0.9s cubic-bezier(0.22, 0.8, 0.2, 1) forwards;
-    animation-delay: calc(var(--i, 0) * 120ms + 150ms);
+    animation: heroLine 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(var(--i, 0) * 80ms + 100ms);
   }
   @keyframes heroLine {
     to {
       transform: translateY(0);
       opacity: 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    nav {
+      backdrop-filter: none !important;
+      background: var(--bg) !important;
     }
   }
 
