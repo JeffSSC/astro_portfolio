@@ -82,7 +82,7 @@ export function Nav({ lang: initialLang }: NavProps) {
           <button 
             className={lang === "en" ? "text-ink" : "text-muted"} 
             onClick={() => switchLang("en")}
-            aria-label="Switch to English"
+            aria-label="EN - English"
           >
             EN
           </button>
@@ -90,7 +90,7 @@ export function Nav({ lang: initialLang }: NavProps) {
           <button 
             className={lang === "pt" ? "text-ink" : "text-muted"} 
             onClick={() => switchLang("pt")}
-            aria-label="Mudar para Português"
+            aria-label="PT - Português"
           >
             PT
           </button>
