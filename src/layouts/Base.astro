@@ -33,12 +33,14 @@ const {
     </style>
   </head>
   <body>
-    <slot />
-    <script is:inline>
-      (function () {
-        const saved = localStorage.getItem("theme") || "dark";
-        document.documentElement.dataset.theme = saved;
-      })();
-    </script>
-  </body>
+    <div>
+      <slot />
+      <script is:inline>
+       (function () {
+         const saved = localStorage.getItem("theme") || "dark";
+         document.documentElement.dataset.theme = saved;
+       })();
+      </script>
+    </div>
+    </body>
 </html>
